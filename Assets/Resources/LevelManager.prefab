@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1135387806783348}
+  m_RootGameObject: {fileID: 1426791384515414}
   m_IsPrefabParent: 1
---- !u!1 &1135387806783348
+--- !u!1 &1426791384515414
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4916700820935252}
-  - component: {fileID: 114848270117040624}
+  - component: {fileID: 4222944804628672}
+  - component: {fileID: 114100475065881170}
   m_Layer: 0
-  m_Name: TurnManager
+  m_Name: LevelManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4916700820935252
+--- !u!4 &4222944804628672
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1135387806783348}
+  m_GameObject: {fileID: 1426791384515414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 754.3356, y: 342.07953, z: 29.4375}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,16 +40,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114848270117040624
+--- !u!114 &114100475065881170
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1135387806783348}
+  m_GameObject: {fileID: 1426791384515414}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a20fc49a8d8f97d418d81611b4dd01ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 07bc1b98f67a6b44790ab15625dd50af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnCount: 0
-  turnCountText: {fileID: 0}
+  turnMax: 0
+  turnMaxText: {fileID: 0}
+  auraPercentage: 0
+  auraPercText: {fileID: 0}
