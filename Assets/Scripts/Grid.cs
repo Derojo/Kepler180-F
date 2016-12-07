@@ -22,7 +22,7 @@ static class Grid
      * Maximum grid depth.
      */
     public static int zMax = 10;
-     
+
      /**
       * Initializes the container array
       */
