@@ -36,6 +36,7 @@ public class DragObjectPlace : MonoBehaviour
     public void SetCurrentObjectDrag(GameObject building) {
         objectInDrag = building;
     }
+
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -52,7 +53,8 @@ public class DragObjectPlace : MonoBehaviour
 
                     lastPlaceSelected = hitInfor.collider.GetComponent<PlaceBehaviour>();
                     placeSelect.Select(lastPlaceSelected);
-
+                
+                
                 if (Input.GetMouseButtonDown(0))
                 {
                     if (lastPlaceSelected.currentObject != null)
@@ -71,6 +73,9 @@ public class DragObjectPlace : MonoBehaviour
         else
         {
             objectInDrag.SetActive(false);
+            if (lastPlaceSelected != null) {
+                placeSelect.Deselect(lastPlaceSelected);
+            }
         }
     }
 }
