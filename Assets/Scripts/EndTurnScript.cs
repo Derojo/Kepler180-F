@@ -21,7 +21,6 @@ public class EndTurnScript : MonoBehaviour {
 
     public void OnButtonEndTurn()
     {
-       // Debug.Log("button pressed");
         TurnManager.I.setNextTurn();
     }
 

@@ -11,13 +11,16 @@ public class TurnManager : Singleton<TurnManager>{
     public Text turnCountText;
     public int maxTurns;
     public Text maxTurnDisplay;
+
     // Use this for initialization
     void Start ()
     {
-        //Setting turndisplay
-        turnCountText.text = "Turns: ";
+       // Setting turndisplay
+       turnCountText.text = "Turns: ";
         maxTurns = LevelManager.I.turnMax;
         maxTurnDisplay.text = "Turns left: " + maxTurns.ToString();
+        //Setting aura percentage
+        AuraManager.I.CalculateAuraPercentage();
     }
 	
 	// Update is called once per frame
@@ -30,18 +33,20 @@ public class TurnManager : Singleton<TurnManager>{
     //Setting end turn text
     public void setNextTurn()
     {
+        LevelManager.I.auraPower ++;
+        //Adding turns
         turnCount++;
-        turnCountText.text = "Turns left: " + "Turn: " + turnCount.ToString();
+        turnCountText.text =  "Turn: " + turnCount.ToString();
         maxTurns--;
-        maxTurnDisplay.text = maxTurns.ToString();
-   
+        maxTurnDisplay.text = "Turns left: " + maxTurns.ToString();
+        //Calculate aurapercentage
+        AuraManager.I.CalculateAuraPercentage();
 
         //Check if max amout of turns is reached
-        if (turnCount <= maxTurns)
+        if (maxTurns == 0)
         {
             //If >= maxTurns: open Check game condition function
             Debug.Log("no turns left");
-
         }
     }
 
