@@ -8,14 +8,21 @@ public class LevelManager : Singleton<LevelManager>
 {
     public int turnMax;
     public Text turnMaxText;
-    public int auraPercentage = 0;
+
+    //aura start
+    public int auraPercentage;
     public Text auraPercText;
     public Image AuraColor;
+
+    //aura level
+    public float auraPower = 0;
+    public float auraPowerTotal = 10;
+    public float auraLevelPercentage;
 
     // Use this for initialization
     void Start()
     {
-        turnMax = 20;
+        
 }
 
     // Update is called once per frame
@@ -24,8 +31,7 @@ public class LevelManager : Singleton<LevelManager>
 
     }
 
-
-
+   
     
     //End update
 }//end Singleton
