@@ -10,6 +10,7 @@ public class LevelManager : Singleton<LevelManager>
     public Text turnMaxText;
     public int auraPercentage = 0;
     public Text auraPercText;
+    public Image AuraColor;
 
     // Use this for initialization
     void Start() {
