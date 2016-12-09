@@ -55,3 +55,4 @@ MonoBehaviour:
   turnMaxText: {fileID: 0}
   auraPercentage: 0
   auraPercText: {fileID: 0}
+  AuraColor: {fileID: 0}

@@ -9,21 +9,41 @@ public class TurnManager : Singleton<TurnManager>{
 
     public int turnCount=0;
     public Text turnCountText;
+    public int maxTurns;
+    public Text maxTurnDisplay;
     // Use this for initialization
     void Start ()
     {
-        
+        //Setting turndisplay
+        turnCountText.text = "Turns: ";
+        maxTurns = LevelManager.I.turnMax;
+        maxTurnDisplay.text = "Turns left: " + maxTurns.ToString();
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+      
 		
 	}
-    //Setiing end turn text
+
+    //Setting end turn text
     public void setNextTurn()
     {
         turnCount++;
-        turnCountText.text = "Turn: " + turnCount.ToString();
-        Debug.Log(turnCount);
+        turnCountText.text = "Turns left: " + "Turn: " + turnCount.ToString();
+        maxTurns--;
+        maxTurnDisplay.text = maxTurns.ToString();
+   
+
+        //Check if max amout of turns is reached
+        if (turnCount <= maxTurns)
+        {
+            //If >= maxTurns: open Check game condition function
+            Debug.Log("no turns left");
+
+        }
     }
+
+
 }
