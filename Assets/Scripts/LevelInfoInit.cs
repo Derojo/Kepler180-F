@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class LevelInfoInit : MonoBehaviour {
 
-	// Use this for initialization
-	void Start ()
+    public const string path = "levels";
+    Level currentLevel;
+
+    // Use this for initialization
+    void Start ()
     {
-        firstLevel();
+        LevelContainer ic = LevelContainer.Load(path);
+        foreach (Level level in ic.levels)
+        {
+            print(level.name);
+        }
     }
 	
 	// Update is called once per frame
@@ -22,7 +29,10 @@ public class LevelInfoInit : MonoBehaviour {
         LevelManager.I.auraPercentage = 55;
         LevelManager.I.auraPercText.text = LevelManager.I.auraPercentage.ToString() + " %";
         LevelManager.I.AuraColor.color = new Color32(129, 0, 115, 255);
-    }
+
+        //Settting goals
+        LevelManager.I.auraPowerTotal = 10;
+}
 
 
 

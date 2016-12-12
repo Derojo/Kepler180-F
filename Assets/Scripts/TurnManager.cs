@@ -9,8 +9,10 @@ public class TurnManager : Singleton<TurnManager>{
 
     public int turnCount=0;
     public Text turnCountText;
-    public int maxTurns;
+    public float maxTurns;
     public Text maxTurnDisplay;
+
+    public bool checkedLevelComplete = false;
 
     // Use this for initialization
     void Start ()
@@ -33,6 +35,7 @@ public class TurnManager : Singleton<TurnManager>{
     //Setting end turn text
     public void setNextTurn()
     {
+       
         LevelManager.I.auraPower ++;
         //Adding turns
         turnCount++;
@@ -48,7 +51,16 @@ public class TurnManager : Singleton<TurnManager>{
             //If >= maxTurns: open Check game condition function
             Debug.Log("no turns left");
         }
-    }
 
+        //check if minimum aura % is reached
+        if(LevelManager.I.auraLevelPercentage >= 55 && !checkedLevelComplete )
+        {
+            Debug.Log("Completed level");
+            Debug.Log(turnCount);
+            checkedLevelComplete = true;
+            //Check Setskill function for adjusting difficulty
+            LevelManager.I.SetSkillLevel();
+        }
+    }
 
 }
