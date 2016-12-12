@@ -4,20 +4,10 @@ using UnityEngine;
 
 public class ColorGenerator : MonoBehaviour
 {
-    [System.Serializable]
-    public class ColorTypes
-    {
-        public enum types {
-            Red = 0,
-            Blue = 1,
-            Green = 2,
-            Yellow = 3
-        }
-    };
-
     public ColorTypes.types selectedColor;
     public int ColorGeneratorCode;
     public string ColorGeneratorName;
+    public float auraPower;
     public int sizeOnGrid = 1;
 
 	// Use this for initialization
@@ -25,9 +15,4 @@ public class ColorGenerator : MonoBehaviour
         ColorGeneratorCode = (int)selectedColor;
         ColorGeneratorName = selectedColor.ToString();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

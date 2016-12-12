@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1730788397354876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 210.00714, y: 35, z: -270.0088}
+  m_LocalPosition: {x: 270.0092, y: 35, z: 30.000977}
   m_LocalScale: {x: 31.782892, y: 30.563742, z: 31.782906}
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,6 +96,7 @@ MonoBehaviour:
   selectedColor: 1
   ColorGeneratorCode: 0
   ColorGeneratorName: 
+  auraPower: 0
   sizeOnGrid: 1
 --- !u!114 &114616584058522634
 MonoBehaviour:
@@ -111,6 +112,7 @@ MonoBehaviour:
   selectedColor: 2
   ColorGeneratorCode: 0
   ColorGeneratorName: 
+  auraPower: 0
   sizeOnGrid: 1
 --- !u!136 &136510916389601522
 CapsuleCollider:
