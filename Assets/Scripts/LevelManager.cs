@@ -32,10 +32,7 @@ public class LevelManager : Singleton<LevelManager>
         percentageAverage = (Mathf.Round(turnMax / 100 * 55));
         Debug.Log(percentageAverage + " Aurapercentage");
 
-       foreach(Level level in ic.levels)
-        {
-            print(level.name);
-        }
+
     }
 
     // Update is called once per frame
