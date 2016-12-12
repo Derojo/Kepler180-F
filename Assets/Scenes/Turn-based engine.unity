@@ -262,6 +262,11 @@ Prefab:
       propertyPath: auraPower
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114100475065881170, guid: 6c6f65eee7cbedd4bafcf0cf757c8b43,
+        type: 2}
+      propertyPath: auraPowerTotal
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c6f65eee7cbedd4bafcf0cf757c8b43, type: 2}
   m_IsPrefabParent: 0
