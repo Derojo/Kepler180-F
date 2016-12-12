@@ -36,11 +36,16 @@ static class Grid
 public static GameObject getGridCellAtPosition(int x, int z) {
          return grid[x, z];
      }
-     
-     /**
-      * Adds a grid cell to the container.
-      */
-     public static void addCell(int x, int z, GameObject cell) {
+
+    public static void getGridCellByName(string name)
+    {
+
+       // return grid[x, z];
+    }
+    /**
+     * Adds a grid cell to the container.
+     */
+    public static void addCell(int x, int z, GameObject cell) {
          grid[x, z] = cell;
      }
      

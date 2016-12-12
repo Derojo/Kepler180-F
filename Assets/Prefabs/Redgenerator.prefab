@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33311746012249104}
   - component: {fileID: 136134382111975816}
   - component: {fileID: 23885476729454054}
+  - component: {fileID: 114612932914586862}
   m_Layer: 0
   m_Name: Redgenerator
   m_TagString: Untagged
@@ -36,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1738386758723768}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 58.9, y: 35, z: -361}
-  m_LocalScale: {x: 28.126453, y: 43.05274, z: 28.12646}
+  m_LocalPosition: {x: 90.00306, y: 35, z: -270.0088}
+  m_LocalScale: {x: 31.782892, y: 30.563742, z: 31.782906}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -80,6 +81,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1738386758723768}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114612932914586862
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1738386758723768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32eb218ffab0f842b2f7031e940c1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedColor: 0
+  ColorGeneratorCode: 0
+  ColorGeneratorName: 
+  sizeOnGrid: 2
 --- !u!136 &136134382111975816
 CapsuleCollider:
   m_ObjectHideFlags: 1

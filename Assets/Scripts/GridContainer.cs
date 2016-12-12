@@ -34,7 +34,7 @@ public class GridContainer : MonoBehaviour
                 GameObject cell = Instantiate(place) as GameObject;
                 cell.transform.localScale = sizePlace;
                 cell.transform.position = gridPosition;
-                cell.name = "GridCell(" + x + "|" + z + ")";
+                cell.name = "" + x + "|" + z + "";
                 if (z >= (Grid.zMax - 1))
                     gridPosition.z = startGridPosition.z;
                 else

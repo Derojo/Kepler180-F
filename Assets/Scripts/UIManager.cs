@@ -4,7 +4,6 @@ using System.Collections;
 
 public class UIManager : MonoBehaviour {
 
-    public int test = 0;
     [System.Serializable]
     public class ToggleSlider {
         public bool toggleOn = false;
