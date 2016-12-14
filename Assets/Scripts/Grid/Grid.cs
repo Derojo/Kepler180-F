@@ -30,18 +30,13 @@ static class Grid
          grid = new GameObject[xMax, zMax];
      }
 
-/**
- * Returns a grid cell at given position. Faster than iterating through a one-dimensional array with comparisons.
- */
-public static GameObject getGridCellAtPosition(int x, int z) {
+    /**
+     * Returns a grid cell at given position. Faster than iterating through a one-dimensional array with comparisons.
+     */
+    public static GameObject getGridCellAtPosition(int x, int z) {
          return grid[x, z];
      }
 
-    public static void getGridCellByName(string name)
-    {
-
-       // return grid[x, z];
-    }
     /**
      * Adds a grid cell to the container.
      */

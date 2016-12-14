@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class DragObjectPlace : MonoBehaviour
 {
@@ -11,16 +12,16 @@ public class DragObjectPlace : MonoBehaviour
     public Color32 busyColor;
 
     [System.Serializable]
-    public class PlaceSelect
+    public class TileSelect
     {
         public Color32 selectColor;
         public Color32 busyColor;
 
-        public void Select(PlaceBehaviour place, int sizeOnGrid = 1)
+        public void Select(Tile tile, int sizeOnGrid = 1)
         {
-            MeshRenderer mesh = place.GetComponent<MeshRenderer>();
+            MeshRenderer mesh = tile.GetComponent<MeshRenderer>();
             mesh.enabled = true;
-
+            /*
             if (sizeOnGrid > 1)
             {
                 string[] placecoordinates = place.name.Split(new string[] { "|" }, System.StringSplitOptions.None); ;
@@ -30,9 +31,9 @@ public class DragObjectPlace : MonoBehaviour
                     if ((z - 1) > 0) {
                         z--;
                     }
-                    if (Grid.getGridCellAtPosition(x, z).GetComponent<PlaceBehaviour>().currentObject != null) {
+                    if (Grid.getGridCellAtPosition(x, z).GetComponent<Tile>().currentObject != null) {
                         mesh.material.color = busyColor;
-                        if (Grid.getGridCellAtPosition(x, (int.Parse(placecoordinates[1])+1)).GetComponent<PlaceBehaviour>().currentObject == null) {
+                        if (Grid.getGridCellAtPosition(x, (int.Parse(placecoordinates[1])+1)).GetComponent<Tile>().currentObject == null) {
                             mesh.material.color = selectColor;
                         }
                     }
@@ -44,54 +45,62 @@ public class DragObjectPlace : MonoBehaviour
                     
                 }
 
-            }
-            else {
-                if (place.currentObject == null)
+            }*/
+            // else {
+            if (tile.inRange)
+            {
+                if (tile.currentObject == null)
                     mesh.material.color = selectColor;
                 else
                     mesh.material.color = busyColor;
             }
+            else {
+                mesh.material.color = busyColor;
+            }
+
+            //}
 
 
         }
 
-        public void Deselect(PlaceBehaviour place)
+        public void Deselect(Tile tile)
         {
-            place.GetComponent<MeshRenderer>().enabled = false;
+            tile.GetComponent<MeshRenderer>().enabled = false;
         }
     }
 
-    public PlaceSelect[] placeSelect;
-    private PlaceBehaviour[] lastPlaceSelected;
+    public TileSelect[] tileSelect;
+    private Tile[] lastTileSelected;
 
     void Update()
     {
         if (startPlacement)
         {
+            /*
             if (objectInDrag.GetComponent<ColorGenerator>().sizeOnGrid > 1)
             {
-                if (placeSelect.Length == 0 || placeSelect.Length < objectInDrag.GetComponent<ColorGenerator>().sizeOnGrid)
+                if (tileSelect.Length == 0 || tileSelect.Length < objectInDrag.GetComponent<ColorGenerator>().sizeOnGrid)
                 {
-                    placeSelect = new PlaceSelect[objectInDrag.GetComponent<ColorGenerator>().sizeOnGrid];
-                    lastPlaceSelected = new PlaceBehaviour[objectInDrag.GetComponent<ColorGenerator>().sizeOnGrid];
-                    placeSelect[0] = new PlaceSelect();
-                    placeSelect[0].selectColor = selectColor;
-                    placeSelect[0].busyColor = busyColor;
-                    placeSelect[1] = new PlaceSelect();
-                    placeSelect[1].selectColor = selectColor;
-                    placeSelect[1].busyColor = busyColor;
+                    tileSelect = new TileSelect[objectInDrag.GetComponent<ColorGenerator>().sizeOnGrid];
+                    lastTileSelected = new Tile[objectInDrag.GetComponent<ColorGenerator>().sizeOnGrid];
+                    tileSelect[0] = new TileSelect();
+                    tileSelect[0].selectColor = selectColor;
+                    tileSelect[0].busyColor = busyColor;
+                    tileSelect[1] = new TileSelect();
+                    tileSelect[1].selectColor = selectColor;
+                    tileSelect[1].busyColor = busyColor;
                 }
-            }
-            else {
-                if (placeSelect.Length == 0)
+            }*/
+            //else {
+                if (tileSelect.Length == 0)
                 {
-                    placeSelect = new PlaceSelect[1];
-                    lastPlaceSelected = new PlaceBehaviour[1];
-                    placeSelect[0] = new PlaceSelect();
-                    placeSelect[0].selectColor = selectColor;
-                    placeSelect[0].busyColor = busyColor;
+                    tileSelect = new TileSelect[1];
+                    lastTileSelected = new Tile[1];
+                    tileSelect[0] = new TileSelect();
+                    tileSelect[0].selectColor = selectColor;
+                    tileSelect[0].busyColor = busyColor;
                 }
-            }
+           // }
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit hitInfor;
@@ -99,13 +108,16 @@ public class DragObjectPlace : MonoBehaviour
             if (Physics.Raycast(ray, out hitInfor))
             {
                 objectInDrag.SetActive(true);
-                if (hitInfor.collider.GetComponent<PlaceBehaviour>() != null)
+                if (hitInfor.collider.GetComponent<Tile>() != null)
                 {
+                    //checkIfInRange(hitInfor.collider.gameObject);
                     ColorGenerator colorinformation = objectInDrag.GetComponent<ColorGenerator>();
+                    /*
                     if (colorinformation.sizeOnGrid > 1)
                     {
 
                         // Place building with size 2
+                        
                         if (colorinformation.sizeOnGrid == 2) {
                             // Get x,z values of hitcollider placement grid item
                             string[] placecoordinates = hitInfor.collider.name.Split(new string[] { "|" }, System.StringSplitOptions.None);
@@ -116,54 +128,59 @@ public class DragObjectPlace : MonoBehaviour
                                 z++;
                             }
                             for (int i = 0; i < 2; i++) {
-                                if (lastPlaceSelected[i] != null)
-                                    placeSelect[i].Deselect(lastPlaceSelected[i]);
+                                if (lastTileSelected[i] != null)
+                                    tileSelect[i].Deselect(lastTileSelected[i]);
                                 if (i == 0) {
-                                    lastPlaceSelected[i] = hitInfor.collider.GetComponent<PlaceBehaviour>();
+                                    lastTileSelected[i] = hitInfor.collider.GetComponent<Tile>();
                                 }
                                 else if (i == 1) {
-                                    lastPlaceSelected[1] = Grid.getGridCellAtPosition(x, z).GetComponent<PlaceBehaviour>();
+                                    lastTileSelected[1] = Grid.getGridCellAtPosition(x, z).GetComponent<Tile>();
                                 }
-                                placeSelect[i].Select(lastPlaceSelected[i], colorinformation.sizeOnGrid);
+                                tileSelect[i].Select(lastTileSelected[i], colorinformation.sizeOnGrid);
                             }
                             float centerZ = (hitInfor.collider.transform.position.z + Grid.getGridCellAtPosition(x, z).transform.position.z) / 2;
                             Vector3 pos = new Vector3(hitInfor.collider.transform.position.x, offset.y, centerZ);
                             objectInDrag.transform.position = pos;
                         }
-                    } else {
+                    } else {*/
 
-                        if (lastPlaceSelected[0] != null)
-                            placeSelect[0].Deselect(lastPlaceSelected[0]);
+                        if (lastTileSelected[0] != null)
+                            tileSelect[0].Deselect(lastTileSelected[0]);
 
-                        lastPlaceSelected[0] = hitInfor.collider.GetComponent<PlaceBehaviour>();
-                        placeSelect[0].Select(lastPlaceSelected[0]);
+                        lastTileSelected[0] = hitInfor.collider.GetComponent<Tile>();
+                        tileSelect[0].Select(lastTileSelected[0]);
                         Vector3 pos = new Vector3(hitInfor.collider.transform.position.x, offset.y, hitInfor.collider.transform.position.z);
                         objectInDrag.transform.position = pos;
-                    }
+                    //}
 
 
                     
                     if (Input.GetMouseButtonDown(0))
                     {
-                        if (colorinformation.sizeOnGrid > 1) {
-                            if (lastPlaceSelected[0].currentObject != null)
+                        /*
+                    if (colorinformation.sizeOnGrid > 1) {
+                        if (lastTileSelected[0].currentObject != null)
+                            return;
+                        GameObject objectInPlace = Instantiate(objectInDrag) as GameObject;
+                        objectInPlace.transform.position = objectInDrag.transform.position;
+
+                        for (int i = 0; i < colorinformation.sizeOnGrid; i++) {
+                            lastTileSelected[i].currentObject = objectInPlace;
+                        }
+                        objectInPlace.transform.parent = lastTileSelected[0].transform;
+                    }
+                    else {*/
+                        if (lastTileSelected[0].inRange) {
+                            if (lastTileSelected[0].currentObject != null)
                                 return;
                             GameObject objectInPlace = Instantiate(objectInDrag) as GameObject;
                             objectInPlace.transform.position = objectInDrag.transform.position;
-                            
-                            for (int i = 0; i < colorinformation.sizeOnGrid; i++) {
-                                lastPlaceSelected[i].currentObject = objectInPlace;
-                            }
-                            objectInPlace.transform.parent = lastPlaceSelected[0].transform;
+                            lastTileSelected[0].currentObject = objectInPlace;
+                            lastTileSelected[0].tileType = (int)objectInPlace.GetComponent<BuildingType>().type;
+                            objectInPlace.transform.parent = lastTileSelected[0].transform;
                         }
-                        else {
-                            if (lastPlaceSelected[0].currentObject != null)
-                                return;
-                            GameObject objectInPlace = Instantiate(objectInDrag) as GameObject;
-                            objectInPlace.transform.position = objectInDrag.transform.position;
-                            lastPlaceSelected[0].currentObject = objectInPlace;
-                            objectInPlace.transform.parent = lastPlaceSelected[0].transform;
-                        }
+
+                        //}
 
 
 
@@ -177,12 +194,11 @@ public class DragObjectPlace : MonoBehaviour
             }
             else
             {
-                
                 objectInDrag.SetActive(false);
                 for (int i = 0; i < objectInDrag.GetComponent<ColorGenerator>().sizeOnGrid; i++ ) {
-                    if (lastPlaceSelected[i] != null)
+                    if (lastTileSelected[i] != null)
                     {
-                        placeSelect[i].Deselect(lastPlaceSelected[i]);
+                        tileSelect[i].Deselect(lastTileSelected[i]);
                     }
                 }
 
@@ -190,6 +206,18 @@ public class DragObjectPlace : MonoBehaviour
         }
     }
 
+    public void checkIfInRange(GameObject collider) {
+
+        string[] placecoordinates = collider.name.Split(new string[] { "|" }, System.StringSplitOptions.None);
+        int x = int.Parse(placecoordinates[0]);
+        int z = int.Parse(placecoordinates[1]);
+        Node colliderNode = this.GetComponent<GridContainer>().graph[x, z];
+        Debug.Log(colliderNode.x + "-" + colliderNode.z);
+        if (this.GetComponent<GridContainer>().rangeGraph.Contains(colliderNode)) {
+            collider.GetComponent<Tile>().inRange = true;
+        }
+
+    }
     public void StartPlacement(GameObject building)
     {
         GameObject dragObject;
@@ -211,7 +239,7 @@ public class DragObjectPlace : MonoBehaviour
     {
         
         objectInDrag.SetActive(false);
-        placeSelect[0].Deselect(lastPlaceSelected[0]);
+        tileSelect[0].Deselect(lastTileSelected[0]);
         startPlacement = false;
     }
 

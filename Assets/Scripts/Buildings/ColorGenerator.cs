@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ColorGenerator : MonoBehaviour
 {
-    public ColorTypes.types selectedColor;
+    public Types.colortypes selectedColor;
     public int ColorGeneratorCode;
     public string ColorGeneratorName;
-    public float generatorAuraPower =150;
+    public float auraPower;
     public int sizeOnGrid = 1;
 
     public int buildTime = 2;
@@ -17,24 +17,21 @@ public class ColorGenerator : MonoBehaviour
 	void Start () {
         ColorGeneratorCode = (int)selectedColor;
         ColorGeneratorName = selectedColor.ToString();
-        
     }
 
     //StartListening 
     void OnEnable()
     {
-        EventManager.StartListening("EndTurn", setNextTurn);
+        //EventManager.StartListening("EndTurn", setNextTurn);
     }
     //unregistering listeners for clean up
     void OnDisable()
     {
-        EventManager.StopListening("EndTurn", setNextTurn);
+       // EventManager.StopListening("EndTurn", setNextTurn);
     }
 
     void setNextTurn()
     {
-       
-
         Debug.Log(buildTime + "buildtime");
         Debug.Log(buildingDone);
         if (!buildingDone)
@@ -51,8 +48,5 @@ public class ColorGenerator : MonoBehaviour
         {
             LevelManager.I.auraPower++;
         }
-       
-
-
     }
 }
