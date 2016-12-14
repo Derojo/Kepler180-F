@@ -24,26 +24,33 @@ public class TurnManager : Singleton<TurnManager>{
         //Setting aura percentage
         AuraManager.I.CalculateAuraPercentage();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    //StartListening 
+    void OnEnable()
     {
-      
-		
-	}
+        EventManager.StartListening("EndTurn", setNextTurn);
+    }
+    //unregistering listeners for clean up
+    void OnDisable()
+    {
+        EventManager.StopListening("EndTurn", setNextTurn);
+    }
 
     //Setting end turn text
-    public void setNextTurn()
+    void setNextTurn()
     {
        
-        LevelManager.I.auraPower ++;
+        //LevelManager.I.auraPower ++;
         //Adding turns
         turnCount++;
         turnCountText.text =  "Turn: " + turnCount.ToString();
         maxTurns--;
         maxTurnDisplay.text = "Turns left: " + maxTurns.ToString();
+
         //Calculate aurapercentage
         AuraManager.I.CalculateAuraPercentage();
+        Debug.Log(LevelManager.I.auraPower + "aurapower");
 
         //Check if max amout of turns is reached
         if (maxTurns == 0)

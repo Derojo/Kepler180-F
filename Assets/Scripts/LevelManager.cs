@@ -18,7 +18,7 @@ public class LevelManager : Singleton<LevelManager>
     public Image AuraColor;
 
     //aura level
-    public float auraPower = 0;
+    public float auraPower;
     public float auraPowerTotal = 20;
     public float auraLevelPercentage;
     public float percentageAverage;
@@ -31,8 +31,6 @@ public class LevelManager : Singleton<LevelManager>
        
         percentageAverage = (Mathf.Round(turnMax / 100 * 55));
         Debug.Log(percentageAverage + " Aurapercentage");
-
-
     }
 
     // Update is called once per frame

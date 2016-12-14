@@ -36,7 +36,7 @@ public class BarScript : MonoBehaviour {
 	private void HandleBar()
 	{
 
-		content.fillAmount = LevelManager.I.auraLevelPercentage;
+		content.fillAmount = LevelManager.I.auraLevelPercentage/100;
 	}
 
 	private float Map(float value, float inMin, float inMax, float outMin, float outMax)

@@ -95,7 +95,9 @@ MonoBehaviour:
   selectedColor: 1
   ColorGeneratorCode: 0
   ColorGeneratorName: 
+  auraPower: 0
   sizeOnGrid: 1
+  buildTime: 2
 --- !u!136 &136826639332356648
 CapsuleCollider:
   m_ObjectHideFlags: 1
