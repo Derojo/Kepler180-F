@@ -46,7 +46,7 @@ public class ColorGenerator : MonoBehaviour
 
         if (buildingDone)
         {
-            LevelManager.I.auraPower++;
+            AuraManager.I.currentAuraPower++;
         }
     }
 }

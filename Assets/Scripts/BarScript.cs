@@ -36,12 +36,12 @@ public class BarScript : MonoBehaviour {
 	private void HandleBar()
 	{
 
-		content.fillAmount = LevelManager.I.auraLevelPercentage/100;
+		content.fillAmount = AuraManager.I.auraLevelPercentage /100;
 	}
 
 	private float Map(float value, float inMin, float inMax, float outMin, float outMax)
 	{
-		return (LevelManager.I.auraLevelPercentage - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+		return (AuraManager.I.auraLevelPercentage - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 		// Als er bijvoorbeeld 79 procent aurapercentage is wordt dit verwerkt naar 0,79
 		// (79 - 0) * (1 - 0) / (100 - 0) + 0;
 		// 	  80 * 1 / 100 + 0 = 0,8 

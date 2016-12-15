@@ -37,6 +37,13 @@ public class TurnManager : Singleton<TurnManager>{
         EventManager.StopListening("EndTurn", setNextTurn);
     }
 
+    // end turn eand call EndTurn event
+    public void OnButtonEndTurn()
+    {
+
+        EventManager.TriggerEvent("EndTurn");
+    }
+
     //Setting end turn text
     void setNextTurn()
     {
@@ -50,7 +57,7 @@ public class TurnManager : Singleton<TurnManager>{
 
         //Calculate aurapercentage
         AuraManager.I.CalculateAuraPercentage();
-        Debug.Log(LevelManager.I.auraPower + "aurapower");
+        Debug.Log(AuraManager.I.currentAuraPower + "aurapower");
 
         //Check if max amout of turns is reached
         if (maxTurns == 0)
@@ -60,7 +67,7 @@ public class TurnManager : Singleton<TurnManager>{
         }
 
         //check if minimum aura % is reached
-        if(LevelManager.I.auraLevelPercentage >= 55 && !checkedLevelComplete )
+        if(AuraManager.I.auraLevelPercentage >= 55 && !checkedLevelComplete )
         {
             Debug.Log("Completed level");
             Debug.Log(turnCount);

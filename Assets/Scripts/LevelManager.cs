@@ -8,20 +8,12 @@ public class LevelManager : Singleton<LevelManager>
 {
 
    
-
+    //Defining maximum amount of turns & total aurapower need for levelcompletion
     public float turnMax;
     public Text turnMaxText;
-
-    //aura start
-    public int auraPercentage;
-    public Text auraPercText;
-    public Image AuraColor;
-
-    //aura level
-    public float auraPower;
     public float auraPowerTotal = 20;
-    public float auraLevelPercentage;
-    public float percentageAverage;
+    //aura level
+
     //level difficulty
     public int nextLevelSkill;
 
@@ -29,8 +21,7 @@ public class LevelManager : Singleton<LevelManager>
     void Start()
     {
        
-        percentageAverage = (Mathf.Round(turnMax / 100 * 55));
-        Debug.Log(percentageAverage + " Aurapercentage");
+       
     }
 
     // Update is called once per frame
@@ -43,21 +34,21 @@ public class LevelManager : Singleton<LevelManager>
     {
         
       
-        if (TurnManager.I.turnCount >= (percentageAverage + (percentageAverage/100)*30))
+        if (TurnManager.I.turnCount >= (AuraManager.I.percentageAverage + (AuraManager.I.percentageAverage /100)*30))
         {
             //Set difficulty to easy
             Debug.Log("easy");
             nextLevelSkill = 1;
         }
   
-        if(TurnManager.I.turnCount <= (percentageAverage + (percentageAverage / 100) * 30) && (TurnManager.I.turnCount >= (percentageAverage - (percentageAverage / 100) * 30)))
+        if(TurnManager.I.turnCount <= (AuraManager.I.percentageAverage + (AuraManager.I.percentageAverage / 100) * 30) && (TurnManager.I.turnCount >= (AuraManager.I.percentageAverage - (AuraManager.I.percentageAverage / 100) * 30)))
         {
             //Set difficulty to medium
             Debug.Log("medium");
             nextLevelSkill = 2;
         }
 
-        if (TurnManager.I.turnCount <= (percentageAverage -(percentageAverage / 100) * 30))
+        if (TurnManager.I.turnCount <= (AuraManager.I.percentageAverage -(AuraManager.I.percentageAverage / 100) * 30))
         {
             //Set difficulty to hard
             Debug.Log("hard");
