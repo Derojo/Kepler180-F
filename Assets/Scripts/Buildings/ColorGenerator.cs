@@ -22,12 +22,12 @@ public class ColorGenerator : MonoBehaviour
     //StartListening 
     void OnEnable()
     {
-        //EventManager.StartListening("EndTurn", setNextTurn);
+        EventManager.StartListening("EndTurn", setNextTurn);
     }
     //unregistering listeners for clean up
     void OnDisable()
     {
-       // EventManager.StopListening("EndTurn", setNextTurn);
+        EventManager.StopListening("EndTurn", setNextTurn);
     }
 
     void setNextTurn()
@@ -46,7 +46,7 @@ public class ColorGenerator : MonoBehaviour
 
         if (buildingDone)
         {
-            AuraManager.I.currentAuraPower++;
+            AuraManager.I.currentAuraPower = AuraManager.I.currentAuraPower+auraPower;
         }
     }
 }

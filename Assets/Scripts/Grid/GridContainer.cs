@@ -128,10 +128,10 @@ public class GridContainer : MonoBehaviour
 
     public void updateRange(int _x, int _z, int range)
     {
-        int startX = _x - range;
-        int startZ = _z - range;
-        int totalIteration = (range * 2) + 1;
-        for (int x = 0; x < totalIteration; x++) 
+        int startX = (_x - range > 0 ? _x - range : 0);
+        int startZ = (_z - range > 0 ? _z - range : 0);
+        int totalIteration = ((range * 2) + 1 > Grid.zMax ? Grid.zMax : (range * 2) + 1);
+        for (int x = 0; x < totalIteration; x++)
         {
             for (int z = 0; z < totalIteration; z++)
             {
