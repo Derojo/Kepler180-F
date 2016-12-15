@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class LevelInfoInit : MonoBehaviour {
 
-    public const string path = "levels";
+ 
     Level currentLevel;
 
     // Use this for initialization
     void Start ()
     {
-        LevelContainer ic = LevelContainer.Load(path);
-        foreach (Level level in ic.levels)
-        {
-            print(level.name);
-        }
+       
     }
 	
 	// Update is called once per frame

@@ -6,13 +6,12 @@ using UnityEngine.UI;
 [Prefab("LevelManager", true, "")]
 public class LevelManager : Singleton<LevelManager>
 {
+    public const string path = "levels";
 
-   
     //Defining maximum amount of turns & total aurapower need for levelcompletion
     public float turnMax;
     public Text turnMaxText;
     public float auraPowerTotal = 20;
-    //aura level
 
     //level difficulty
     public int nextLevelSkill;
@@ -20,8 +19,11 @@ public class LevelManager : Singleton<LevelManager>
     // Use this for initialization
     void Start()
     {
-       
-       
+        LevelContainer ic = LevelContainer.Load(path);
+        foreach (Level level in ic.levels)
+        {
+            print(level.name);
+        }
     }
 
     // Update is called once per frame
