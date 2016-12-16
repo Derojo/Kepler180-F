@@ -1,19 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Levelcollection>
   <Levels>
-    <Level name="Level 1 on easy">
-      <Maximumturns>50</Maximumturns>
-      <Auratotalpower>20</Auratotalpower>
+    <Level name="Level 1">
+        <M_T_E>20</M_T_E>
+        <A_P_E>100</A_P_E>
+          
+        <M_T_M>20</M_T_M>   
+        <A_P_M>100</A_P_M>  
+      
+        <M_T_H>20</M_T_H>
+        <A_P_H>100</A_P_H>
     </Level>
     
-    <Level name="Level 1 on medium">
-      <Maximumturns>50</Maximumturns>
-      <Auratotalpower>30</Auratotalpower>
-    </Level>
-
-    <Level name="Level 1 on hard">
-      <Maximumturns>50</Maximumturns>
-      <Auratotalpower>40</Auratotalpower>
-    </Level>
   </Levels>
 </Levelcollection>

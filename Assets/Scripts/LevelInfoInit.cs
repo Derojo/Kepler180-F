@@ -20,14 +20,14 @@ public class LevelInfoInit : MonoBehaviour {
 
     public void firstLevel()
     {
-        LevelManager.I.turnMax = 20;
-        LevelManager.I.turnMaxText.text = LevelManager.I.turnMax.ToString();
+        LevelManager.I.M_T_A = 20;
+        LevelManager.I.turnMaxText.text = LevelManager.I.M_T_A.ToString();
         AuraManager.I.auraPercentage = 55;
         AuraManager.I.auraPercText.text = AuraManager.I.auraPercentage.ToString() + " %";
         AuraManager.I.AuraColor.color = new Color32(129, 0, 115, 255);
 
         //Settting goals
-        LevelManager.I.auraPowerTotal = 10;
+        LevelManager.I.A_P_T = 10;
 }
 
 

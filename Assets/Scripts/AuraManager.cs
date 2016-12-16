@@ -24,19 +24,14 @@ public class AuraManager : Singleton<AuraManager>
     void Start ()
     {
         auraDisplay.text = "Aura % 0  ";
-        percentageAverage = (Mathf.Round(LevelManager.I.turnMax / 100 * 55));
+        percentageAverage = (Mathf.Round(LevelManager.I.M_T_A / 100 * 55));
         Debug.Log(percentageAverage + " Aurapercentage");
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        
     }
 
     public void CalculateAuraPercentage()
     {
         
-        auraLevelPercentage = (currentAuraPower / LevelManager.I.auraPowerTotal)*100;
+        auraLevelPercentage = (currentAuraPower / LevelManager.I.A_P_T)*100;
         auraDisplay.text = "Aura %  " + auraLevelPercentage.ToString();
 
     }

@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1000619305}
-  m_IndirectSpecularColor: {r: 0.77969986, g: 0.7796991, b: 0.7796991, a: 1}
+  m_IndirectSpecularColor: {r: 0.77992207, g: 0.77992153, b: 0.77992153, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -946,10 +946,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07bc1b98f67a6b44790ab15625dd50af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnMax: 20
-  turnMaxText: {fileID: 0}
-  auraPowerTotal: 20
-  nextLevelSkill: 0
+  M_T_A: 0
+  turnMaxText: {fileID: 1395235360}
+  A_P_T: 1
+  nextLevelSkill: 2
+  currentLevel: 1
 --- !u!4 &751457082
 Transform:
   m_ObjectHideFlags: 0
