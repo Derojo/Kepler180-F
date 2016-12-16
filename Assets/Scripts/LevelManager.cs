@@ -9,26 +9,44 @@ public class LevelManager : Singleton<LevelManager>
     public const string path = "levels";
 
     //Defining maximum amount of turns & total aurapower need for levelcompletion
-    public float turnMax;
+    public float M_T_A;
     public Text turnMaxText;
-    public float auraPowerTotal = 20;
+    public float A_P_T;
 
     //level difficulty
     public int nextLevelSkill;
+    LevelContainer levelData;
+    public int currentLevel;
 
     // Use this for initialization
     void Start()
     {
-        LevelContainer ic = LevelContainer.Load(path);
-        foreach (Level level in ic.levels)
-        {
-            print(level.name);
-        }
+        Debug.Log("Start");
+        levelData = LevelContainer.Load(path);
+        SetCurrentLevel();
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void SetCurrentLevel()
     {
+        Debug.Log(nextLevelSkill);
+        if (nextLevelSkill == 1)
+        {
+            
+            M_T_A = levelData.levels[(currentLevel - 1)].M_T_E;
+            A_P_T = levelData.levels[(currentLevel - 1)].A_P_E;
+        }
+        if (nextLevelSkill == 2)
+        {
+
+            M_T_A = levelData.levels[(currentLevel - 1)].M_T_M;
+            A_P_T = levelData.levels[(currentLevel - 1)].A_P_M;
+        }
+        if (nextLevelSkill == 3)
+        {
+
+            M_T_A = levelData.levels[(currentLevel - 1)].M_T_H;
+            A_P_T = levelData.levels[(currentLevel - 1)].A_P_H;
+        }
 
     }
     //function for setting player difficulty

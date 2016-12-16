@@ -19,7 +19,7 @@ public class TurnManager : Singleton<TurnManager>{
     {
        // Setting turndisplay
        turnCountText.text = "Turns: ";
-        maxTurns = LevelManager.I.turnMax;
+        maxTurns = LevelManager.I.M_T_A;
         maxTurnDisplay.text = "Turns left: " + maxTurns.ToString();
         //Setting aura percentage
         AuraManager.I.CalculateAuraPercentage();
