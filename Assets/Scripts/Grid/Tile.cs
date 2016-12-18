@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour {
 
+    public int x;
+    public int z;
     public int tileType;
     public bool inRange = false;
     public GameObject currentObject;

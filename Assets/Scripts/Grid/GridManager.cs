@@ -2,17 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GridContainer : MonoBehaviour
+public class GridManager : MonoBehaviour
 {
     public Node[,] graph;
-    public List<Node> rangeGraph;
     public int sizeGridX;
     public int sizeGridZ;
     public Transform baseGrid;
     public GameObject tileHolder;
     public GameObject energyHolder;
     public bool gridReady = false;
-
     private Vector3 tileSize = Vector3.zero;
     private Vector3 gridPosition = Vector3.zero;
     private Vector3 startGridPosition = Vector3.zero;
@@ -41,9 +39,11 @@ public class GridContainer : MonoBehaviour
                     gridPosition.z = startGridPosition.z;
                 else
                     gridPosition.z -= tileSize.z;
-
+                //  gridPosition.y = 
                 tile.transform.parent = transform;
                 tile.SetActive(true);
+                tile.GetComponent<Tile>().x = x;
+                tile.GetComponent<Tile>().z = z;
                 Grid.addCell(x, z, tile);
             }
             gridPosition.x -= tileSize.x;
@@ -57,11 +57,11 @@ public class GridContainer : MonoBehaviour
         // Set the size of the tile according to scale ratio of the basegrid and Grid x/z values;
         tileSize.x = baseGrid.transform.localScale.x / Grid.xMax;
         tileSize.z = baseGrid.transform.localScale.z / Grid.zMax;
-        tileSize.y = 1f;
+        tileSize.y = 0.1f;
 
         gridPosition.x = (baseGrid.transform.localScale.x / 2) - (tileSize.x / 2);
-        gridPosition.z = (baseGrid.transform.localScale.z / 2) - (tileSize.z / 2);
-        gridPosition.y = 0.5f;
+        gridPosition.z = (baseGrid.transform.position.z) + (baseGrid.transform.localScale.z / 2) - (tileSize.z / 2);
+        gridPosition.y = 0.3f;
 
         startGridPosition = gridPosition;
     }
@@ -140,7 +140,7 @@ public class GridContainer : MonoBehaviour
 
                 energyGround.transform.parent = t.transform;
                 energyGround.transform.position = t.transform.position;
-                energyGround.transform.position = new Vector3(t.transform.position.x, 3f, t.transform.position.z);
+                energyGround.transform.position = new Vector3(t.transform.position.x, 35f, t.transform.position.z);
                 energyGround.transform.localScale = energyHolder.transform.localScale;
 
                 t.inRange = true;

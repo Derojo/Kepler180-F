@@ -171,6 +171,7 @@ public class DragObjectPlace : MonoBehaviour
                     }
                     else {*/
                         if (lastTileSelected[0].inRange) {
+                            Debug.Log("in range");
                             if (lastTileSelected[0].currentObject != null)
                                 return;
                             GameObject objectInPlace = Instantiate(objectInDrag) as GameObject;
@@ -178,12 +179,12 @@ public class DragObjectPlace : MonoBehaviour
                             lastTileSelected[0].currentObject = objectInPlace;
                             lastTileSelected[0].tileType = (int)objectInPlace.GetComponent<BuildingType>().type;
                             objectInPlace.transform.parent = lastTileSelected[0].transform;
+                            // Store object with x,z,type and model in placementNodes
+                            PlacementData.I.AddBuildingNode(lastTileSelected[0].x, lastTileSelected[0].z, objectInPlace.GetComponent<BuildingType>().type, objectInPlace);
+                            CancelPlacement();
+                            objectInDrag = null;
                         }
-
                         //}
-
-
-
                     }
                     else if (Input.GetMouseButtonDown(1)) {
                         CancelPlacement();
@@ -206,20 +207,12 @@ public class DragObjectPlace : MonoBehaviour
         }
     }
 
-    public void checkIfInRange(GameObject collider) {
-
-        string[] placecoordinates = collider.name.Split(new string[] { "|" }, System.StringSplitOptions.None);
-        int x = int.Parse(placecoordinates[0]);
-        int z = int.Parse(placecoordinates[1]);
-        Node colliderNode = this.GetComponent<GridContainer>().graph[x, z];
-        Debug.Log(colliderNode.x + "-" + colliderNode.z);
-        if (this.GetComponent<GridContainer>().rangeGraph.Contains(colliderNode)) {
-            collider.GetComponent<Tile>().inRange = true;
-        }
-
-    }
     public void StartPlacement(GameObject building)
     {
+        if (objectInDrag != null) {
+            objectInDrag.SetActive(false);
+            tileSelect[0].Deselect(lastTileSelected[0]);
+        }
         GameObject dragObject;
         if (BuildingContainer.transform.Find(building.name) != null) {
             dragObject = BuildingContainer.transform.Find(building.name).gameObject;
@@ -230,7 +223,7 @@ public class DragObjectPlace : MonoBehaviour
             dragObject.transform.parent = BuildingContainer.transform;
 
         }
-
+        
         objectInDrag = dragObject;
         startPlacement = true;
     }

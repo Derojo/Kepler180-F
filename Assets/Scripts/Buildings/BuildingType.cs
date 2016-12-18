@@ -6,5 +6,6 @@ using UnityEngine;
 public class BuildingType : MonoBehaviour {
 
     public Types.buildingtypes type;
+    public float cost;
 
 }

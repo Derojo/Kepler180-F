@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ColorGenerator : MonoBehaviour
 {
@@ -12,11 +13,23 @@ public class ColorGenerator : MonoBehaviour
 
     public int buildTime = 2;
     public bool buildingDone = false;
+    public bool turnedOn = false;
+    public Canvas buildingInfoCanvas;
+    private GameObject buildingTurnInfo;
+    private GameObject buildingKrachtInfo;
+    private Text buildTimeInfo;
     public bool generatePower = false;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         ColorGeneratorCode = (int)selectedColor;
         ColorGeneratorName = selectedColor.ToString();
+        buildingTurnInfo = buildingInfoCanvas.transform.GetChild(0).gameObject;
+        buildingKrachtInfo = buildingInfoCanvas.transform.GetChild(3).gameObject;
+        buildTimeInfo = buildingTurnInfo.transform.GetChild(1).GetComponent<Text>();
+        buildTimeInfo.text = buildTime.ToString();
+
+        buildingKrachtInfo.transform.GetChild(4).GetComponent<Text>().text = auraPower.ToString() + " kracht";
     }
 
     //StartListening 
@@ -34,19 +47,30 @@ public class ColorGenerator : MonoBehaviour
     {
         Debug.Log(buildTime + "buildtime");
         Debug.Log(buildingDone);
+
         if (!buildingDone)
         {
             buildTime--;
+            buildTimeInfo.text = buildTime.ToString();
         }
         
         if (buildTime == 0)
         {
+            buildingTurnInfo.SetActive(false);
             buildingDone = true;       
         }
 
-        if (buildingDone)
+        if (buildingDone && !turnedOn)
         {
-            AuraManager.I.currentAuraPower = AuraManager.I.currentAuraPower+auraPower;
+            buildingInfoCanvas.transform.GetChild(1).gameObject.SetActive(false);
+            buildingInfoCanvas.transform.GetChild(2).gameObject.SetActive(true);
+            turnedOn = true;
+            buildingKrachtInfo.SetActive(true);
+            return;
+        }
+        if (buildingDone && turnedOn) {
+            AuraManager.I.currentAuraPower = AuraManager.I.currentAuraPower + auraPower;
+            AuraManager.I.CalculateAuraPercentage();
         }
     }
 }
