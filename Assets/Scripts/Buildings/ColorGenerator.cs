@@ -9,9 +9,10 @@ public class ColorGenerator : MonoBehaviour
     public int ColorGeneratorCode;
     public string ColorGeneratorName;
     public float auraPower;
-    public int sizeOnGrid = 1;
+    public bool blueprint = false;
 
     public int buildTime = 2;
+    public int sizeOnGrid = 1;
     public bool buildingDone = false;
     public bool turnedOn = false;
     public Canvas buildingInfoCanvas;
@@ -24,12 +25,15 @@ public class ColorGenerator : MonoBehaviour
     {
         ColorGeneratorCode = (int)selectedColor;
         ColorGeneratorName = selectedColor.ToString();
-        buildingTurnInfo = buildingInfoCanvas.transform.GetChild(0).gameObject;
-        buildingKrachtInfo = buildingInfoCanvas.transform.GetChild(3).gameObject;
-        buildTimeInfo = buildingTurnInfo.transform.GetChild(1).GetComponent<Text>();
-        buildTimeInfo.text = buildTime.ToString();
+        if (!blueprint) {
+            buildingTurnInfo = buildingInfoCanvas.transform.GetChild(0).gameObject;
+            buildingKrachtInfo = buildingInfoCanvas.transform.GetChild(3).gameObject;
+            buildTimeInfo = buildingTurnInfo.transform.GetChild(1).GetComponent<Text>();
+            buildTimeInfo.text = buildTime.ToString();
 
-        buildingKrachtInfo.transform.GetChild(1).GetComponent<Text>().text = auraPower.ToString() + " kracht";
+            buildingKrachtInfo.transform.GetChild(1).GetComponent<Text>().text = auraPower.ToString() + " kracht";
+        }
+
     }
 
     //StartListening 

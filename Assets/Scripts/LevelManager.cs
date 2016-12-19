@@ -21,7 +21,6 @@ public class LevelManager : Singleton<LevelManager>
     // Use this for initialization
     void Start()
     {
-        Debug.Log("Start");
         levelData = LevelContainer.Load(path);
         SetCurrentLevel();
         turnMaxText.text = M_T_A.ToString();
