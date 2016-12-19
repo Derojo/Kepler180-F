@@ -11,6 +11,7 @@ public class AuraManager : Singleton<AuraManager>
     //aura start scherm
     public int auraPercentage;
     public Text auraPercText;
+    public Text auraPowerText;
     public Image AuraColor;
 
     public float currentAuraPower;

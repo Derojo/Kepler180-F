@@ -24,6 +24,7 @@ public class LevelManager : Singleton<LevelManager>
         Debug.Log("Start");
         levelData = LevelContainer.Load(path);
         SetCurrentLevel();
+        turnMaxText.text = M_T_A.ToString();
     }
     
     public void SetCurrentLevel()

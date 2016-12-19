@@ -29,7 +29,7 @@ public class ColorGenerator : MonoBehaviour
         buildTimeInfo = buildingTurnInfo.transform.GetChild(1).GetComponent<Text>();
         buildTimeInfo.text = buildTime.ToString();
 
-        buildingKrachtInfo.transform.GetChild(4).GetComponent<Text>().text = auraPower.ToString() + " kracht";
+        buildingKrachtInfo.transform.GetChild(1).GetComponent<Text>().text = auraPower.ToString() + " kracht";
     }
 
     //StartListening 
