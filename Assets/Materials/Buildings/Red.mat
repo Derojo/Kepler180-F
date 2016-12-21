@@ -9,7 +9,7 @@ Material:
   m_Name: Red
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-  m_LightmapFlags: 1
+  m_LightmapFlags: 2
   m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
@@ -90,7 +90,7 @@ Material:
       second: 0
     - first:
         name: _GlossMapScale
-      second: 1
+      second: 0.51
     - first:
         name: _Glossiness
       second: 0.883
@@ -99,7 +99,7 @@ Material:
       second: 1
     - first:
         name: _Metallic
-      second: 0.21
+      second: 0.47
     - first:
         name: _Mode
       second: 0
@@ -130,7 +130,7 @@ Material:
       second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _EmissionColor
-      second: {r: 22.803, g: 2.0120313, b: 2.0120313, a: 1}
+      second: {r: 20.63, g: 0.91014665, b: 0.91014665, a: 1}
     - first:
         name: _SpecColor
       second: {r: 0.16911763, g: 0.16911763, b: 0.16911763, a: 1}

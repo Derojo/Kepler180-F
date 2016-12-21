@@ -140,7 +140,7 @@ public class GridManager : MonoBehaviour
 
                 energyGround.transform.parent = t.transform;
                 energyGround.transform.position = t.transform.position;
-                energyGround.transform.position = new Vector3(t.transform.position.x, 35f, t.transform.position.z);
+                energyGround.transform.position = new Vector3(t.transform.position.x, 60f, t.transform.position.z);
                 energyGround.transform.localScale = energyHolder.transform.localScale;
 
                 t.inRange = true;
