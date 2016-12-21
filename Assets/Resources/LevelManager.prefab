@@ -51,8 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07bc1b98f67a6b44790ab15625dd50af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnMax: 0
+  M_T_A: 0
   turnMaxText: {fileID: 0}
-  auraPercentage: 0
-  auraPercText: {fileID: 0}
-  AuraColor: {fileID: 0}
+  A_P_T: 0
+  powerAuraText: {fileID: 0}
+  nextLevelSkill: 1
+  currentLevel: 1

@@ -9,9 +9,12 @@ public class LevelManager : Singleton<LevelManager>
     public const string path = "levels";
 
     //Defining maximum amount of turns & total aurapower need for levelcompletion
+    //maximum turn amount
     public float M_T_A;
     public Text turnMaxText;
+    // Total aura power
     public float A_P_T;
+    public Text powerAuraText;
 
     //level difficulty
     public int nextLevelSkill;
@@ -24,10 +27,15 @@ public class LevelManager : Singleton<LevelManager>
         levelData = LevelContainer.Load(path);
         SetCurrentLevel();
         turnMaxText.text = M_T_A.ToString();
+        powerAuraText.text = A_P_T.ToString();
+       
     }
     
     public void SetCurrentLevel()
     {
+        AuraManager.I.A_C = levelData.levels[(currentLevel - 1)].A_C;
+        AuraManager.I.A_C_C = levelData.levels[(currentLevel - 1)].A_C_C;
+
         Debug.Log(nextLevelSkill);
         if (nextLevelSkill == 1)
         {

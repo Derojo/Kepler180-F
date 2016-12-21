@@ -9,6 +9,14 @@ public class Level{
     [XmlAttribute("name")]
     public string name;
 
+    // auracolor element
+    [XmlElement("A_C")]
+    public string A_C;
+
+    // auracolor coe element
+    [XmlElement("A_C_C")]
+    public string A_C_C;
+
     //max turns player gets
     //Easy
     [XmlElement("M_T_E")]

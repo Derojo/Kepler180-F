@@ -2,15 +2,30 @@
 <Levelcollection>
   <Levels>
     <Level name="Level 1">
-        <M_T_E>20</M_T_E>
+      <A_C>Paars</A_C>
+      <A_C_C>71, 11, 88, 255</A_C_C>
+      
+      <M_T_E>20</M_T_E>
         <A_P_E>100</A_P_E>
           
         <M_T_M>20</M_T_M>   
-        <A_P_M>100</A_P_M>  
+        <A_P_M>150</A_P_M>  
       
-        <M_T_H>20</M_T_H>
-        <A_P_H>100</A_P_H>
+        <M_T_H>40</M_T_H>
+        <A_P_H>200</A_P_H>
     </Level>
-    
+    <Level name="Level 2">
+      <A_C>Bruin</A_C>
+      <A_C_C>133, 87, 5, 255</A_C_C>
+
+      <M_T_E>35</M_T_E>
+      <A_P_E>200</A_P_E>
+
+      <M_T_M>25</M_T_M>
+      <A_P_M>300</A_P_M>
+
+      <M_T_H>15</M_T_H>
+      <A_P_H>400</A_P_H>
+    </Level>
   </Levels>
 </Levelcollection>

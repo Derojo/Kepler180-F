@@ -12,19 +12,29 @@ public class BarScript : MonoBehaviour {
 	private Image content;
 
 	public float MaxValue { get; set; }
+    public Text auraDisplay;
 
-	public float Value
+    public float Value
 	{
 		set
 		{ 
 			fillAmount = Map (value, 0, MaxValue, 0, 1);
 		}
 	}
-
-	// Use this for initialization
-	void Start () {
-		
-	}
+    void OnEnable()
+    {
+        EventManager.StartListening("EndTurn", setNextTurn);
+    }
+    //unregistering listeners for clean up
+    void OnDisable()
+    {
+        EventManager.StopListening("EndTurn", setNextTurn);
+    }
+    // Use this for initialization
+    void Start ()
+    {
+        auraDisplay.text = "Aura % 0  ";
+    }
 
 
 	// Update is called once per frame
@@ -46,4 +56,9 @@ public class BarScript : MonoBehaviour {
 		// (79 - 0) * (1 - 0) / (100 - 0) + 0;
 		// 	  80 * 1 / 100 + 0 = 0,8 
 	}
+
+    void setNextTurn()
+    {
+        auraDisplay.text = "Aura %  " + AuraManager.I.auraLevelPercentage.ToString();
+    }
 }
