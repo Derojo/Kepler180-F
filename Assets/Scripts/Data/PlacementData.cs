@@ -5,24 +5,43 @@ using UnityEngine;
 [Prefab("PlacementData", true, "")]
 public class PlacementData : Singleton<PlacementData> {
 
+    public List<BuildingNode> planningNodes;
     public List<BuildingNode> placementNodes;
 
-	// Use this for initialization
-	void Start () {
-        if (placementNodes == null) {
+    public void Init() {
+        if (placementNodes == null)
+        {
             placementNodes = new List<BuildingNode>();
         }
-	}
+        if (planningNodes == null)
+        {
+            planningNodes = new List<BuildingNode>();
+        }
+    }
 
-    public void AddBuildingNode(int x, int z, Types.buildingtypes type, GameObject model) {
+
+    public void AddBuildingNode(int x, int z, Types.buildingtypes type, GameObject model, bool inPlanningMode) {
         BuildingNode bn = new BuildingNode();
         bn.x = x;
         bn.z = z;
         bn.type = type;
         bn.model = model;
-        if (!placementNodes.Contains(bn)) {
-            placementNodes.Add(bn);
+        if (!inPlanningMode)
+        {
+            if (!placementNodes.Contains(bn))
+            {
+                placementNodes.Add(bn);
+            }
         }
+        else {
+            if (!planningNodes.Contains(bn))
+            {
+                planningNodes.Add(bn);
+            }
+        }
+
     }
+
+
 
 }

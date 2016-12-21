@@ -27,13 +27,17 @@ public class ColorGenerator : MonoBehaviour
 
         ColorGeneratorCode = (int)selectedColor;
         ColorGeneratorName = selectedColor.ToString();
-        if (!blueprint) {
+        if (!blueprint)
+        {
             buildingTurnInfo = buildingInfoCanvas.transform.GetChild(0).gameObject;
             buildingKrachtInfo = buildingInfoCanvas.transform.GetChild(3).gameObject;
             buildTimeInfo = buildingTurnInfo.transform.GetChild(1).GetComponent<Text>();
             buildTimeInfo.text = buildTime.ToString();
 
             buildingKrachtInfo.transform.GetChild(1).GetComponent<Text>().text = auraPower.ToString() + " kracht";
+        }
+        else {
+            this.GetComponent<Renderer>().material.renderQueue = 5000;
         }
 
     }
