@@ -31,6 +31,5 @@ public class AuraManager : Singleton<AuraManager>
     public void CalculateAuraPercentage()
     {
         auraLevelPercentage = (currentAuraPower / LevelManager.I.A_P_T) * 100;
-        
     }
 }

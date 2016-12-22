@@ -77,9 +77,13 @@ public class ColorGenerator : MonoBehaviour
             gameObject.transform.GetChild(2).gameObject.SetActive(true);
             return;
         }
-        if (buildingDone && turnedOn) {
+        if (buildingDone && turnedOn)
+        { 
+           
             AuraManager.I.currentAuraPower = AuraManager.I.currentAuraPower + auraPower;
             AuraManager.I.CalculateAuraPercentage();
+
+        Debug.Log(AuraManager.I.currentAuraPower);
         }
     }
 }

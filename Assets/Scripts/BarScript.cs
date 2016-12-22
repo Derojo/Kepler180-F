@@ -57,8 +57,9 @@ public class BarScript : MonoBehaviour {
 		// 	  80 * 1 / 100 + 0 = 0,8 
 	}
 
-    void setNextTurn()
+    public void setNextTurn()
     {
+        Debug.Log(AuraManager.I.auraLevelPercentage);
         auraDisplay.text = "Aura %  " + AuraManager.I.auraLevelPercentage.ToString();
     }
 }
