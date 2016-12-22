@@ -32,6 +32,7 @@ public class GridManager : MonoBehaviour
             for (int z = 0; z < Grid.zMax; z++)
             {
                 GameObject tile = Instantiate(tileHolder) as GameObject;
+                tile.GetComponent<Renderer>().material.renderQueue = 4000;
                 tile.transform.localScale = tileSize;
                 tile.transform.position = gridPosition;
                 tile.name = "" + x + "|" + z + "";
@@ -139,8 +140,7 @@ public class GridManager : MonoBehaviour
                 GameObject energyGround = Instantiate(energyHolder) as GameObject;
 
                 energyGround.transform.parent = t.transform;
-                energyGround.transform.position = t.transform.position;
-                energyGround.transform.position = new Vector3(t.transform.position.x, 60f, t.transform.position.z);
+                energyGround.transform.position = new Vector3(t.transform.position.x, 30f, t.transform.position.z);
                 energyGround.transform.localScale = energyHolder.transform.localScale;
 
                 t.inRange = true;

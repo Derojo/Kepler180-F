@@ -10,6 +10,7 @@ public class DragObjectPlace : MonoBehaviour
     public GameObject BuildingContainer;
     public Color32 selectColor;
     public Color32 busyColor;
+    public bool inPlanningMode = false;
 
     [System.Serializable]
     public class TileSelect
@@ -50,12 +51,19 @@ public class DragObjectPlace : MonoBehaviour
             if (tile.inRange)
             {
                 if (tile.currentObject == null)
+                {
                     mesh.material.color = selectColor;
-                else
+                    mesh.material.SetColor("_EmissionColor", (Color)selectColor* 0.3f);
+                } else {
                     mesh.material.color = busyColor;
+                    mesh.material.SetColor("_EmissionColor", (Color)busyColor * 0.3f);
+
+                }
+                    
             }
             else {
                 mesh.material.color = busyColor;
+                mesh.material.SetColor("_EmissionColor", (Color)busyColor * 0.3f);
             }
 
             //}
@@ -180,7 +188,7 @@ public class DragObjectPlace : MonoBehaviour
                             lastTileSelected[0].tileType = (int)objectInPlace.GetComponent<BuildingType>().type;
                             objectInPlace.transform.parent = lastTileSelected[0].transform;
                             // Store object with x,z,type and model in placementNodes
-                            PlacementData.I.AddBuildingNode(lastTileSelected[0].x, lastTileSelected[0].z, objectInPlace.GetComponent<BuildingType>().type, objectInPlace);
+                            PlacementData.I.AddBuildingNode(lastTileSelected[0].x, lastTileSelected[0].z, objectInPlace.GetComponent<BuildingType>().type, Resources.Load<GameObject>(objectInPlace.GetComponent<BuildingType>().type+"/"+objectInDrag.name), inPlanningMode);
                             CancelPlacement();
                             objectInDrag = null;
                         }

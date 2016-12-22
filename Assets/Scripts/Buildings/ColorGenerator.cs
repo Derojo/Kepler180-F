@@ -27,7 +27,8 @@ public class ColorGenerator : MonoBehaviour
 
         ColorGeneratorCode = (int)selectedColor;
         ColorGeneratorName = selectedColor.ToString();
-        if (!blueprint) {
+        if (!blueprint)
+        {
             buildingTurnInfo = buildingInfoCanvas.transform.GetChild(0).gameObject;
             buildingKrachtInfo = buildingInfoCanvas.transform.GetChild(3).gameObject;
             buildTimeInfo = buildingTurnInfo.transform.GetChild(1).GetComponent<Text>();
@@ -35,18 +36,28 @@ public class ColorGenerator : MonoBehaviour
 
             buildingKrachtInfo.transform.GetChild(1).GetComponent<Text>().text = auraPower.ToString() + " kracht";
         }
+        else {
+            this.GetComponent<Renderer>().material.renderQueue = 5000;
+        }
 
     }
 
     //StartListening 
     void OnEnable()
     {
-        EventManager.StartListening("EndTurn", setNextTurn);
+        if(!blueprint)
+        {
+            EventManager.StartListening("EndTurn", setNextTurn);
+        }
+        
     }
     //unregistering listeners for clean up
     void OnDisable()
     {
-        EventManager.StopListening("EndTurn", setNextTurn);
+        if (!blueprint)
+        {
+            EventManager.StopListening("EndTurn", setNextTurn);
+        }
     }
 
     void setNextTurn()
