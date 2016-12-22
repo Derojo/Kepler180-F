@@ -469,9 +469,7 @@ MonoBehaviour:
   ColorGeneratorName: 
   auraPower: 10
   blueprint: 0
-  buildTime: 2
   sizeOnGrid: 1
-  buildingDone: 0
   turnedOn: 0
   buildingInfoCanvas: {fileID: 223342255992914474}
   generatePower: 0
@@ -793,7 +791,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  cost: 0
+  buildingCost: 275
+  buildingPowerUsage: 0
+  buildingDone: 0
+  eventBuildingcall: 0
+  buildTime: 3
 --- !u!136 &136826639332356648
 CapsuleCollider:
   m_ObjectHideFlags: 1

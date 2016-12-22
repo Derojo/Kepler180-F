@@ -75,6 +75,11 @@ public class TurnManager : Singleton<TurnManager>{
             //Check Setskill function for adjusting difficulty
             LevelManager.I.SetSkillLevel();
         }
+        //check fundings
+        if(ResourceManager.I.fundings <=0 && !checkedLevelComplete)
+        {
+            Debug.Log("you are out of fundings and lost the game, please try again");
+        }
     }
 
 }

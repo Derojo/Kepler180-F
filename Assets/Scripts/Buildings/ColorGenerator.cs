@@ -11,20 +11,20 @@ public class ColorGenerator : MonoBehaviour
     public float auraPower;
     public bool blueprint = false;
 
-    public int buildTime = 2;
+    //public int buildTime = 2;
     public int sizeOnGrid = 1;
-    public bool buildingDone = false;
     public bool turnedOn = false;
     public Canvas buildingInfoCanvas;
     private GameObject buildingTurnInfo;
     private GameObject buildingKrachtInfo;
     private Text buildTimeInfo;
     public bool generatePower = false;
+
     // Use this for initialization
 
     void Start()
     {
-
+        
         ColorGeneratorCode = (int)selectedColor;
         ColorGeneratorName = selectedColor.ToString();
         if (!blueprint)
@@ -32,7 +32,7 @@ public class ColorGenerator : MonoBehaviour
             buildingTurnInfo = buildingInfoCanvas.transform.GetChild(0).gameObject;
             buildingKrachtInfo = buildingInfoCanvas.transform.GetChild(3).gameObject;
             buildTimeInfo = buildingTurnInfo.transform.GetChild(1).GetComponent<Text>();
-            buildTimeInfo.text = buildTime.ToString();
+            buildTimeInfo.text = gameObject.GetComponent < BuildingType>().buildTime.ToString();
 
             buildingKrachtInfo.transform.GetChild(1).GetComponent<Text>().text = auraPower.ToString() + " kracht";
         }
@@ -49,11 +49,13 @@ public class ColorGenerator : MonoBehaviour
         {
             EventManager.StartListening("EndTurn", setNextTurn);
         }
-        
+        EventManager.StartListening("BuildingCompleted", buildingCompleted);
     }
     //unregistering listeners for clean up
     void OnDisable()
     {
+        EventManager.StartListening("BuildingCompleted", buildingCompleted);
+
         if (!blueprint)
         {
             EventManager.StopListening("EndTurn", setNextTurn);
@@ -62,22 +64,19 @@ public class ColorGenerator : MonoBehaviour
 
     void setNextTurn()
     {
-        Debug.Log(buildTime + "buildtime");
-        Debug.Log(buildingDone);
+        if (turnedOn)
+        {    
+            AuraManager.I.currentAuraPower = AuraManager.I.currentAuraPower + auraPower;
+            AuraManager.I.CalculateAuraPercentage();
 
-        if (!buildingDone)
-        {
-            buildTime--;
-            buildTimeInfo.text = buildTime.ToString();
+        Debug.Log(AuraManager.I.currentAuraPower);
         }
-        
-        if (buildTime == 0)
-        {
-            buildingTurnInfo.SetActive(false);
-            buildingDone = true;       
-        }
+    }
 
-        if (buildingDone && !turnedOn)
+    void buildingCompleted()
+    {
+        Debug.Log("buidlingcomplete called");
+        if (!turnedOn && gameObject.GetComponent<BuildingType>().buildTime ==0)
         {
             buildingInfoCanvas.transform.GetChild(1).gameObject.SetActive(false);
             buildingInfoCanvas.transform.GetChild(2).gameObject.SetActive(true);
@@ -87,14 +86,6 @@ public class ColorGenerator : MonoBehaviour
             gameObject.transform.GetChild(3).gameObject.SetActive(true);
             gameObject.transform.GetChild(2).gameObject.SetActive(true);
             return;
-        }
-        if (buildingDone && turnedOn)
-        { 
-           
-            AuraManager.I.currentAuraPower = AuraManager.I.currentAuraPower + auraPower;
-            AuraManager.I.CalculateAuraPercentage();
-
-        Debug.Log(AuraManager.I.currentAuraPower);
         }
     }
 }

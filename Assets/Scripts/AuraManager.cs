@@ -25,7 +25,7 @@ public class AuraManager : Singleton<AuraManager>
     {
         
         percentageAverage = (Mathf.Round(LevelManager.I.M_T_A / 100 * 55));
-        Debug.Log(percentageAverage + " Aurapercentage");
+        //Debug.Log(percentageAverage + " Aurapercentage");
     }
 
     public void CalculateAuraPercentage()
