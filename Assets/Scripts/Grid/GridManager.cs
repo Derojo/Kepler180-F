@@ -62,7 +62,7 @@ public class GridManager : MonoBehaviour
 
         gridPosition.x = (baseGrid.transform.localScale.x / 2) - (tileSize.x / 2);
         gridPosition.z = (baseGrid.transform.position.z) + (baseGrid.transform.localScale.z / 2) - (tileSize.z / 2);
-        gridPosition.y = 0.2f;
+        gridPosition.y = 0.3f;
 
         startGridPosition = gridPosition;
     }

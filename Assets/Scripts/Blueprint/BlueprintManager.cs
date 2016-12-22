@@ -28,6 +28,7 @@ public class BlueprintManager : Singleton<BlueprintManager>
             // Instantiate the right model according to gameobject in node
             GameObject building = Instantiate(node.model) as GameObject;
 
+            building.name = "bp-" + node.model.name;
             building.transform.parent = tile.transform;
             building.transform.position = tile.transform.position;
 

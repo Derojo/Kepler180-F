@@ -45,12 +45,19 @@ public class ColorGenerator : MonoBehaviour
     //StartListening 
     void OnEnable()
     {
-        EventManager.StartListening("EndTurn", setNextTurn);
+        if(!blueprint)
+        {
+            EventManager.StartListening("EndTurn", setNextTurn);
+        }
+        
     }
     //unregistering listeners for clean up
     void OnDisable()
     {
-        EventManager.StopListening("EndTurn", setNextTurn);
+        if (!blueprint)
+        {
+            EventManager.StopListening("EndTurn", setNextTurn);
+        }
     }
 
     void setNextTurn()
