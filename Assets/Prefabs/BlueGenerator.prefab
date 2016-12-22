@@ -464,7 +464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e32eb218ffab0f842b2f7031e940c1df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedColor: 0
+  selectedColor: 1
   ColorGeneratorCode: 0
   ColorGeneratorName: 
   auraPower: 10
