@@ -678,6 +678,7 @@ GameObject:
   - component: {fileID: 617647805}
   - component: {fileID: 617647804}
   - component: {fileID: 617647803}
+  - component: {fileID: 617647807}
   m_Layer: 8
   m_Name: MainStation
   m_TagString: target
@@ -768,6 +769,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 617647801}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &617647807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 617647801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f986accc70a493498ec051a052d057f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  cost: 0
 --- !u!1 &644677476
 GameObject:
   m_ObjectHideFlags: 0
@@ -1219,6 +1233,8 @@ MonoBehaviour:
   energyHolder: {fileID: 1000012011955736, guid: 1663da2537e71b34b937ac007c141740,
     type: 2}
   gridReady: 0
+  clusterRestriction: 1
+  mixedPlacements: 1
 --- !u!114 &885147221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1241,6 +1257,7 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 2452565994
   inPlanningMode: 0
+  ableToBuild: 1
   tileSelect: []
 --- !u!114 &885147222
 MonoBehaviour:

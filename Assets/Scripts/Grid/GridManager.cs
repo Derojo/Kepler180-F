@@ -14,6 +14,8 @@ public class GridManager : MonoBehaviour
     private Vector3 tileSize = Vector3.zero;
     private Vector3 gridPosition = Vector3.zero;
     private Vector3 startGridPosition = Vector3.zero;
+    public bool clusterRestriction = true;
+    public bool mixedPlacements = true;
 
     void Start()
     {
@@ -40,7 +42,6 @@ public class GridManager : MonoBehaviour
                     gridPosition.z = startGridPosition.z;
                 else
                     gridPosition.z -= tileSize.z;
-                //  gridPosition.y = 
                 tile.transform.parent = transform;
                 tile.SetActive(true);
                 tile.GetComponent<Tile>().x = x;
@@ -98,6 +99,7 @@ public class GridManager : MonoBehaviour
         {
             for (int z = 0; z < sizeGridZ; z++)
             {
+                
                 if (x > 0)
                 {
                     graph[x, z].neighbours.Add(graph[x - 1, z]);
@@ -106,7 +108,7 @@ public class GridManager : MonoBehaviour
                     if (z < sizeGridZ - 1)
                         graph[x, z].neighbours.Add(graph[x - 1, z + 1]);
                 }
-
+                
                 // Try Right
                 if (x < sizeGridX - 1)
                 {
@@ -116,8 +118,9 @@ public class GridManager : MonoBehaviour
                     if (z < sizeGridZ - 1)
                         graph[x, z].neighbours.Add(graph[x + 1, z + 1]);
                 }
-
+                
                 // Try straight up and down
+                
                 if (z > 0)
                     graph[x, z].neighbours.Add(graph[x, z - 1]);
                 if (z < sizeGridZ - 1)

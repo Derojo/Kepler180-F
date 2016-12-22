@@ -9,5 +9,10 @@ public class Tile : MonoBehaviour {
     public int tileType;
     public bool inRange = false;
     public GameObject currentObject;
+
+    public bool inColorCluster = false;
+    public bool inMixedCluster = false;
+    public int clusterId;
+    public Types.colortypes colorCluster;
     
 }

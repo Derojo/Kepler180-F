@@ -31,11 +31,19 @@ static class Grid
      }
 
     /**
-     * Returns a grid cell at given position. Faster than iterating through a one-dimensional array with comparisons.
+     * Returns a grid cell at given position.
      */
     public static GameObject getGridCellAtPosition(int x, int z) {
          return grid[x, z];
      }
+
+    /**
+     * Returns a tile at given position.
+     */
+    public static Tile getTileAtPosition(int x, int z)
+    {
+        return grid[x, z].GetComponent<Tile>();
+    }
 
     /**
      * Adds a grid cell to the container.
