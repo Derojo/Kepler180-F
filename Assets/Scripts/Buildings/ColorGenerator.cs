@@ -8,12 +8,10 @@ public class ColorGenerator : MonoBehaviour
     public Types.colortypes selectedColor;
     public int ColorGeneratorCode;
     public string ColorGeneratorName;
-    public float auraPower;
+   
     public bool blueprint = false;
-
-    //public int buildTime = 2;
+    public float buildingAuraPower;
     public int sizeOnGrid = 1;
-    public bool turnedOn = false;
     public Canvas buildingInfoCanvas;
     private GameObject buildingTurnInfo;
     private GameObject buildingKrachtInfo;
@@ -34,7 +32,7 @@ public class ColorGenerator : MonoBehaviour
             buildTimeInfo = buildingTurnInfo.transform.GetChild(1).GetComponent<Text>();
             buildTimeInfo.text = gameObject.GetComponent < BuildingType>().buildTime.ToString();
 
-            buildingKrachtInfo.transform.GetChild(1).GetComponent<Text>().text = auraPower.ToString() + " kracht";
+            buildingKrachtInfo.transform.GetChild(1).GetComponent<Text>().text = buildingAuraPower.ToString() + " kracht";
         }
         else {
             this.GetComponent<Renderer>().material.renderQueue = 5000;
@@ -61,27 +59,24 @@ public class ColorGenerator : MonoBehaviour
             EventManager.StopListening("EndTurn", setNextTurn);
         }
     }
-
     void setNextTurn()
     {
-        if (turnedOn)
-        {    
-            AuraManager.I.currentAuraPower = AuraManager.I.currentAuraPower + auraPower;
-            AuraManager.I.CalculateAuraPercentage();
-
-        Debug.Log(AuraManager.I.currentAuraPower);
+        if (gameObject.GetComponent<BuildingType>().turnedOn)
+        {
+            AuraManager.I.currentAuraPower = AuraManager.I.currentAuraPower + buildingAuraPower;
+            //Debug.Log(AuraManager.I.currentAuraPower);
         }
+        AuraManager.I.CalculateAuraPercentage();
     }
+
 
     void buildingCompleted()
     {
         Debug.Log("buidlingcomplete called");
-        if (!turnedOn && gameObject.GetComponent<BuildingType>().buildTime ==0)
+        if (!gameObject.GetComponent<BuildingType>().turnedOn && gameObject.GetComponent<BuildingType>().buildTime ==0)
         {
             buildingInfoCanvas.transform.GetChild(1).gameObject.SetActive(false);
             buildingInfoCanvas.transform.GetChild(2).gameObject.SetActive(true);
-            turnedOn = true;
-
             buildingKrachtInfo.SetActive(true);
             gameObject.transform.GetChild(3).gameObject.SetActive(true);
             gameObject.transform.GetChild(2).gameObject.SetActive(true);

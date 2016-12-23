@@ -1657,6 +1657,8 @@ MonoBehaviour:
   energyHolder: {fileID: 1000012011955736, guid: 1663da2537e71b34b937ac007c141740,
     type: 2}
   gridReady: 0
+  clusterRestriction: 1
+  mixedPlacements: 1
 --- !u!114 &885147221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1679,6 +1681,7 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 2452565994
   inPlanningMode: 0
+  ableToBuild: 1
   tileSelect: []
 --- !u!4 &885147224
 Transform:
@@ -2111,6 +2114,11 @@ Prefab:
     - target: {fileID: 4047544127289358, guid: bdd30700c7c22bd46a6ee5aa26d29837, type: 2}
       propertyPath: m_RootOrder
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 114462438474950384, guid: bdd30700c7c22bd46a6ee5aa26d29837,
+        type: 2}
+      propertyPath: buildingAuraPower
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bdd30700c7c22bd46a6ee5aa26d29837, type: 2}
@@ -2894,10 +2902,12 @@ MonoBehaviour:
   type: 0
   buildingCost: 0
   buildingPowerUsage: 0
-  buildingDone: 0
   eventBuildingcall: 0
-  usingPower: 0
+  UsingPower: 0
+  turnedOn: 0
+  buildingAuraPower: 0
   buildTime: 0
+  buildingDone: 0
 --- !u!1 &1375413842
 GameObject:
   m_ObjectHideFlags: 0
@@ -3298,6 +3308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalFunding: {fileID: 141285021}
+  auraDisplay: {fileID: 492414419}
 --- !u!1 &1599558828
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,12 +9,15 @@ public class BuildingType : MonoBehaviour {
     public Types.buildingtypes type;
     public float buildingCost;
     public float buildingPowerUsage;
-    public bool buildingDone = false;
     public bool eventBuildingcall = false;
     public bool UsingPower = false;
-    //building time
+    public bool turnedOn = false;
+   
+
+    //constructing building variables
     public int buildTime;
     private Text buildTimeInfo;
+    public bool buildingDone = false;
 
     //eventlistner
     void OnEnable()
@@ -24,39 +27,45 @@ public class BuildingType : MonoBehaviour {
     //unregistering listeners for clean up
     void OnDisable()
     {
+
         EventManager.StopListening("EndTurn", setNextTurn);
     }
 
     void setNextTurn()
-    { 
-        
+    {
+       
+        //if a building is placed but not done yet, reduce building time
         if (!buildingDone)
         {
             buildTime--;
         }
-
+        //If buildtime = zero then the building is done
         if (buildTime == 0)
         {
-           
             buildingDone = true;
         }
+        //when building is done and event is not called, call it ONCE to reduce money ONCE
         if(buildingDone &&!eventBuildingcall)
         {
-            //reduce funds after building is done
-            ResourceManager.I.fundings = ResourceManager.I.fundings - buildingCost;
             //trigger event to complete building effects
             EventManager.TriggerEvent("BuildingCompleted");
             eventBuildingcall = true;
+           
         }
-        //reducing power level after turn
-        if(buildingDone)
-        {
-            //deducting power each turn
+       
+         if (buildingDone && !turnedOn)
+         {
+            turnedOn = true;
+            return;
+         }
+          //If the building is turned on then it start using power.
+         if (turnedOn)
+         {
             ResourceManager.I.powerLevel = ResourceManager.I.powerLevel - buildingPowerUsage;
+            EventManager.TriggerEvent("updateUI");
         }
-
-        Debug.Log("Your powerlevel = " + ResourceManager.I.powerLevel);
-
+        Debug.Log("Yo powahlvl = " + ResourceManager.I.powerLevel);
     }
+    
 }
 

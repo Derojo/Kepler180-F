@@ -48,16 +48,11 @@ public class TurnManager : Singleton<TurnManager>{
     void setNextTurn()
     {
        
-        //LevelManager.I.auraPower ++;
         //Adding turns
         turnCount++;
         turnCountText.text =  "Turn: " + turnCount.ToString();
         maxTurns--;
         maxTurnDisplay.text = "Turns left: " + maxTurns.ToString();
-
-        //Calculate aurapercentage
-        AuraManager.I.CalculateAuraPercentage();
-        Debug.Log(AuraManager.I.currentAuraPower + "aurapower");
 
         //Check if max amout of turns is reached
         if (maxTurns == 0)
@@ -76,9 +71,9 @@ public class TurnManager : Singleton<TurnManager>{
             LevelManager.I.SetSkillLevel();
         }
         //check fundings
-        if(ResourceManager.I.fundings <=0 && !checkedLevelComplete)
+        if(ResourceManager.I.fundings <=0 || ResourceManager.I.powerLevel <= 0 && !checkedLevelComplete)
         {
-            Debug.Log("you are out of fundings and lost the game, please try again");
+            Debug.Log("you are out of resources and lost the game, please try again");
         }
     }
 
