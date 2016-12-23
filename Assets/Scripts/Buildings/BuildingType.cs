@@ -11,6 +11,7 @@ public class BuildingType : MonoBehaviour {
     public float buildingPowerUsage;
     public bool buildingDone = false;
     public bool eventBuildingcall = false;
+    public bool UsingPower = false;
     //building time
     public int buildTime;
     private Text buildTimeInfo;
@@ -28,6 +29,7 @@ public class BuildingType : MonoBehaviour {
 
     void setNextTurn()
     { 
+        
         if (!buildingDone)
         {
             buildTime--;
@@ -40,12 +42,21 @@ public class BuildingType : MonoBehaviour {
         }
         if(buildingDone &&!eventBuildingcall)
         {
+            //reduce funds after building is done
             ResourceManager.I.fundings = ResourceManager.I.fundings - buildingCost;
+            //trigger event to complete building effects
             EventManager.TriggerEvent("BuildingCompleted");
             eventBuildingcall = true;
-            Debug.Log("your funding are" + ResourceManager.I.fundings);
         }
-        
+        //reducing power level after turn
+        if(buildingDone)
+        {
+            //deducting power each turn
+            ResourceManager.I.powerLevel = ResourceManager.I.powerLevel - buildingPowerUsage;
+        }
+
+        Debug.Log("Your powerlevel = " + ResourceManager.I.powerLevel);
+
     }
 }
 

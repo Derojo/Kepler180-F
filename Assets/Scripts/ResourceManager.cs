@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class ResourceManager : Singleton<ResourceManager>
 {
     public float fundings = 5000;
-    public float powerLevel;
+    public float powerLevel = 2000;
     public float planetHeat;
 
 }

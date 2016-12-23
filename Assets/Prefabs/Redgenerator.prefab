@@ -650,9 +650,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   buildingCost: 25
-  buildingPowerUsage: 0
+  buildingPowerUsage: 500
   buildingDone: 0
   eventBuildingcall: 0
+  usingPower: 0
   buildTime: 5
 --- !u!114 &114479883227893344
 MonoBehaviour:
