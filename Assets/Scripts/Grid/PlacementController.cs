@@ -167,8 +167,9 @@ public class PlacementController : MonoBehaviour
             }
             else
             {
+                Debug.Log("Blending color "+ColorManager.I.getBlendingColor((int)color, (int)neighbourColor));
                 // Create mixed color cluster
-
+                
                 if (GetComponent<GridManager>().clusterRestriction) {
                     int clusterId;
                     Cluster currentCluster;

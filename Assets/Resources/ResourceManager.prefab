@@ -51,3 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf1816f0e705174dbd1e88e0ee74c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fundings: 5000
+  powerLevel: 3000
+  planetHeat: 0
