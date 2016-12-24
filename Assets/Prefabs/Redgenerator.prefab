@@ -654,7 +654,7 @@ MonoBehaviour:
   eventBuildingcall: 0
   UsingPower: 0
   turnedOn: 0
-  buildTime: 5
+  buildTime: 2
   buildingDone: 0
 --- !u!114 &114479883227893344
 MonoBehaviour:

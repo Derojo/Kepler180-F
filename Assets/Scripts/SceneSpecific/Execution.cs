@@ -19,7 +19,6 @@ public class Execution : MonoBehaviour
     //eventlistner
     void OnEnable()
     {
-        EventManager.StartListening("EndTurn", setNextTurn);
         EventManager.StartListening("updateUI", UpdateUI);
     }
     //unregistering listeners for clean up

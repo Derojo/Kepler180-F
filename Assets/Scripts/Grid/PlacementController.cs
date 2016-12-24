@@ -115,7 +115,7 @@ public class PlacementController : MonoBehaviour
     /* Place the building that is currently in drag if we are in range */
     private void PlaceObject()
     {
-        EventManager.TriggerEvent("PlacedBuilding");
+
         if (lastTileSelected[0].inRange)
         {
 
@@ -139,6 +139,7 @@ public class PlacementController : MonoBehaviour
             // Store object with x,z,type and model in placementNodes
             PlacementData.I.AddBuildingNode(lastTileSelected[0].x, lastTileSelected[0].z, objectInPlace.GetComponent<BuildingType>().type, Resources.Load<GameObject>(objectInPlace.GetComponent<BuildingType>().type + "/" + objectInDrag.name), inPlanningMode);
             ResourceManager.I.fundings = ResourceManager.I.fundings - objectInPlace.GetComponent<BuildingType>().buildingCost;
+            EventManager.TriggerEvent("updateUI");
             // Reinitialize
             CancelPlacement();
             objectInDrag = null;

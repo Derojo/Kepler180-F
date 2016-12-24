@@ -7,20 +7,22 @@ using UnityEngine.UI;
 [Prefab ("TurnManager", true,"")]
 public class TurnManager : Singleton<TurnManager>{
 
-    public int turnCount=0;
-    public Text turnCountText;
+    public int turnCount = 1;
     public float maxTurns;
-    public Text maxTurnDisplay;
+    public float turnsLeft;
+    public Text currentTurn;
+    public Text turnsleft;
 
     public bool checkedLevelComplete = false;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
-       // Setting turndisplay
-       turnCountText.text = "Turns: ";
+        // Setting turndisplay
         maxTurns = LevelManager.I.M_T_A;
-        maxTurnDisplay.text = "Turns left: " + maxTurns.ToString();
+        turnsLeft = maxTurns;
+        turnsleft.text = "nog " + maxTurns.ToString() + " beurten over";
+        currentTurn.text = turnCount + " / " + maxTurns.ToString();
         //Setting aura percentage
         AuraManager.I.CalculateAuraPercentage();
     }
@@ -47,12 +49,12 @@ public class TurnManager : Singleton<TurnManager>{
     //Setting end turn text
     void setNextTurn()
     {
-       
+
         //Adding turns
         turnCount++;
-        turnCountText.text =  "Turn: " + turnCount.ToString();
-        maxTurns--;
-        maxTurnDisplay.text = "Turns left: " + maxTurns.ToString();
+        currentTurn.text = turnCount + " / " + maxTurns.ToString();
+        turnsLeft--;
+        turnsleft.text = "nog " + turnsLeft.ToString() + " beurten over";
 
         //Check if max amout of turns is reached
         if (maxTurns == 0)
@@ -62,7 +64,7 @@ public class TurnManager : Singleton<TurnManager>{
         }
 
         //check if minimum aura % is reached
-        if(AuraManager.I.auraLevelPercentage >= 55 && !checkedLevelComplete )
+        if (AuraManager.I.auraLevelPercentage >= 55 && !checkedLevelComplete )
         {
             Debug.Log("Completed level");
             Debug.Log(turnCount);
