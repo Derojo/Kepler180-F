@@ -18,6 +18,11 @@ public class AuraManager : Singleton<AuraManager>
     public string A_C;
     public string A_C_C;
 
+    void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void CalculateAuraPercentage()
     {
         percentageAverage = (Mathf.Round(LevelManager.I.M_T_A / 100 * 55));

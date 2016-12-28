@@ -2645,6 +2645,11 @@ Prefab:
       propertyPath: powerLevel
       value: 2000
       objectReference: {fileID: 0}
+    - target: {fileID: 114704994260196830, guid: 3ebc225d9e974204781bbc8e42cd92db,
+        type: 2}
+      propertyPath: fundings
+      value: 1500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ebc225d9e974204781bbc8e42cd92db, type: 2}
   m_IsPrefabParent: 0

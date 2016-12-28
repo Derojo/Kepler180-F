@@ -9,6 +9,7 @@ public class EvaluationScript : MonoBehaviour
     public Text endingTurns;
     public Text endingFunds;
     public Text endingEnergy;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -16,13 +17,13 @@ public class EvaluationScript : MonoBehaviour
         {
             levelStatus.text = "Level gehaald!";
         }
-        if(AuraManager.I.auraLevelPercentage >= 55)
+        if(AuraManager.I.auraLevelPercentage <= 55)
         {
-            levelStatus.text = "Level verloren loser!";
+            levelStatus.text = "Level verloren!";
         }
         endingAurapower.text = "Total Aurapower: " + AuraManager.I.currentAuraPower.ToString();
         endingTurns.text = "Total Turns: " + TurnManager.I.turnCount.ToString();
-        endingFunds.text = " Total Minerals: " + ResourceManager.I.fundings.ToString();
+        endingFunds.text = "Total Minerals: " + ResourceManager.I.fundings.ToString();
         endingEnergy.text ="Total Power: " + ResourceManager.I.powerLevel.ToString();
         
     }

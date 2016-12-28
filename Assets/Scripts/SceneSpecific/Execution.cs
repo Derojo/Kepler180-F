@@ -52,13 +52,15 @@ public class Execution : MonoBehaviour
         totalFunding.text = "$ " + ResourceManager.I.fundings.ToString();
         //Updating power UI
         totalPower.text = "power " + ResourceManager.I.powerLevel.ToString();
-
+        //Update turns UI
         turnsleft.text = "nog " + TurnManager.I.turnsLeft.ToString() + " beurten over";
         currentTurn.text = TurnManager.I.turnCount + " / " + TurnManager.I.maxTurns.ToString();
-     if(TurnManager.I.checkedLevelComplete)
-        {
+
+        //Set ënd level button to enable if level is completed
+         if(TurnManager.I.checkedLevelComplete)
+         {
             completeLevel.SetActive(true);
-        }
+         }
     }
 
     public void QuitLevel()
