@@ -25,7 +25,7 @@ public class LevelInfoInit : MonoBehaviour {
     public void InitGoals()
     {
        //setting max turns
-        LevelManager.I.turnMaxText.text = LevelManager.I.M_T_A.ToString();
+        //LevelManager.I.turnMaxText.text = LevelManager.I.M_T_A.ToString();
         //setting minimum aurapercentage goal
         AuraManager.I.auraPercentage = 55;
         auraPercText.text = AuraManager.I.auraPercentage.ToString() + " %";

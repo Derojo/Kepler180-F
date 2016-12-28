@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Execution : MonoBehaviour
 {
@@ -9,11 +10,26 @@ public class Execution : MonoBehaviour
     public Text totalFunding;
     public Text auraDisplay;
     public Text totalPower;
+
+    public Text turnsleft;
+    public Text currentTurn;
+
+    public Text powerAuraText;
+    //public Text turnMaxText;
+
+    public GameObject completeLevel;
     // Use this for initialization
     void Start()
     {
         BlueprintManager.I.InitializeBlueprintModels();
+        turnsleft.text = "nog " + TurnManager.I.maxTurns.ToString() + " beurten over";
+        currentTurn.text = TurnManager.I.turnCount + " / " + TurnManager.I.maxTurns.ToString();
 
+        //turnMaxText.text = LevelManager.I.M_T_A.ToString();
+        powerAuraText.text = LevelManager.I.A_P_T.ToString();
+
+        //set complete level button to false
+        completeLevel.SetActive(false);
     }
 
     //eventlistner
@@ -37,5 +53,16 @@ public class Execution : MonoBehaviour
         //Updating power UI
         totalPower.text = "power " + ResourceManager.I.powerLevel.ToString();
 
+        turnsleft.text = "nog " + TurnManager.I.turnsLeft.ToString() + " beurten over";
+        currentTurn.text = TurnManager.I.turnCount + " / " + TurnManager.I.maxTurns.ToString();
+     if(TurnManager.I.checkedLevelComplete)
+        {
+            completeLevel.SetActive(true);
+        }
+    }
+
+    public void QuitLevel()
+    {
+        SceneManager.LoadSceneAsync("Evaluation");
     }
 }

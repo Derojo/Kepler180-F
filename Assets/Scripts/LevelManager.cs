@@ -11,10 +11,10 @@ public class LevelManager : Singleton<LevelManager>
     //Defining maximum amount of turns & total aurapower need for levelcompletion
     //maximum turn amount
     public float M_T_A;
-    public Text turnMaxText;
+   
     // Total aura power
     public float A_P_T;
-    public Text powerAuraText;
+   
 
     //level difficulty
     public int nextLevelSkill;
@@ -26,9 +26,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         levelData = LevelContainer.Load(path);
         SetCurrentLevel();
-        turnMaxText.text = M_T_A.ToString();
-        powerAuraText.text = A_P_T.ToString();
-       
+
     }
     
     public void SetCurrentLevel()
@@ -60,10 +58,10 @@ public class LevelManager : Singleton<LevelManager>
     //function for setting player difficulty
     public void SetSkillLevel()
     {
-        
-      
+
         if (TurnManager.I.turnCount >= (AuraManager.I.percentageAverage + (AuraManager.I.percentageAverage /100)*30))
         {
+
             //Set difficulty to easy
             Debug.Log("easy");
             nextLevelSkill = 1;

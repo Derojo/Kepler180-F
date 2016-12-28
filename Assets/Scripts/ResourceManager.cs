@@ -7,8 +7,7 @@ using UnityEngine.UI;
 [Prefab("ResourceManager", true, "")]
 public class ResourceManager : Singleton<ResourceManager>
 {
-    public float fundings = 5000;
-    public float powerLevel = 2000;
+    public float fundings;
+    public float powerLevel;
     public float planetHeat;
-
 }

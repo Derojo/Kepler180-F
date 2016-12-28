@@ -650,7 +650,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   buildingCost: 25
-  buildingPowerUsage: 500
+  buildingPowerUsage: 100
   eventBuildingcall: 0
   UsingPower: 0
   turnedOn: 0
