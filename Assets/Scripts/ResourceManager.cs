@@ -10,6 +10,7 @@ public class ResourceManager : Singleton<ResourceManager>
     public float fundings;
     public float powerLevel;
     public float planetHeat;
+
     void Start()
     {
         DontDestroyOnLoad(gameObject);

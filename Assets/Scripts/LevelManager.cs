@@ -26,7 +26,6 @@ public class LevelManager : Singleton<LevelManager>
     {
         levelData = LevelContainer.Load(path);
         SetCurrentLevel();
-
     }
     
     public void SetCurrentLevel()

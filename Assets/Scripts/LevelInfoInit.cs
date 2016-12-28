@@ -9,7 +9,7 @@ public class LevelInfoInit : MonoBehaviour {
     Level currentLevel;
     public Text auraPercText;
     public Image AuraColor;
-
+    public Text turnsInit;
     // Use this for initialization
     void Start ()
     {
@@ -29,7 +29,7 @@ public class LevelInfoInit : MonoBehaviour {
         //setting minimum aurapercentage goal
         AuraManager.I.auraPercentage = 55;
         auraPercText.text = AuraManager.I.auraPercentage.ToString() + " %";
-
+        turnsInit.text = LevelManager.I.M_T_A.ToString();
         //setting auracolor goal
         string[] rgba = AuraManager.I.A_C_C.Split(new string[] { "," }, StringSplitOptions.None);
         byte r = byte.Parse(rgba[0]);

@@ -13,7 +13,7 @@ public class TurnManager : Singleton<TurnManager>{
     public float turnsLeft;
 
     public bool checkedLevelComplete = false;
-
+    public bool LevelCompleted = false;
     // Use this for initialization
     void Start()
     {
@@ -36,6 +36,12 @@ public class TurnManager : Singleton<TurnManager>{
             //Check Setskill function for adjusting difficulty
             LevelManager.I.SetSkillLevel();
         }
+        if (AuraManager.I.auraLevelPercentage >= 100 && !LevelCompleted)
+        {
+            SceneManager.LoadSceneAsync("Evaluation");
+            LevelCompleted = true;
+        }
+
     }
   
     //StartListening 
@@ -72,9 +78,9 @@ public class TurnManager : Singleton<TurnManager>{
             //If >= maxTurns: open Check game condition function
             SceneManager.LoadSceneAsync("Evaluation");
         }
-    
+      
         //check fundings
-        if(ResourceManager.I.fundings <=0 || ResourceManager.I.powerLevel <= 0 && !checkedLevelComplete)
+        if (ResourceManager.I.fundings <=0 || ResourceManager.I.powerLevel <= 0 && !checkedLevelComplete)
         {
            SceneManager.LoadSceneAsync("Evaluation");
             Debug.Log("you are out of resources and lost the game, please try again");

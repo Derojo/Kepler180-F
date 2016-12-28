@@ -970,6 +970,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   auraPercText: {fileID: 1849845603}
   AuraColor: {fileID: 505752793}
+  turnsInit: {fileID: 375303801}
 --- !u!1 &1064600977
 GameObject:
   m_ObjectHideFlags: 0
