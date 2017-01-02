@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SceneHandler : MonoBehaviour {
 
@@ -20,16 +19,7 @@ public class SceneHandler : MonoBehaviour {
     }
 
     public void ChangeToScene (string scene) {
-        StartCoroutine(LoadSceneIE(scene));
-	}
-
-    public IEnumerator LoadSceneIE(string scene)
-    {
-        AsyncOperation async = SceneManager.LoadSceneAsync(scene);
-        while (!async.isDone)
-        {
-            yield return null;
-        }
+        Loader.I.LoadScene(scene);
 
     }
 }

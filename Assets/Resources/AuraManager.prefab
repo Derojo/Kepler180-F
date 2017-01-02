@@ -51,3 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d11d16ed3b3f83440a0f91c411d2d09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  auraPercentage: 0
+  currentAuraPower: 0
+  auraLevelPercentage: 0
+  percentageAverage: 0
+  A_C: 
+  A_C_C: 

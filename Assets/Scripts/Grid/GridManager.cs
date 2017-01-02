@@ -135,6 +135,7 @@ public class GridManager : MonoBehaviour
         int startX = (_x - range > 0 ? _x - range : 0);
         int startZ = (_z - range > 0 ? _z - range : 0);
         int totalIteration = ((range * 2) + 1 > Grid.zMax ? Grid.zMax : (range * 2) + 1);
+        Debug.Log(baseGrid.transform.localScale.x);
         for (int x = 0; x < totalIteration; x++)
         {
             for (int z = 0; z < totalIteration; z++)
@@ -143,7 +144,8 @@ public class GridManager : MonoBehaviour
                 GameObject energyGround = Instantiate(energyHolder) as GameObject;
 
                 energyGround.transform.parent = t.transform;
-                energyGround.transform.position = new Vector3(t.transform.position.x, 30f, t.transform.position.z);
+                
+                energyGround.transform.position = new Vector3(t.transform.position.x, (baseGrid.transform.localScale.x/3.1f), t.transform.position.z);
                 energyGround.transform.localScale = energyHolder.transform.localScale;
 
                 t.inRange = true;

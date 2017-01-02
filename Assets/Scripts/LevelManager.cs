@@ -21,6 +21,7 @@ public class LevelManager : Singleton<LevelManager>
     LevelContainer levelData;
     public int currentLevel;
 
+    public void Load() { return; }
     // Use this for initialization
     void Start()
     {

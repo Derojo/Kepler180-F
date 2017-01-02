@@ -52,6 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnCount: 0
-  turnCountText: {fileID: 0}
   maxTurns: 0
-  maxTurnDisplay: {fileID: 0}
+  turnsLeft: 0
+  currentTurn: {fileID: 0}
+  turnsleft: {fileID: 0}
+  checkedLevelComplete: 0

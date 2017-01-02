@@ -22,6 +22,7 @@ public class Execution : MonoBehaviour
     void Start()
     {
         BlueprintManager.I.InitializeBlueprintModels();
+        UpdateUI();
         turnsleft.text = "nog " + TurnManager.I.maxTurns.ToString() + " beurten over";
         currentTurn.text = TurnManager.I.turnCount + " / " + TurnManager.I.maxTurns.ToString();
 
@@ -49,9 +50,9 @@ public class Execution : MonoBehaviour
         //Updating Aura UI
         auraDisplay.text = "Aura %  " + AuraManager.I.auraLevelPercentage.ToString();
         //Updating funding UI
-        totalFunding.text = "$ " + ResourceManager.I.fundings.ToString();
+        totalFunding.text = ResourceManager.I.fundings.ToString();
         //Updating power UI
-        totalPower.text = "power " + ResourceManager.I.powerLevel.ToString();
+        totalPower.text = ResourceManager.I.powerLevel.ToString();
         //Update turns UI
         turnsleft.text = "nog " + TurnManager.I.turnsLeft.ToString() + " beurten over";
         currentTurn.text = TurnManager.I.turnCount + " / " + TurnManager.I.maxTurns.ToString();

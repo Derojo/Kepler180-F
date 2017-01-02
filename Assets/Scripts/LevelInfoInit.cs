@@ -13,6 +13,7 @@ public class LevelInfoInit : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        Manager.I.Load();
         InitGoals();
     }
 	

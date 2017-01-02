@@ -167,7 +167,9 @@ public class PlacementController : MonoBehaviour
             }
             else
             {
-                Debug.Log("Blending color "+ColorManager.I.getBlendingColor((int)color, (int)neighbourColor));
+               Types.blendedColors blend = ColorManager.I.getBlendingColor((int)color, (int)neighbourColor);
+                PlaceSubbuildingByColor(blend, lastTileSelected[0], adjunctTile);
+                
                 // Create mixed color cluster
                 
                 if (GetComponent<GridManager>().clusterRestriction) {
@@ -197,5 +199,23 @@ public class PlacementController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void PlaceSubbuildingByColor(Types.blendedColors color, Tile tileA, Tile tileB) {
+        GameObject subBuilding = Instantiate(BuildingManager.I.getObjectByBlend(color)) as GameObject;
+        Vector3 location = new Vector3();
+        if (tileA.x == tileB.x) { // vertical placement
+            Debug.Log("vertical");
+            location = new Vector3(tileA.transform.position.x, 0f, (tileA.transform.position.z + tileB.transform.position.z) / 2);
+        } else {
+            if (tileA.z == tileB.z) { // horizontal placement
+                location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) / 2, 0f, tileA.transform.position.z);
+            } else { // diagonal placement
+                location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) / 2, 0f, (tileA.transform.position.z + tileB.transform.position.z) / 2);
+            }
+        }
+
+        subBuilding.transform.position = location;
+        subBuilding.transform.parent = lastTileSelected[0].transform;
     }
 }

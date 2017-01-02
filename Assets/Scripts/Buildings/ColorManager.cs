@@ -10,50 +10,33 @@ public class ColorManager : Singleton<ColorManager>
 {
 
     public List<Cluster> colorCluster;
-    public  string[,] blending;
-    public Dictionary<string[], string> blendingColors = new Dictionary<string[], string>()
-    {
-        { new string[] { "Red",     "Blue"  },  "Purple"},
-        { new string[] { "Red",     "Green" },  "Brown"},
-        { new string[] { "Red",     "Yellow"},  "Orange"},
-        { new string[] { "Yellow",  "Green" },  "Lime"},
-        { new string[] { "Yellow",  "Blue"  },  "Green"},
-        { new string[] { "Blue",    "Green" },  "Turquoise"}
-    };
+    public int[,] blending;
+
 
     void Start() {
-        blending = new string[6, 6];
-        blending[(int)Types.colortypes.Red, (int)Types.colortypes.Blue] = "Purple";
-        blending[(int)Types.colortypes.Red, (int)Types.colortypes.Green] = "Brown";
-        blending[(int)Types.colortypes.Red, (int)Types.colortypes.Yellow] = "Orange";
-        blending[(int)Types.colortypes.Yellow, (int)Types.colortypes.Green] = "Lime";
-        blending[(int)Types.colortypes.Yellow, (int)Types.colortypes.Blue] = "Green";
-        blending[(int)Types.colortypes.Blue, (int)Types.colortypes.Green] = "Turquoise";
+        blending = new int[6, 6];
+        blending[(int)Types.colortypes.Red, (int)Types.colortypes.Blue] = (int)Types.blendedColors.Purple;
+        blending[(int)Types.colortypes.Red, (int)Types.colortypes.Green] = (int)Types.blendedColors.Brown;
+        blending[(int)Types.colortypes.Red, (int)Types.colortypes.Yellow] = (int)Types.blendedColors.Orange;
+        blending[(int)Types.colortypes.Yellow, (int)Types.colortypes.Green] = (int)Types.blendedColors.Lime;
+        blending[(int)Types.colortypes.Yellow, (int)Types.colortypes.Blue] = (int)Types.blendedColors.Green;
+        blending[(int)Types.colortypes.Blue, (int)Types.colortypes.Green] = (int)Types.blendedColors.Turquoise;
     }
 
     public void AddColorCluster() {
         colorCluster.Add(new Cluster());
     }
 
-    public string getBlendingColor(int colorA, int colorB) {
-        
-        string returnBlending = "";
+    public Types.blendedColors getBlendingColor(int colorA, int colorB) {
 
-        if (blending[colorA, colorB] != null) {
-            returnBlending = blending[colorA, colorB];
-        } else if (blending[colorB, colorA] != null) {
-            returnBlending = blending[colorB, colorA];
+        Types.blendedColors returnBlending = Types.blendedColors.Null;
+
+        if (blending[colorA, colorB] != (int)Types.blendedColors.Null) {
+            returnBlending = (Types.blendedColors)blending[colorA, colorB];
+        } else if (blending[colorB, colorA] != (int)Types.blendedColors.Null) {
+            returnBlending = (Types.blendedColors)blending[colorB, colorA];
         }
-        /*
-        string value = "";
-        if (blendingColors.TryGetValue(combinationAB, out  value)) {
-            Debug.Log("true");
-            returnBlending = value;
-        } else if (blendingColors.TryGetValue(combinationBA, out value))
-        {
-            Debug.Log("true1");
-            returnBlending = (string)blendingColors[combinationBA];
-        } */
+
         return returnBlending;
     }
 
