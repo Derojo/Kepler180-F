@@ -14,5 +14,10 @@ public class Tile : MonoBehaviour {
     public bool inMixedCluster = false;
     public int clusterId;
     public Types.colortypes colorCluster;
-    
+    public List<int> blendedColors;
+
+    void Awake() {
+        blendedColors = new List<int>();
+    }
+
 }

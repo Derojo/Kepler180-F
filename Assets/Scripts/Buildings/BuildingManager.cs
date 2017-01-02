@@ -8,13 +8,8 @@ public class BuildingManager : Singleton<BuildingManager> {
 
     [System.Serializable]
     public class BuildingObject {
-
         public Types.blendedColors blendedColor;
         public GameObject bObject;
-
-        public BuildingObject() {
-
-        }
     }
 
     public BuildingObject[] buildingObjects;

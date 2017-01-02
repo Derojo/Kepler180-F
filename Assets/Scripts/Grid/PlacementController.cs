@@ -148,11 +148,11 @@ public class PlacementController : MonoBehaviour
 
     private void DetermineCluster() {
 
+
         Types.colortypes color = objectInDrag.GetComponent<ColorGenerator>().selectedColor;
         Tile adjunctTile = ColorManager.I.getFirstAdjunctTile(lastTileSelected[0], GetComponent<GridManager>());
 
         if (adjunctTile != null) {
-
             Types.colortypes neighbourColor = adjunctTile.currentObject.GetComponent<ColorGenerator>().selectedColor;
 
             if (neighbourColor == color)
@@ -167,8 +167,14 @@ public class PlacementController : MonoBehaviour
             }
             else
             {
-               Types.blendedColors blend = ColorManager.I.getBlendingColor((int)color, (int)neighbourColor);
-                PlaceSubbuildingByColor(blend, lastTileSelected[0], adjunctTile);
+               //Types.blendedColors blend = ColorManager.I.getBlendingColor((int)color, (int)neighbourColor);
+                List<Tile> blendableTiles = ColorManager.I.getBlendableTiles(lastTileSelected[0], color, GetComponent<GridManager>());
+                foreach (Tile blendableTile in blendableTiles) {
+                    //Debug.Log(blendableTile.name);
+                    Types.colortypes blendableTileColor = blendableTile.currentObject.GetComponent<ColorGenerator>().selectedColor;
+                    Types.blendedColors blend = ColorManager.I.getBlendingColor((int)color, (int)blendableTileColor);
+                    PlaceSubbuildingByColor(blend, lastTileSelected[0], blendableTile);
+                }
                 
                 // Create mixed color cluster
                 
@@ -202,20 +208,29 @@ public class PlacementController : MonoBehaviour
     }
 
     private void PlaceSubbuildingByColor(Types.blendedColors color, Tile tileA, Tile tileB) {
-        GameObject subBuilding = Instantiate(BuildingManager.I.getObjectByBlend(color)) as GameObject;
-        Vector3 location = new Vector3();
-        if (tileA.x == tileB.x) { // vertical placement
-            Debug.Log("vertical");
-            location = new Vector3(tileA.transform.position.x, 0f, (tileA.transform.position.z + tileB.transform.position.z) / 2);
-        } else {
-            if (tileA.z == tileB.z) { // horizontal placement
-                location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) / 2, 0f, tileA.transform.position.z);
-            } else { // diagonal placement
-                location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) / 2, 0f, (tileA.transform.position.z + tileB.transform.position.z) / 2);
+        GameObject blendObject = BuildingManager.I.getObjectByBlend(color);
+        if (blendObject != null) {
+            GameObject subBuilding = Instantiate(blendObject) as GameObject;
+            Vector3 location = new Vector3();
+            if (tileA.x == tileB.x)
+            { // vertical placement
+                location = new Vector3(tileA.transform.position.x, 0f, (tileA.transform.position.z + tileB.transform.position.z) / 2);
             }
+            else
+            {
+                if (tileA.z == tileB.z)
+                { // horizontal placement
+                    location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) / 2, 0f, tileA.transform.position.z);
+                }
+                else
+                { // diagonal placement
+                    location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) / 2, 0f, (tileA.transform.position.z + tileB.transform.position.z) / 2);
+                }
+            }
+
+            subBuilding.transform.position = location;
+            subBuilding.transform.parent = lastTileSelected[0].transform;
         }
 
-        subBuilding.transform.position = location;
-        subBuilding.transform.parent = lastTileSelected[0].transform;
     }
 }

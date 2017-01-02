@@ -32,9 +32,9 @@ public class ColorManager : Singleton<ColorManager>
         Types.blendedColors returnBlending = Types.blendedColors.Null;
 
         if (blending[colorA, colorB] != (int)Types.blendedColors.Null) {
-            returnBlending = (Types.blendedColors)blending[colorA, colorB];
+            returnBlending = (Types.blendedColors) blending[colorA, colorB];
         } else if (blending[colorB, colorA] != (int)Types.blendedColors.Null) {
-            returnBlending = (Types.blendedColors)blending[colorB, colorA];
+            returnBlending = (Types.blendedColors) blending[colorB, colorA];
         }
 
         return returnBlending;
@@ -73,6 +73,7 @@ public class ColorManager : Singleton<ColorManager>
 
         return true;
     }
+
     public bool AbleToBuildColorGenerator(Tile tile, Types.colortypes color, GridManager grid) {
 
             List<Node> neigbours = grid.graph[tile.x, tile.z].neighbours;
@@ -142,5 +143,37 @@ public class ColorManager : Singleton<ColorManager>
             }
         }
         return null;
+    }
+
+    public List<Tile> getBlendableTiles(Tile tile, Types.colortypes color, GridManager grid)
+    {
+        List<Tile> returnTiles = new List<Tile>();
+        int colorOfTileSearching = (int) color;
+        
+        List<Node> neigbours = grid.graph[tile.x, tile.z].neighbours;
+        for (int i = 0; i < neigbours.Count; i++)
+        {
+            Tile neighbourTile = Grid.getTileAtPosition(neigbours[i].x, neigbours[i].z);
+            if (neighbourTile.currentObject != null)
+            {
+                if (neighbourTile.tileType == (int)Types.buildingtypes.colorgenerator)
+                {
+                    ColorGenerator neighborGenerator = neighbourTile.currentObject.GetComponent<ColorGenerator>();
+                    Types.colortypes neighbourColor = neighborGenerator.selectedColor;
+                    // Add blending color to array of the tile searching for neighbor tile color blending
+                    if (tile.blendedColors.Count < 4) { 
+                        tile.blendedColors.Add((int)neighbourColor);
+                        returnTiles.Add(neighbourTile);
+                    }
+                    // Add blending color of the searching tile to the neighbor tile array;
+                    if (neighbourTile.blendedColors.Count < 4)
+                    {
+                        neighbourTile.blendedColors.Add(colorOfTileSearching);
+                    }
+                }
+            }
+        }
+
+        return returnTiles;
     }
 }
