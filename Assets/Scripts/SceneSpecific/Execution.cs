@@ -15,9 +15,12 @@ public class Execution : MonoBehaviour
     public Text currentTurn;
 
     public Text powerAuraText;
+    public Text PopUpText;
     //public Text turnMaxText;
 
-    public GameObject completeLevel;
+    public GameObject completeLevelButton;
+    public GameObject completeLevelPopUp;
+    public GameObject PopUps;
     // Use this for initialization
     void Start()
     {
@@ -30,7 +33,9 @@ public class Execution : MonoBehaviour
         powerAuraText.text = LevelManager.I.A_P_T.ToString();
 
         //set complete level button to false
-        completeLevel.SetActive(false);
+        completeLevelButton.SetActive(false);
+        completeLevelPopUp.SetActive(false);
+        PopUps.SetActive(false);
     }
 
     //eventlistner
@@ -43,7 +48,6 @@ public class Execution : MonoBehaviour
     {
         EventManager.StopListening("updateUI", UpdateUI);
     }
-
 
     void UpdateUI()
     {
@@ -60,12 +64,40 @@ public class Execution : MonoBehaviour
         //Set ënd level button to enable if level is completed
          if(TurnManager.I.checkedLevelComplete)
          {
-            completeLevel.SetActive(true);
+            completeLevelButton.SetActive(true);
          }
+        if (TurnManager.I.LevelCompleted)
+        {
+           PopUpText.text = "Gefeliciteerd je hebt 100% aurapower behaald en daarmee het level behaald.";
+            PopUps.SetActive(true);
+        }
+
+        // Update UI if player failed
+        if(TurnManager.I.levelLostNoTurns)
+        {
+            PopUpText.text = "Helaas je hebt niet binnen de beurten 55% aurakracht behaald";
+            PopUps.SetActive(true);
+        }
+
+        if (TurnManager.I.levelLostNoResources)
+        {
+            PopUpText.text = "Helaas je hebt geen resources meer om 55% aurakracht te behalen";
+            PopUps.SetActive(true);
+        }
     }
 
+    //buttons
+    public void QuitLevelPopUp()
+    {
+        completeLevelPopUp.SetActive(true);
+    }
     public void QuitLevel()
     {
         SceneManager.LoadSceneAsync("Evaluation");
+    }
+    
+    public void KeepPlaying()
+    {
+        completeLevelPopUp.SetActive(false);
     }
 }

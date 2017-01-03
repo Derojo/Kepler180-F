@@ -14,13 +14,16 @@ public class TurnManager : Singleton<TurnManager>{
 
     public bool checkedLevelComplete = false;
     public bool LevelCompleted = false;
+    public bool levelLostNoTurns = false;
+    public bool levelLostNoResources = false;
+
     // Use this for initialization
     void Start()
     {
         DontDestroyOnLoad(gameObject);
         // Setting turndisplay
         maxTurns = LevelManager.I.M_T_A;
-        turnsLeft = maxTurns;
+        turnsLeft = maxTurns +- 1;
         //Setting aura percentage
         AuraManager.I.CalculateAuraPercentage();
     }
@@ -38,10 +41,25 @@ public class TurnManager : Singleton<TurnManager>{
         }
         if (AuraManager.I.auraLevelPercentage >= 100 && !LevelCompleted)
         {
-            SceneManager.LoadSceneAsync("Evaluation");
             LevelCompleted = true;
+            EventManager.TriggerEvent("updateUI");
+            //SceneManager.LoadSceneAsync("Evaluation");
+        }
+        if (turnsLeft == 0)
+        {
+
+            //If >= maxTurns: open Check game condition function
+            levelLostNoTurns = true;
+            EventManager.TriggerEvent("updateUI");
         }
 
+
+        //check rfesources
+        if (ResourceManager.I.fundings <= 0 || ResourceManager.I.powerLevel <= 0 && !checkedLevelComplete)
+        {
+            levelLostNoResources = true;
+            EventManager.TriggerEvent("updateUI");
+        }
     }
   
     //StartListening 
@@ -71,20 +89,7 @@ public class TurnManager : Singleton<TurnManager>{
         turnCount++;
         //currentTurn.text = turnCount + " / " + maxTurns.ToString();
         turnsLeft--;
-
         //Check if max amout of turns is reached
-        if (turnsLeft == 0)
-        {
-            //If >= maxTurns: open Check game condition function
-            SceneManager.LoadSceneAsync("Evaluation");
-        }
-      
-        //check fundings
-        if (ResourceManager.I.fundings <=0 || ResourceManager.I.powerLevel <= 0 && !checkedLevelComplete)
-        {
-           SceneManager.LoadSceneAsync("Evaluation");
-            Debug.Log("you are out of resources and lost the game, please try again");
-        }
     }
 
 }
