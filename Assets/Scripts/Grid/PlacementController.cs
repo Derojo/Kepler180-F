@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine.UI;
+using DG.Tweening;
 public class PlacementController : MonoBehaviour
 {
     public GameObject objectInDrag;
@@ -12,13 +13,14 @@ public class PlacementController : MonoBehaviour
     public Color32 busyColor;
     public bool inPlanningMode = false;
     public bool ableToBuild = true;
+    public UIManager uimanager;
 
 
     private string currentTileScan;
 
     public TileSelect[] tileSelect;
     private Tile[] lastTileSelected;
-
+    private bool inTween = false;
 
     void Update()
     {
@@ -86,23 +88,35 @@ public class PlacementController : MonoBehaviour
 
     public void StartPlacement(GameObject building)
     {
-        if (objectInDrag != null) {
-            objectInDrag.SetActive(false);
-            tileSelect[0].Deselect(lastTileSelected[0]);
-        }
-        GameObject dragObject;
-        if (BuildingContainer.transform.Find(building.name) != null) {
-            dragObject = BuildingContainer.transform.Find(building.name).gameObject;
-
-        } else {
-            dragObject = Instantiate(building) as GameObject;
-            dragObject.name = building.name;
-            dragObject.transform.parent = BuildingContainer.transform;
+        if (!BuildingManager.I.AbleToBuy(building.GetComponent<BuildingType>())) {
+            uimanager.ShowMessage(Types.messages.noFunding);
 
         }
-        
-        objectInDrag = dragObject;
-        startPlacement = true;
+        else
+        {
+            if (objectInDrag != null)
+            {
+                objectInDrag.SetActive(false);
+                tileSelect[0].Deselect(lastTileSelected[0]);
+            }
+            GameObject dragObject;
+            if (BuildingContainer.transform.Find(building.name) != null)
+            {
+                dragObject = BuildingContainer.transform.Find(building.name).gameObject;
+
+            }
+            else
+            {
+                dragObject = Instantiate(building) as GameObject;
+                dragObject.name = building.name;
+                dragObject.transform.parent = BuildingContainer.transform;
+
+            }
+
+            objectInDrag = dragObject;
+            startPlacement = true;
+        }
+
     }
 
     public void CancelPlacement()
@@ -118,7 +132,7 @@ public class PlacementController : MonoBehaviour
 
         if (lastTileSelected[0].inRange)
         {
-
+            
             if (PlacementData.I.placementNodes.Count > 0) {
 
                 if (lastTileSelected[0].tileType == (int)Types.buildingtypes.colorgenerator)
@@ -138,8 +152,19 @@ public class PlacementController : MonoBehaviour
 
             // Store object with x,z,type and model in placementNodes
             PlacementData.I.AddBuildingNode(lastTileSelected[0].x, lastTileSelected[0].z, objectInPlace.GetComponent<BuildingType>().type, Resources.Load<GameObject>(objectInPlace.GetComponent<BuildingType>().type + "/" + objectInDrag.name), inPlanningMode);
-            ResourceManager.I.fundings = ResourceManager.I.fundings - objectInPlace.GetComponent<BuildingType>().buildingCost;
-            EventManager.TriggerEvent("updateUI");
+            // Buy building, activate turn on process
+            BuildingManager.I.BuyBuilding(objectInPlace.GetComponent<BuildingType>());
+            // Check for colorblending
+            if (lastTileSelected[0].inMixedCluster)
+            {
+                List<Tile> blendableTiles = ColorManager.I.getBlendableTiles(lastTileSelected[0], objectInDrag.GetComponent<ColorGenerator>().selectedColor, GetComponent<GridManager>());
+                foreach (Tile blendableTile in blendableTiles)
+                {
+                    Types.colortypes blendableTileColor = blendableTile.currentObject.GetComponent<ColorGenerator>().selectedColor;
+                    Types.blendedColors blend = ColorManager.I.getBlendingColor((int)objectInDrag.GetComponent<ColorGenerator>().selectedColor, (int)blendableTileColor);
+                    PlaceSubbuildingByColor(blend, lastTileSelected[0], blendableTile);
+                }
+            }
             // Reinitialize
             CancelPlacement();
             objectInDrag = null;
@@ -167,14 +192,6 @@ public class PlacementController : MonoBehaviour
             }
             else
             {
-               //Types.blendedColors blend = ColorManager.I.getBlendingColor((int)color, (int)neighbourColor);
-                List<Tile> blendableTiles = ColorManager.I.getBlendableTiles(lastTileSelected[0], color, GetComponent<GridManager>());
-                foreach (Tile blendableTile in blendableTiles) {
-                    //Debug.Log(blendableTile.name);
-                    Types.colortypes blendableTileColor = blendableTile.currentObject.GetComponent<ColorGenerator>().selectedColor;
-                    Types.blendedColors blend = ColorManager.I.getBlendingColor((int)color, (int)blendableTileColor);
-                    PlaceSubbuildingByColor(blend, lastTileSelected[0], blendableTile);
-                }
                 
                 // Create mixed color cluster
                 
@@ -208,29 +225,33 @@ public class PlacementController : MonoBehaviour
     }
 
     private void PlaceSubbuildingByColor(Types.blendedColors color, Tile tileA, Tile tileB) {
-        GameObject blendObject = BuildingManager.I.getObjectByBlend(color);
+        BuildingObject blendObject = BuildingManager.I.getObjectByBlend(color);
         if (blendObject != null) {
-            GameObject subBuilding = Instantiate(blendObject) as GameObject;
+            GameObject subBuilding = Instantiate(blendObject.bObject) as GameObject;
             Vector3 location = new Vector3();
             if (tileA.x == tileB.x)
             { // vertical placement
-                location = new Vector3(tileA.transform.position.x, 0f, (tileA.transform.position.z + tileB.transform.position.z) / 2);
+                location = new Vector3(tileA.transform.position.x, blendObject.offset, (tileA.transform.position.z + tileB.transform.position.z) / 2);
             }
             else
             {
                 if (tileA.z == tileB.z)
                 { // horizontal placement
-                    location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) / 2, 0f, tileA.transform.position.z);
+                    location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) / 2, blendObject.offset, tileA.transform.position.z);
                 }
                 else
                 { // diagonal placement
-                    location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) / 2, 0f, (tileA.transform.position.z + tileB.transform.position.z) / 2);
+                    location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) / 2, blendObject.offset, (tileA.transform.position.z + tileB.transform.position.z) / 2);
                 }
             }
 
+            subBuilding.GetComponent<SubBuilding>().firstParent = tileA.currentObject;
+            subBuilding.GetComponent<SubBuilding>().secondParent = tileB.currentObject;
             subBuilding.transform.position = location;
             subBuilding.transform.parent = lastTileSelected[0].transform;
         }
 
     }
+
+
 }

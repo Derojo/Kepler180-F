@@ -54,9 +54,13 @@ MonoBehaviour:
   buildingObjects:
   - blendedColor: 1
     bObject: {fileID: 1832428993285000, guid: 6d507efdd9cb8f346b1933c2d9dc241e, type: 2}
+    offset: 1.5
   - blendedColor: 6
     bObject: {fileID: 1797626920640808, guid: 12ecc1ea5fbfd854cbd04a52f0ed4d40, type: 2}
+    offset: 1.5
   - blendedColor: 3
     bObject: {fileID: 1307484975252142, guid: 649dad146a42dba4c832fb13f9bcf19b, type: 2}
+    offset: 1.5
   - blendedColor: 5
     bObject: {fileID: 1939619406817324, guid: df34796bdd48d144790e5af3e934c1e4, type: 2}
+    offset: 1.5

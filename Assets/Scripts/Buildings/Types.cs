@@ -36,4 +36,10 @@ public class Types
         Turquoise = 6
     }
 
+    public enum messages
+    {
+        noFunding,
+        noEnergy
+    }
+
 };

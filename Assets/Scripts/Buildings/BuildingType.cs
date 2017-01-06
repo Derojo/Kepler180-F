@@ -10,15 +10,19 @@ public class BuildingType : MonoBehaviour
     public Types.buildingtypes type;
     public float buildingCost;
     public float buildingPowerUsage;
-    public bool eventBuildingcall = false;
     public bool UsingPower = false;
+    public bool buildingDone = false;
     public bool turnedOn = false;
+    public bool noEnergy = false;
+    public bool bought = false;
+    public Material boughtMaterial;
+    public Material turnedOnMaterial;
 
 
     //constructing building variables
     public int buildTime;
-    private Text buildTimeInfo;
-    public bool buildingDone = false;
+    public Text buildTimeInfo;
+    private bool eventBuildingcall = false;
 
     //eventlistner
     void OnEnable()
@@ -35,43 +39,59 @@ public class BuildingType : MonoBehaviour
     void setNextTurn()
     {
 
-        //if a building is placed but not done yet, reduce building time
-        if (!buildingDone)
+        // Activate building build process if it's bought
+        if (bought)
         {
-            buildTime--;
-        }
-        //If buildtime = zero then the building is done
-        if (buildTime == 0)
-        {
-            buildingDone = true;
-        }
-        //when building is done and event is not called, call it ONCE to reduce money ONCE
-        if (buildingDone && !eventBuildingcall)
-        {
-            if (type == Types.buildingtypes.colorgenerator)
+            //if a building is placed but not done yet, reduce building time
+            if (!buildingDone)
             {
-                gameObject.GetComponent<ColorGenerator>().turnOnGenerator();
+                buildTime--;
             }
-            eventBuildingcall = true;
-
-        }
-
-        if (buildingDone && !turnedOn)
-        {
-            turnedOn = true;
-            return;
-        }
-
-        //If the building is turned on then it start using power.
-        if (turnedOn)
-        {
-            if (type == Types.buildingtypes.colorgenerator)
+            //If buildtime = zero then the building is done
+            if (buildTime == 0)
             {
-                gameObject.GetComponent<ColorGenerator>().addAuraPower();
+                buildingDone = true;
             }
-            ResourceManager.I.powerLevel = ResourceManager.I.powerLevel - buildingPowerUsage;
-            EventManager.TriggerEvent("updateUI");
+            //when building is done and event is not called, call it ONCE to reduce money ONCE
+            if (buildingDone && !eventBuildingcall)
+            {
+                if (turnedOnMaterial != null) {
+                    gameObject.GetComponent<Renderer>().material = turnedOnMaterial;
+                }
+
+                if (type == Types.buildingtypes.colorgenerator)
+                {
+                    gameObject.GetComponent<ColorGenerator>().turnOnGenerator();
+                }
+
+                eventBuildingcall = true;
+
+            }
+
+            if (buildingDone && !turnedOn)
+            {
+                turnedOn = true;
+                return;
+            }
+
+            //If the building is turned on then it start using power.
+            if (turnedOn)
+            {
+                if (type == Types.buildingtypes.colorgenerator)
+                {
+                    gameObject.GetComponent<ColorGenerator>().addAuraPower();
+                }
+                ResourceManager.I.powerLevel = ResourceManager.I.powerLevel - buildingPowerUsage;
+                EventManager.TriggerEvent("updateUI");
+            }
         }
+
+        if (gameObject.GetComponent<SubBuilding>())
+        {
+            // Show subbuilding, the subbuilding is not activated yet it needs to be bought first
+            gameObject.GetComponent<SubBuilding>().showSubBuilding();
+        }
+
     }
 
 }

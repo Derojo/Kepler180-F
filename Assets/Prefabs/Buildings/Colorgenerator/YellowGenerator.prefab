@@ -367,7 +367,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3d8aecedead505f4fae1a849b3a2c0e9, type: 2}
+  - {fileID: 2100000, guid: 24ddeafcebabde14785eaad7e003e0a3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -481,11 +481,13 @@ MonoBehaviour:
   type: 0
   buildingCost: 275
   buildingPowerUsage: 0
-  eventBuildingcall: 0
   UsingPower: 0
   turnedOn: 0
+  bought: 0
+  boughtMaterial: {fileID: 2100000, guid: a49e380bb10b0a44aa0c4136d7dcf84d, type: 2}
+  turnedOnMaterial: {fileID: 2100000, guid: 3d8aecedead505f4fae1a849b3a2c0e9, type: 2}
   buildTime: 3
-  buildingDone: 0
+  buildTimeInfo: {fileID: 0}
 --- !u!114 &114164657240264872
 MonoBehaviour:
   m_ObjectHideFlags: 1

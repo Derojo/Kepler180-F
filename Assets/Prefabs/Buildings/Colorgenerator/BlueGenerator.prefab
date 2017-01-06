@@ -367,7 +367,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 1afeca5629ba79948bdd8d8f60e8b6e3, type: 2}
+  - {fileID: 2100000, guid: 1e8eed1424ac2914895163817797220b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -468,10 +468,9 @@ MonoBehaviour:
   ColorGeneratorCode: 0
   ColorGeneratorName: 
   blueprint: 0
-  buildingAuraPower: 0
+  buildingAuraPower: 10
   sizeOnGrid: 1
   buildingInfoCanvas: {fileID: 223342255992914474}
-  generatePower: 0
 --- !u!114 &114070979247931754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -791,12 +790,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   buildingCost: 275
-  buildingPowerUsage: 0
-  eventBuildingcall: 0
+  buildingPowerUsage: 300
   UsingPower: 0
-  turnedOn: 0
-  buildTime: 2
   buildingDone: 0
+  turnedOn: 0
+  noEnergy: 0
+  bought: 0
+  boughtMaterial: {fileID: 2100000, guid: 5ba9f0cc660a86b4397eb7f39692823e, type: 2}
+  turnedOnMaterial: {fileID: 2100000, guid: 1afeca5629ba79948bdd8d8f60e8b6e3, type: 2}
+  buildTime: 2
+  buildTimeInfo: {fileID: 0}
 --- !u!136 &136826639332356648
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -16,7 +16,6 @@ public class ColorGenerator : MonoBehaviour
     private GameObject buildingTurnInfo;
     private GameObject buildingKrachtInfo;
     private Text buildTimeInfo;
-    public bool generatePower = false;
 
     // Use this for initialization
 

@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 33439429348560828}
   - component: {fileID: 65332028621963694}
   - component: {fileID: 23765508924029086}
+  - component: {fileID: 114557749210883544}
+  - component: {fileID: 114890597859508710}
   m_Layer: 0
   m_Name: Energygenerator
   m_TagString: Untagged
@@ -48,14 +50,14 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1307484975252142}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3d89e697271207f4daad438803d482c1, type: 2}
+  - {fileID: 2100000, guid: 814b9af0e2185344dad52f90a2ba48dd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -92,3 +94,38 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114557749210883544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1307484975252142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f986accc70a493498ec051a052d057f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  buildingCost: 0
+  buildingPowerUsage: 0
+  UsingPower: 0
+  buildingDone: 0
+  turnedOn: 0
+  bought: 0
+  boughtMaterial: {fileID: 2100000, guid: 3d89e697271207f4daad438803d482c1, type: 2}
+  turnedOnMaterial: {fileID: 0}
+  buildTime: 0
+  buildTimeInfo: {fileID: 0}
+--- !u!114 &114890597859508710
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1307484975252142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da93ea2db9108d45bfa6fc3e30784d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstParent: {fileID: 0}
+  secondParent: {fileID: 0}

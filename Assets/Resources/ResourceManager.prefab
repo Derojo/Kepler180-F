@@ -52,5 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fundings: 1000
-  powerLevel: 1500
+  powerLevel: 2000
   planetHeat: 0
