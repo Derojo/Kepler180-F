@@ -17,6 +17,14 @@ public class Level{
     [XmlElement("A_C_C")]
     public string A_C_C;
 
+    // auracolor coe element
+    [XmlElement("colorTypeCode")]
+    public int colorTypeCode;
+
+    // auracolor coe element
+    [XmlElement("isBlend")]
+    public bool isBlend;
+
     //max turns player gets
     //Easy
     [XmlElement("M_T_E")]

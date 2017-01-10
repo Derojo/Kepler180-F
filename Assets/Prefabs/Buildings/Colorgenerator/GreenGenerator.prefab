@@ -421,7 +421,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 4
   m_ShadowRadius: 1.6
@@ -455,10 +455,9 @@ MonoBehaviour:
   ColorGeneratorCode: 0
   ColorGeneratorName: 
   blueprint: 0
-  buildingAuraPower: 0
+  buildingAuraPower: 100
   sizeOnGrid: 1
   buildingInfoCanvas: {fileID: 223491776977827610}
-  generatePower: 0
 --- !u!114 &114143491135505336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -703,13 +702,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   buildingCost: 275
-  buildingPowerUsage: 0
+  buildingPowerUsage: 10
   UsingPower: 0
+  buildingDone: 0
   turnedOn: 0
+  noEnergy: 0
   bought: 0
   boughtMaterial: {fileID: 2100000, guid: 53b81f90cfdb25f4f8ecd6e58a980f32, type: 2}
   turnedOnMaterial: {fileID: 2100000, guid: 3382eb65490ba3d499d8e83e6b12ffb5, type: 2}
-  buildTime: 3
+  buildTime: 2
   buildTimeInfo: {fileID: 0}
 --- !u!114 &114710476878434666
 MonoBehaviour:

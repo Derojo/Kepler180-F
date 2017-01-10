@@ -516,7 +516,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 4
   m_ShadowRadius: 1.6
@@ -724,7 +724,7 @@ MonoBehaviour:
   ColorGeneratorCode: 0
   ColorGeneratorName: 
   blueprint: 0
-  buildingAuraPower: 10
+  buildingAuraPower: 100
   sizeOnGrid: 1
   buildingInfoCanvas: {fileID: 223607897864685756}
 --- !u!114 &114631117942726528

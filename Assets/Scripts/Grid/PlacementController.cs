@@ -149,7 +149,6 @@ public class PlacementController : MonoBehaviour
             lastTileSelected[0].currentObject = objectInPlace;
             lastTileSelected[0].tileType = (int)objectInPlace.GetComponent<BuildingType>().type;
             objectInPlace.transform.parent = lastTileSelected[0].transform;
-
             // Store object with x,z,type and model in placementNodes
             PlacementData.I.AddBuildingNode(lastTileSelected[0].x, lastTileSelected[0].z, objectInPlace.GetComponent<BuildingType>().type, Resources.Load<GameObject>(objectInPlace.GetComponent<BuildingType>().type + "/" + objectInDrag.name), inPlanningMode);
             // Buy building, activate turn on process

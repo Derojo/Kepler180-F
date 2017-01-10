@@ -54,7 +54,33 @@ public class ColorGenerator : MonoBehaviour
 
     public void addAuraPower()
     {
-        AuraManager.I.currentAuraPower = AuraManager.I.currentAuraPower + buildingAuraPower;
+        // Add auraPower to selected colorAuraAmount
+        AuraManager.I.AddColorAmount(selectedColor, buildingAuraPower);
+        int effect = AuraManager.I.EffectOnCurrentAuraColor(selectedColor);
+
+        /*
+        if (effect == 0)
+        {
+            AuraManager.I.currentAuraPower = AuraManager.I.currentAuraPower - buildingAuraPower;
+        }
+        else if (effect == 1) {
+            
+            float fillAura = 0;
+            if (AuraManager.I.isBlend)
+            {
+                fillAura = AuraManager.I.calcuateBlendingPower();
+            }
+            else {
+                fillAura = buildingAuraPower;
+            }
+            
+            AuraManager.I.currentAuraPower = AuraManager.I.currentAuraPower + buildingAuraPower;
+        } else
+        {
+            Debug.Log("no effect yet");
+        }
+        */
+        //AuraManager.I.currentAuraPower = AuraManager.I.currentAuraPower + buildingAuraPower;
         AuraManager.I.CalculateAuraPercentage();
     }
 }

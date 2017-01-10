@@ -10,36 +10,71 @@ public class ColorManager : Singleton<ColorManager>
 {
 
     public List<Cluster> colorCluster;
-    public int[,] blending;
+    public int[,] ColorsToBlend;
+    public int[,] blendToColors;
+    public List<ColorBlend> blends = new List<ColorBlend>();
 
+    [System.Serializable]
+    public class ColorBlend {
+        public int blend;
+        public int firstColor;
+        public int secondColor;
 
-    void Start() {
-        blending = new int[6, 6];
-        blending[(int)Types.colortypes.Red, (int)Types.colortypes.Blue] = (int)Types.blendedColors.Purple;
-        blending[(int)Types.colortypes.Red, (int)Types.colortypes.Green] = (int)Types.blendedColors.Brown;
-        blending[(int)Types.colortypes.Red, (int)Types.colortypes.Yellow] = (int)Types.blendedColors.Orange;
-        blending[(int)Types.colortypes.Yellow, (int)Types.colortypes.Green] = (int)Types.blendedColors.Lime;
-        blending[(int)Types.colortypes.Yellow, (int)Types.colortypes.Blue] = (int)Types.blendedColors.Green;
-        blending[(int)Types.colortypes.Blue, (int)Types.colortypes.Green] = (int)Types.blendedColors.Turquoise;
+        public ColorBlend(int _blend, int first, int second ) {
+            blend = _blend;
+            firstColor = first;
+            secondColor = second;
+        }
     }
 
+    void Start() {
+        Initialize();
+    }
+    private void Initialize() {
+        blends.Add(new ColorBlend((int)Types.blendedColors.Purple, (int)Types.colortypes.Red, (int)Types.colortypes.Blue));
+        blends.Add(new ColorBlend((int)Types.blendedColors.Brown, (int)Types.colortypes.Red, (int)Types.colortypes.Green));
+        blends.Add(new ColorBlend((int)Types.blendedColors.Orange, (int)Types.colortypes.Red, (int)Types.colortypes.Yellow));
+        blends.Add(new ColorBlend((int)Types.blendedColors.Lime, (int)Types.colortypes.Yellow, (int)Types.colortypes.Green));
+        blends.Add(new ColorBlend((int)Types.blendedColors.Green, (int)Types.colortypes.Yellow, (int)Types.colortypes.Blue));
+        blends.Add(new ColorBlend((int)Types.blendedColors.Turquoise, (int)Types.colortypes.Blue, (int)Types.colortypes.Green));
+    }
     public void AddColorCluster() {
         colorCluster.Add(new Cluster());
     }
 
     public Types.blendedColors getBlendingColor(int colorA, int colorB) {
 
+        if (blends.Count == 0)
+            Initialize();
         Types.blendedColors returnBlending = Types.blendedColors.Null;
 
-        if (blending[colorA, colorB] != (int)Types.blendedColors.Null) {
-            returnBlending = (Types.blendedColors) blending[colorA, colorB];
-        } else if (blending[colorB, colorA] != (int)Types.blendedColors.Null) {
-            returnBlending = (Types.blendedColors) blending[colorB, colorA];
+        foreach (ColorBlend blend in blends) {
+            if (colorA == blend.firstColor && colorB == blend.secondColor || colorB == blend.firstColor && colorA == blend.secondColor) {
+                return (Types.blendedColors)blend.blend;
+            }
         }
 
         return returnBlending;
     }
 
+    public int[] getColorsOfBlend(int incomingBlend)
+    {
+        if (blends.Count == 0)
+            Initialize();
+        int[] returnColors = new int[2];
+
+        foreach (ColorBlend blend in blends)
+        {
+            if (incomingBlend == blend.blend)
+            {
+                returnColors[0] = blend.firstColor;
+                returnColors[1] = blend.secondColor;
+                return returnColors;
+            }
+        }
+
+        return returnColors;
+    }
     public void fillSpotInCluster(Cluster cluster, int colorId, bool mixed ) {
         if (!mixed)
         {

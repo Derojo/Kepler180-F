@@ -28,7 +28,6 @@ public class BuildingManager : Singleton<BuildingManager>
 
     public bool AbleToBuy(BuildingType buildingInfo) {
         float calc = ResourceManager.I.fundings - buildingInfo.buildingCost;
-        Debug.Log(calc);
         if (calc >= 0) {
             return true;
         }

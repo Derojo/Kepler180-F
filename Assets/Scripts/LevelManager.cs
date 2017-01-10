@@ -32,6 +32,8 @@ public class LevelManager : Singleton<LevelManager>
     public void SetCurrentLevel()
     {
         AuraManager.I.A_C = levelData.levels[(currentLevel - 1)].A_C;
+        AuraManager.I.colorTypeCode = levelData.levels[(currentLevel - 1)].colorTypeCode;
+        AuraManager.I.isBlend = levelData.levels[(currentLevel - 1)].isBlend;
         AuraManager.I.A_C_C = levelData.levels[(currentLevel - 1)].A_C_C;
 
         Debug.Log(nextLevelSkill);

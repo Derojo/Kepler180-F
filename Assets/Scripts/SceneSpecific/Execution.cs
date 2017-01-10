@@ -21,6 +21,12 @@ public class Execution : MonoBehaviour
     public GameObject completeLevelButton;
     public GameObject completeLevelPopUp;
     public GameObject PopUps;
+
+    public Text redAmount;
+    public Text blueAmount;
+    public Text greenAmount;
+    public Text yellowAmount;
+
     // Use this for initialization
     void Start()
     {
@@ -51,6 +57,10 @@ public class Execution : MonoBehaviour
 
     void UpdateUI()
     {
+        redAmount.text = AuraManager.I.GetColorAmount(Types.colortypes.Red).ToString();
+        blueAmount.text = AuraManager.I.GetColorAmount(Types.colortypes.Blue).ToString();
+        greenAmount.text = AuraManager.I.GetColorAmount(Types.colortypes.Green).ToString();
+        yellowAmount.text = AuraManager.I.GetColorAmount(Types.colortypes.Yellow).ToString();
         //Updating Aura UI
         auraDisplay.text = "Aura %  " + AuraManager.I.auraLevelPercentage.ToString();
         //Updating funding UI
