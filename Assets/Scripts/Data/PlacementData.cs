@@ -33,11 +33,18 @@ public class PlacementData : Singleton<PlacementData> {
                 placementNodes.Add(bn);
             }
         }
-        else {
+        else
+        {
+            BlueprintManager.I.bluePrintTurnsTotal = BlueprintManager.I.bluePrintTurnsTotal + model.GetComponent<BuildingType>().buildTime;
+            BlueprintManager.I.bluePrintMoneyTotal = BlueprintManager.I.bluePrintMoneyTotal + model.GetComponent<BuildingType>().buildingCost;
             if (!planningNodes.Contains(bn))
             {
                 planningNodes.Add(bn);
             }
+            EventManager.TriggerEvent("updateplanUI");
+            Debug.Log(BlueprintManager.I.bluePrintTurnsTotal + "turns ben je nodig");
+            Debug.Log(BlueprintManager.I.bluePrintMoneyTotal + " Geld ben je nodig");
+
         }
 
     }

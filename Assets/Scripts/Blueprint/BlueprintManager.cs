@@ -7,6 +7,10 @@ using UnityEngine;
 public class BlueprintManager : Singleton<BlueprintManager>
 {
     public bool inBluePrint = false;
+    public float bluePrintTurnsTotal;
+    public float bluePrintMoneyTotal;
+
+
 
     public void ActivateBlueprint() {
         // set trigger for listeners

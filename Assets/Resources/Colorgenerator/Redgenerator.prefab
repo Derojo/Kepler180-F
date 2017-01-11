@@ -95,7 +95,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  cost: 0
+  buildingCost: 250
+  buildingPowerUsage: 0
+  eventBuildingcall: 0
+  UsingPower: 0
+  turnedOn: 0
+  buildTime: 2
+  buildingDone: 0
 --- !u!114 &114612932914586862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -110,12 +116,9 @@ MonoBehaviour:
   selectedColor: 0
   ColorGeneratorCode: 0
   ColorGeneratorName: 
-  auraPower: 10
   blueprint: 1
-  buildTime: 2
+  buildingAuraPower: 0
   sizeOnGrid: 1
-  buildingDone: 0
-  turnedOn: 0
   buildingInfoCanvas: {fileID: 0}
   generatePower: 0
 --- !u!114 &114899499987646048
