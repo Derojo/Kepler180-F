@@ -33,7 +33,8 @@ public class Execution : MonoBehaviour
     public Image AuraColorimg;
     //blueprint UI
     public Text planningMoney;
-    public Text planningTurns; 
+    public Text planningTurns;
+
 
     // Use this for initialization
     void Start()
@@ -65,7 +66,6 @@ public class Execution : MonoBehaviour
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
         RaycastHit hitObject;
 
         if (Physics.Raycast(ray, out hitObject))
@@ -74,61 +74,12 @@ public class Execution : MonoBehaviour
             {
                 if (hitObject.collider.GetComponent<BuildingType>())
                 {
-                    BuildingType infoB = hitObject.transform.GetComponent<BuildingType>();
+
                     infoPopUp.SetActive(true);
-                    if(infoPopUp)
-                    {
-                        if (hitObject.transform.GetComponent<ColorGenerator>())
-                        {
-                            ColorGenerator generator = hitObject.transform.GetComponent<ColorGenerator>();
-                            // Kleurgenerator, zet alle informatie
-                            if (generator.selectedColor == Types.colortypes.Red)
-                            {
-                                buildingName.text = "Rode Generator";
-                                buildingTime.text = infoB.buildTimeTotal.ToString();
-                                powerInput.text = "- " + infoB.buildingPowerUsage.ToString();
-                                buildingCost.text = "- " + infoB.buildingCost.ToString();
+                    UpdateBuildingInfoUI(hitObject.collider.gameObject);
 
-                                Debug.Log("Ik ben rood");
-                            }
-                            else if (generator.selectedColor == Types.colortypes.Blue)
-                            {
-                                buildingName.text = "Blauwe Generator";
-                                buildingTime.text = infoB.buildTimeTotal.ToString();
-                                powerInput.text = "- " + infoB.buildingPowerUsage.ToString();
-                                buildingCost.text = "- " + infoB.buildingCost.ToString();
-                                Debug.Log("Ik ben blauw");
-                            }
-                            //green
-                            else if (generator.selectedColor == Types.colortypes.Green)
-                            {
-                                buildingName.text = "Groene Generator";
-                                buildingTime.text = infoB.buildTimeTotal.ToString();
-                                powerInput.text = "- " + infoB.buildingPowerUsage.ToString();
-                                buildingCost.text = "- " + infoB.buildingCost.ToString();
-                                Debug.Log("Ik ben groen");
-                            }
-                            //yellow
-                            else if (generator.selectedColor == Types.colortypes.Yellow)
-                            {
-                                buildingName.text = "Gele Generator";
-                                buildingTime.text = infoB.buildTimeTotal.ToString();
-                                powerInput.text = "- " + infoB.buildingPowerUsage.ToString();
-                                buildingCost.text = "- " + infoB.buildingCost.ToString();
-                                Debug.Log("Ik ben geel");
-                            }
-                            // etc etc
-                        }
-                    }
-                   
                 }
-                else
-                {
-                    infoPopUp.SetActive(false);
-                }
-            
             }
-
         }
     }
     //eventlistner
@@ -136,12 +87,14 @@ public class Execution : MonoBehaviour
     {
         EventManager.StartListening("updateplanUI", UpdatePlanningUI);
         EventManager.StartListening("updateUI", UpdateUI);
+
     }
     //unregistering listeners for clean up
     void OnDisable()
     {
         EventManager.StopListening("updateUI", UpdateUI);
         EventManager.StopListening("updateplanUI", UpdatePlanningUI);
+
     }
 
     void UpdateUI()
@@ -184,7 +137,7 @@ public class Execution : MonoBehaviour
             PopUps.SetActive(true);
         }
     }
-
+    //updating the Ui in blueprintmode
     void UpdatePlanningUI()
     {
         planningMoney.text = BlueprintManager.I.bluePrintMoneyTotal.ToString();
@@ -192,8 +145,69 @@ public class Execution : MonoBehaviour
         Debug.Log(BlueprintManager.I.bluePrintTurnsTotal);
     }
 
-    //buttons
-    public void QuitLevelPopUp()
+ 
+   public void UpdateBuildingInfoUI(GameObject building)
+    {
+
+        infoPopUp.SetActive(true);
+
+        if (infoPopUp)
+            {
+
+            if (building.GetComponent<ColorGenerator>())
+            {
+                // Kleurgenerator, zet alle informatie
+                if (building.GetComponent<ColorGenerator>().selectedColor == Types.colortypes.Red)
+                {
+                    buildingName.text = "Rode Generator";
+                    buildingTime.text = building.GetComponent<BuildingType>().buildTimeTotal.ToString();
+                    powerInput.text = "- " + building.GetComponent<BuildingType>().buildingPowerUsage.ToString();
+                    buildingCost.text = "- " + building.GetComponent<BuildingType>().buildingCost.ToString();
+
+                    Debug.Log("Ik ben rood");
+                }
+                else if (building.GetComponent<ColorGenerator>().selectedColor == Types.colortypes.Blue)
+                {
+                    buildingName.text = "Blauwe Generator";
+                    buildingTime.text = building.GetComponent<BuildingType>().buildTimeTotal.ToString();
+                    powerInput.text = "- " + building.GetComponent<BuildingType>().buildingPowerUsage.ToString();
+                    buildingCost.text = "- " + building.GetComponent<BuildingType>().buildingCost.ToString();
+                    Debug.Log("Ik ben blauw");
+                }
+                //green
+                else if (building.GetComponent<ColorGenerator>().selectedColor == Types.colortypes.Green)
+                {
+                    buildingName.text = "Groene Generator";
+                    buildingTime.text = building.GetComponent<BuildingType>().buildTimeTotal.ToString();
+                    powerInput.text = "- " + building.GetComponent<BuildingType>().buildingPowerUsage.ToString();
+                    buildingCost.text = "- " + building.GetComponent<BuildingType>().buildingCost.ToString();
+                    Debug.Log("Ik ben groen");
+                }
+                //yellow
+                else if (building.GetComponent<ColorGenerator>().selectedColor == Types.colortypes.Yellow)
+                {
+                    buildingName.text = "Gele Generator";
+                    buildingTime.text = building.GetComponent<BuildingType>().buildTimeTotal.ToString();
+                    powerInput.text = "- " + building.GetComponent<BuildingType>().buildingPowerUsage.ToString();
+                    buildingCost.text = "- " + building.GetComponent<BuildingType>().buildingCost.ToString();
+                    Debug.Log("Ik ben geel");
+                }
+            }
+           } 
+        else
+        {
+            infoPopUp.SetActive(false);
+        }
+
+    }
+
+    public void OnmouseExit()
+    {
+        infoPopUp.SetActive(false);
+    }
+
+//buttons
+public void QuitLevelPopUp()
     {
         completeLevelPopUp.SetActive(true);
     }
