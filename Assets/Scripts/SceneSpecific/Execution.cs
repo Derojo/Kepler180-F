@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 using UnityEngine.SceneManagement;
 
 public class Execution : MonoBehaviour
@@ -27,6 +28,8 @@ public class Execution : MonoBehaviour
     public Text greenAmount;
     public Text yellowAmount;
 
+    public Image AuraColorimg;
+
     // Use this for initialization
     void Start()
     {
@@ -42,6 +45,14 @@ public class Execution : MonoBehaviour
         completeLevelButton.SetActive(false);
         completeLevelPopUp.SetActive(false);
         PopUps.SetActive(false);
+
+        //loading/showing aura color Goals
+        string[] rgba = AuraManager.I.A_C_C.Split(new string[] { "," }, StringSplitOptions.None);
+        byte r = byte.Parse(rgba[0]);
+        byte g = byte.Parse(rgba[1]);
+        byte b = byte.Parse(rgba[2]);
+        byte a = byte.Parse(rgba[3]);
+        AuraColorimg.color = new Color32(r, g, b, a);
     }
 
     //eventlistner
