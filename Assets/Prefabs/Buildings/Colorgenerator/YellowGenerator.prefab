@@ -489,6 +489,7 @@ MonoBehaviour:
   boughtMaterial: {fileID: 2100000, guid: a49e380bb10b0a44aa0c4136d7dcf84d, type: 2}
   turnedOnMaterial: {fileID: 2100000, guid: 3d8aecedead505f4fae1a849b3a2c0e9, type: 2}
   buildTime: 2
+  buildTimeTotal: 0
   buildTimeInfo: {fileID: 0}
 --- !u!114 &114164657240264872
 MonoBehaviour:
@@ -809,9 +810,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 0
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
+  m_Radius: 12
+  m_Height: 45
+  m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198219108998660654
 ParticleSystem:

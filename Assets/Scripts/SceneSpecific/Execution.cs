@@ -19,12 +19,17 @@ public class Execution : MonoBehaviour
     public GameObject completeLevelButton;
     public GameObject completeLevelPopUp;
     public GameObject PopUps;
+    public GameObject infoPopUp;
 
     public Text redAmount;
     public Text blueAmount;
     public Text greenAmount;
     public Text yellowAmount;
-
+    //infopanel 
+    public Text buildingName;
+    public Text buildingTime;
+    public Text powerInput;
+    public Text buildingCost;
     public Image AuraColorimg;
     //blueprint UI
     public Text planningMoney;
@@ -46,6 +51,7 @@ public class Execution : MonoBehaviour
         completeLevelButton.SetActive(false);
         completeLevelPopUp.SetActive(false);
         PopUps.SetActive(false);
+        infoPopUp.SetActive(false);
 
         //loading/showing aura color Goals
         string[] rgba = AuraManager.I.A_C_C.Split(new string[] { "," }, StringSplitOptions.None);
@@ -56,6 +62,75 @@ public class Execution : MonoBehaviour
         AuraColorimg.color = new Color32(r, g, b, a);
     }
 
+    void Update()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        RaycastHit hitObject;
+
+        if (Physics.Raycast(ray, out hitObject))
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (hitObject.collider.GetComponent<BuildingType>())
+                {
+                    BuildingType infoB = hitObject.transform.GetComponent<BuildingType>();
+                    infoPopUp.SetActive(true);
+                    if(infoPopUp)
+                    {
+                        if (hitObject.transform.GetComponent<ColorGenerator>())
+                        {
+                            ColorGenerator generator = hitObject.transform.GetComponent<ColorGenerator>();
+                            // Kleurgenerator, zet alle informatie
+                            if (generator.selectedColor == Types.colortypes.Red)
+                            {
+                                buildingName.text = "Rode Generator";
+                                buildingTime.text = infoB.buildTimeTotal.ToString();
+                                powerInput.text = "- " + infoB.buildingPowerUsage.ToString();
+                                buildingCost.text = "- " + infoB.buildingCost.ToString();
+
+                                Debug.Log("Ik ben rood");
+                            }
+                            else if (generator.selectedColor == Types.colortypes.Blue)
+                            {
+                                buildingName.text = "Blauwe Generator";
+                                buildingTime.text = infoB.buildTimeTotal.ToString();
+                                powerInput.text = "- " + infoB.buildingPowerUsage.ToString();
+                                buildingCost.text = "- " + infoB.buildingCost.ToString();
+                                Debug.Log("Ik ben blauw");
+                            }
+                            //green
+                            else if (generator.selectedColor == Types.colortypes.Green)
+                            {
+                                buildingName.text = "Groene Generator";
+                                buildingTime.text = infoB.buildTimeTotal.ToString();
+                                powerInput.text = "- " + infoB.buildingPowerUsage.ToString();
+                                buildingCost.text = "- " + infoB.buildingCost.ToString();
+                                Debug.Log("Ik ben groen");
+                            }
+                            //yellow
+                            else if (generator.selectedColor == Types.colortypes.Yellow)
+                            {
+                                buildingName.text = "Gele Generator";
+                                buildingTime.text = infoB.buildTimeTotal.ToString();
+                                powerInput.text = "- " + infoB.buildingPowerUsage.ToString();
+                                buildingCost.text = "- " + infoB.buildingCost.ToString();
+                                Debug.Log("Ik ben geel");
+                            }
+                            // etc etc
+                        }
+                    }
+                   
+                }
+                else
+                {
+                    infoPopUp.SetActive(false);
+                }
+            
+            }
+
+        }
+    }
     //eventlistner
     void OnEnable()
     {

@@ -36,7 +36,7 @@ public class BuildingType : MonoBehaviour
 
         EventManager.StopListening("EndTurn", setNextTurn);
     }
-
+  
     void setNextTurn()
     {
 
