@@ -7,18 +7,15 @@ using UnityEngine.SceneManagement;
 
 public class Execution : MonoBehaviour
 {
-
+    //Ingame text
     public Text totalFunding;
     public Text auraDisplay;
     public Text totalPower;
-
     public Text turnsleft;
     public Text currentTurn;
-
     public Text powerAuraText;
     public Text PopUpText;
-    //public Text turnMaxText;
-
+    // GameObjects
     public GameObject completeLevelButton;
     public GameObject completeLevelPopUp;
     public GameObject PopUps;
@@ -29,12 +26,16 @@ public class Execution : MonoBehaviour
     public Text yellowAmount;
 
     public Image AuraColorimg;
+    //blueprint UI
+    public Text planningMoney;
+    public Text planningTurns; 
 
     // Use this for initialization
     void Start()
     {
         BlueprintManager.I.InitializeBlueprintModels();
         UpdateUI();
+        UpdatePlanningUI();
         turnsleft.text = "nog " + TurnManager.I.maxTurns.ToString() + " beurten over";
         currentTurn.text = TurnManager.I.turnCount + " / " + TurnManager.I.maxTurns.ToString();
 
@@ -58,12 +59,14 @@ public class Execution : MonoBehaviour
     //eventlistner
     void OnEnable()
     {
+        EventManager.StartListening("updateplanUI", UpdatePlanningUI);
         EventManager.StartListening("updateUI", UpdateUI);
     }
     //unregistering listeners for clean up
     void OnDisable()
     {
         EventManager.StopListening("updateUI", UpdateUI);
+        EventManager.StopListening("updateplanUI", UpdatePlanningUI);
     }
 
     void UpdateUI()
@@ -105,6 +108,13 @@ public class Execution : MonoBehaviour
             PopUpText.text = "Helaas je hebt geen resources meer om 55% aurakracht te behalen";
             PopUps.SetActive(true);
         }
+    }
+
+    void UpdatePlanningUI()
+    {
+        planningMoney.text = BlueprintManager.I.bluePrintMoneyTotal.ToString();
+        planningTurns.text = BlueprintManager.I.bluePrintTurnsTotal.ToString() + "/" + LevelManager.I.M_T_A.ToString();
+        Debug.Log(BlueprintManager.I.bluePrintTurnsTotal);
     }
 
     //buttons

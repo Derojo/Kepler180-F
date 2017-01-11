@@ -42,9 +42,6 @@ public class PlacementData : Singleton<PlacementData> {
                 planningNodes.Add(bn);
             }
             EventManager.TriggerEvent("updateplanUI");
-            Debug.Log(BlueprintManager.I.bluePrintTurnsTotal + "turns ben je nodig");
-            Debug.Log(BlueprintManager.I.bluePrintMoneyTotal + " Geld ben je nodig");
-
         }
 
     }

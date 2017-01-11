@@ -19,11 +19,13 @@ public class BuildingManager : Singleton<BuildingManager>
 
     public void BuyBuilding(BuildingType buildingInfo) {
         ResourceManager.I.fundings = ResourceManager.I.fundings - buildingInfo.buildingCost;
+        BlueprintManager.I.bluePrintMoneyTotal = BlueprintManager.I.bluePrintMoneyTotal - buildingInfo.buildingCost;
         buildingInfo.bought = true;
         if (buildingInfo.boughtMaterial != null) {
             buildingInfo.gameObject.GetComponent<Renderer>().material = buildingInfo.boughtMaterial;
         }
         EventManager.TriggerEvent("updateUI");
+        EventManager.TriggerEvent("updateplanUI");
     }
 
     public bool AbleToBuy(BuildingType buildingInfo) {

@@ -21,6 +21,7 @@ public class BuildingType : MonoBehaviour
 
     //constructing building variables
     public int buildTime;
+    public int buildTimeTotal;
     public Text buildTimeInfo;
     private bool eventBuildingcall = false;
 
@@ -66,6 +67,10 @@ public class BuildingType : MonoBehaviour
 
                 eventBuildingcall = true;
 
+                //Deduct total turns in blueprint
+                BlueprintManager.I.bluePrintTurnsTotal = BlueprintManager.I.bluePrintTurnsTotal - buildTimeTotal;
+                EventManager.TriggerEvent("updateplanUI");
+
             }
 
             if (buildingDone && !turnedOn)
@@ -81,8 +86,10 @@ public class BuildingType : MonoBehaviour
                 {
                     gameObject.GetComponent<ColorGenerator>().addAuraPower();
                 }
+                //reduce power if building is on
                 ResourceManager.I.powerLevel = ResourceManager.I.powerLevel - buildingPowerUsage;
                 EventManager.TriggerEvent("updateUI");
+                
             }
         }
 

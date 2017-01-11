@@ -97,11 +97,16 @@ MonoBehaviour:
   type: 0
   buildingCost: 250
   buildingPowerUsage: 0
-  eventBuildingcall: 0
   UsingPower: 0
-  turnedOn: 0
-  buildTime: 2
   buildingDone: 0
+  turnedOn: 0
+  noEnergy: 0
+  bought: 0
+  boughtMaterial: {fileID: 0}
+  turnedOnMaterial: {fileID: 0}
+  buildTime: 2
+  buildTimeTotal: 2
+  buildTimeInfo: {fileID: 0}
 --- !u!114 &114612932914586862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -120,7 +125,6 @@ MonoBehaviour:
   buildingAuraPower: 0
   sizeOnGrid: 1
   buildingInfoCanvas: {fileID: 0}
-  generatePower: 0
 --- !u!114 &114899499987646048
 MonoBehaviour:
   m_ObjectHideFlags: 1
