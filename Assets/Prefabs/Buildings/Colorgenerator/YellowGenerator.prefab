@@ -402,8 +402,8 @@ Light:
   serializedVersion: 7
   m_Type: 2
   m_Color: {r: 0.9558824, g: 0.9361055, b: 0.2389706, a: 1}
-  m_Intensity: 2
-  m_Range: 10
+  m_Intensity: 1
+  m_Range: 25
   m_SpotAngle: 55
   m_CookieSize: 10
   m_Shadows:
@@ -421,7 +421,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 2
+  m_Lightmapping: 1
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 4
   m_ShadowRadius: 1.6

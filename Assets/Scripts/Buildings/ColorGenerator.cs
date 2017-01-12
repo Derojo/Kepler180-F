@@ -16,22 +16,25 @@ public class ColorGenerator : MonoBehaviour
     private GameObject buildingTurnInfo;
     private GameObject buildingKrachtInfo;
     private Text buildTimeInfo;
+    private float _buildingAuraPower;
 
     // Use this for initialization
 
     void Start()
     {
-
+        _buildingAuraPower = buildingAuraPower;
         ColorGeneratorCode = (int)selectedColor;
         ColorGeneratorName = selectedColor.ToString();
         if (!blueprint)
         {
+            
             buildingTurnInfo = buildingInfoCanvas.transform.GetChild(0).gameObject;
             buildingKrachtInfo = buildingInfoCanvas.transform.GetChild(3).gameObject;
             buildTimeInfo = buildingTurnInfo.transform.GetChild(1).GetComponent<Text>();
             buildTimeInfo.text = gameObject.GetComponent<BuildingType>().buildTime.ToString();
 
             buildingKrachtInfo.transform.GetChild(1).GetComponent<Text>().text = buildingAuraPower.ToString() + " kracht";
+            
         }
         else
         {
@@ -43,44 +46,47 @@ public class ColorGenerator : MonoBehaviour
 
     public void turnOnGenerator()
     {
+        determineAuraPower();
         buildingInfoCanvas.transform.GetChild(1).gameObject.SetActive(false);
         buildingInfoCanvas.transform.GetChild(2).gameObject.SetActive(true);
         buildingKrachtInfo.SetActive(true);
         gameObject.transform.GetChild(3).gameObject.SetActive(true);
         gameObject.transform.GetChild(2).gameObject.SetActive(true);
+
         return;
     }
 
 
     public void addAuraPower()
     {
+        // Determine aurapower according to cluster groups etc.
+        determineAuraPower();
         // Add auraPower to selected colorAuraAmount
         AuraManager.I.AddColorAmount(selectedColor, buildingAuraPower);
-        int effect = AuraManager.I.EffectOnCurrentAuraColor(selectedColor);
-
-        /*
-        if (effect == 0)
-        {
-            AuraManager.I.currentAuraPower = AuraManager.I.currentAuraPower - buildingAuraPower;
-        }
-        else if (effect == 1) {
-            
-            float fillAura = 0;
-            if (AuraManager.I.isBlend)
-            {
-                fillAura = AuraManager.I.calcuateBlendingPower();
-            }
-            else {
-                fillAura = buildingAuraPower;
-            }
-            
-            AuraManager.I.currentAuraPower = AuraManager.I.currentAuraPower + buildingAuraPower;
-        } else
-        {
-            Debug.Log("no effect yet");
-        }
-        */
-        //AuraManager.I.currentAuraPower = AuraManager.I.currentAuraPower + buildingAuraPower;
+        // Calculate positive/negative amount on aura
         AuraManager.I.CalculateAuraPercentage();
+    }
+
+    private void determineAuraPower() {
+        Tile cgeneratorTile = gameObject.GetComponentInParent<Tile>();
+        if (cgeneratorTile.inColorCluster)
+        {
+
+            // Aurapower is going to increase since the same colors strengthen the aurapower
+            buildingAuraPower = _buildingAuraPower + ((_buildingAuraPower / 4) * (ColorManager.I.sameColorAmount[cgeneratorTile.clusterId] - 1));
+            if (buildingAuraPower > _buildingAuraPower)
+            {
+                float strengthen = (buildingAuraPower - _buildingAuraPower) / 100;
+                gameObject.transform.GetChild(3).gameObject.GetComponent<ParticleSystem>().startSize = 2 + strengthen;
+            }
+        }
+        else if (cgeneratorTile.inMixedCluster) {
+            float amountInCluster = ColorManager.I.colorCluster[cgeneratorTile.clusterId].mixedColorSpots;
+
+            buildingAuraPower = _buildingAuraPower - ((_buildingAuraPower / 4) * (amountInCluster - 1));
+
+            float weakening = (_buildingAuraPower - buildingAuraPower) / 100;
+            gameObject.transform.GetChild(3).gameObject.GetComponent<ParticleSystem>().startSize = 2 - weakening;
+        }
     }
 }

@@ -10,6 +10,7 @@ public class ColorManager : Singleton<ColorManager>
 {
 
     public List<Cluster> colorCluster;
+    public List<int> sameColorAmount = new List<int>();
     public int[,] ColorsToBlend;
     public int[,] blendToColors;
     public List<ColorBlend> blends = new List<ColorBlend>();

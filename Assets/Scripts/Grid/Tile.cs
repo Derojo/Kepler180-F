@@ -13,6 +13,7 @@ public class Tile : MonoBehaviour {
     public bool inColorCluster = false;
     public bool inMixedCluster = false;
     public int clusterId;
+    public int colorClusterAmount = 0;
     public Types.colortypes colorCluster;
     public List<int> blendedColors;
 

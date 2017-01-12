@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using DG.Tweening;
+using RTS_Cam;
 public class PlacementController : MonoBehaviour
 {
     public GameObject objectInDrag;
@@ -45,7 +46,8 @@ public class PlacementController : MonoBehaviour
                 {
 
                     ColorGenerator colorinformation = objectInDrag.GetComponent<ColorGenerator>();
-                    if (currentTileScan != "" && currentTileScan  != hitInfor.collider.name) {
+                    if (currentTileScan != "" && currentTileScan != hitInfor.collider.name)
+                    {
                         currentTileScan = hitInfor.collider.name;
                         ableToBuild = ColorManager.I.AbleToBuildColorGenerator(hitInfor.collider.GetComponent<Tile>(), colorinformation.selectedColor, GetComponent<GridManager>());
                     }
@@ -58,16 +60,18 @@ public class PlacementController : MonoBehaviour
                     tileSelect[0].Select(lastTileSelected[0], ableToBuild);
                     Vector3 pos = new Vector3(hitInfor.collider.transform.position.x, offset.y, hitInfor.collider.transform.position.z);
                     objectInDrag.transform.position = pos;
-                    
+
                     // Mouse inputs, place or cancel building placement
                     if (Input.GetMouseButtonDown(0))
                     {
-                        if (ableToBuild) {
+                        if (ableToBuild)
+                        {
                             PlaceObject();
                         }
 
                     }
-                    else if (Input.GetMouseButtonDown(1)) {
+                    else if (Input.GetMouseButtonDown(1))
+                    {
                         CancelPlacement();
                     }
 
@@ -88,7 +92,8 @@ public class PlacementController : MonoBehaviour
 
     public void StartPlacement(GameObject building)
     {
-        if (!BuildingManager.I.AbleToBuy(building.GetComponent<BuildingType>())) {
+        if (!BuildingManager.I.AbleToBuy(building.GetComponent<BuildingType>()))
+        {
             uimanager.ShowMessage(Types.messages.noFunding);
 
         }
@@ -132,8 +137,9 @@ public class PlacementController : MonoBehaviour
 
         if (lastTileSelected[0].inRange)
         {
-            
-            if (PlacementData.I.placementNodes.Count > 0) {
+
+            if (PlacementData.I.placementNodes.Count > 0)
+            {
 
                 if (lastTileSelected[0].tileType == (int)Types.buildingtypes.colorgenerator)
                 {
@@ -149,7 +155,6 @@ public class PlacementController : MonoBehaviour
             lastTileSelected[0].currentObject = objectInPlace;
             lastTileSelected[0].tileType = (int)objectInPlace.GetComponent<BuildingType>().type;
             objectInPlace.transform.parent = lastTileSelected[0].transform;
-            //enable collider
             objectInPlace.GetComponent<CapsuleCollider>().enabled = true;
             // Store object with x,z,type and model in placementNodes
             PlacementData.I.AddBuildingNode(lastTileSelected[0].x, lastTileSelected[0].z, objectInPlace.GetComponent<BuildingType>().type, Resources.Load<GameObject>(objectInPlace.GetComponent<BuildingType>().type + "/" + objectInDrag.name), inPlanningMode);
@@ -172,31 +177,47 @@ public class PlacementController : MonoBehaviour
         }
     }
 
-    private void DetermineCluster() {
+    private void DetermineCluster()
+    {
 
 
         Types.colortypes color = objectInDrag.GetComponent<ColorGenerator>().selectedColor;
         Tile adjunctTile = ColorManager.I.getFirstAdjunctTile(lastTileSelected[0], GetComponent<GridManager>());
 
-        if (adjunctTile != null) {
+        if (adjunctTile != null)
+        {
             Types.colortypes neighbourColor = adjunctTile.currentObject.GetComponent<ColorGenerator>().selectedColor;
 
             if (neighbourColor == color)
             {
+                int clusterId;
+
+
                 if (!adjunctTile.inColorCluster)
                 {
+                    ColorManager.I.sameColorAmount.Add(0);
+                    clusterId = (ColorManager.I.sameColorAmount.Count - 1);
                     adjunctTile.colorCluster = color;
                     adjunctTile.inColorCluster = true;
+                    adjunctTile.clusterId = clusterId;
+                    ColorManager.I.sameColorAmount[clusterId] = ColorManager.I.sameColorAmount[clusterId] + 1;
+                }
+                else
+                {
+                    clusterId = adjunctTile.clusterId;
                 }
                 lastTileSelected[0].colorCluster = color;
                 lastTileSelected[0].inColorCluster = true;
+                lastTileSelected[0].clusterId = clusterId;
+                ColorManager.I.sameColorAmount[clusterId] = ColorManager.I.sameColorAmount[clusterId] + 1;
             }
             else
             {
-                
+
                 // Create mixed color cluster
-                
-                if (GetComponent<GridManager>().clusterRestriction) {
+
+                if (GetComponent<GridManager>().clusterRestriction)
+                {
                     int clusterId;
                     Cluster currentCluster;
 
@@ -225,9 +246,11 @@ public class PlacementController : MonoBehaviour
         }
     }
 
-    private void PlaceSubbuildingByColor(Types.blendedColors color, Tile tileA, Tile tileB) {
+    private void PlaceSubbuildingByColor(Types.blendedColors color, Tile tileA, Tile tileB)
+    {
         BuildingObject blendObject = BuildingManager.I.getObjectByBlend(color);
-        if (blendObject != null) {
+        if (blendObject != null)
+        {
             GameObject subBuilding = Instantiate(blendObject.bObject) as GameObject;
             Vector3 location = new Vector3();
             if (tileA.x == tileB.x)

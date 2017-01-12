@@ -240,6 +240,8 @@ namespace RTS_Cam
         
             if(usePanning && Input.GetKey(panningKey) && MouseAxis != Vector2.zero)
             {
+
+                
                 Vector3 desiredMove = new Vector3(-MouseAxis.x, 0, -MouseAxis.y);
 
                 desiredMove *= panningSpeed;
@@ -297,6 +299,8 @@ namespace RTS_Cam
         {
             Vector3 targetPos = new Vector3(targetFollow.position.x, m_Transform.position.y, targetFollow.position.z) + targetOffset;
             m_Transform.position = Vector3.MoveTowards(m_Transform.position, targetPos, Time.deltaTime * followingSpeed);
+            if (usePanning && Input.GetKey(panningKey) && MouseAxis != Vector2.zero)
+                ResetTarget();
         }
 
         /// <summary>
