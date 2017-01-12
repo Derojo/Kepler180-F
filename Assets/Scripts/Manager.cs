@@ -5,11 +5,13 @@ using UnityEngine.SceneManagement;
 
 /* This class wil always be active and will activate other managers */
 [Prefab("Manager", true, "")]
-public class Manager : Singleton<Manager> {
+public class Manager : Singleton<Manager>
+{
 
     public void Load() { return; }
 
-    void Start() {
+    void Start()
+    {
         LevelManager.I.Load();
         AuraManager.I.Load();
     }
@@ -40,7 +42,9 @@ public class Manager : Singleton<Manager> {
     }
 
     // Update is called once per frame
-    void Update () {
-		
-	}
+    public void CloseGame()
+    {
+        Application.Quit();
+        Debug.Log("closing game");
+    }
 }

@@ -16,11 +16,13 @@ public class Execution : MonoBehaviour
     public Text currentTurn;
     public Text powerAuraText;
     public Text PopUpText;
+
     // GameObjects
     public GameObject completeLevelButton;
     public GameObject completeLevelPopUp;
     public GameObject PopUps;
     public GameObject infoPopUp;
+    public GameObject escPopUp;
 
     public Text redAmount;
     public Text blueAmount;
@@ -32,11 +34,12 @@ public class Execution : MonoBehaviour
     public Text powerInput;
     public Text buildingCost;
     public Image AuraColorimg;
+
     //blueprint UI
     public Text planningMoney;
     public Text planningTurns;
 
-
+    bool menuOpen = false;
     // Use this for initialization
     void Start()
     {
@@ -54,6 +57,7 @@ public class Execution : MonoBehaviour
         completeLevelPopUp.SetActive(false);
         PopUps.SetActive(false);
         infoPopUp.SetActive(false);
+        escPopUp.SetActive(false);
 
         //loading/showing aura color Goals
         string[] rgba = AuraManager.I.A_C_C.Split(new string[] { "," }, StringSplitOptions.None);
@@ -66,6 +70,20 @@ public class Execution : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetButtonDown("Cancel") && !menuOpen)
+        {
+        
+                escPopUp.SetActive(true);
+            menuOpen = true;
+            return;
+
+        }
+        if (Input.GetButtonDown("Cancel") && menuOpen)
+        {
+            escPopUp.SetActive(false);
+            menuOpen = false;
+        }
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitObject;
 
@@ -81,7 +99,9 @@ public class Execution : MonoBehaviour
 
                 }
             }
-        }
+        }//end rayccast
+
+      
     }
     //eventlistner
     void OnEnable()
@@ -221,4 +241,22 @@ public void QuitLevelPopUp()
     {
         completeLevelPopUp.SetActive(false);
     }
+
+    public void continuePlaying()
+    {
+ 
+        if (menuOpen)
+        {
+       
+            escPopUp.SetActive(false);
+            menuOpen = false;
+        }
+    }
+    public void QuitLevelToMenu()
+    {
+        Debug.Log("clicked button levae");
+        SceneManager.LoadSceneAsync("StartMenu");
+    }
+
+
 }
