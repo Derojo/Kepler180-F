@@ -33,14 +33,18 @@ public class Execution : MonoBehaviour
     public Text buildingTime;
     public Text powerInput;
     public Text buildingCost;
+    public Text buildingState;
+    public GameObject deleteButton;
+    public GameObject buyButton;
+    public GridManager gridManager;
     public Image AuraColorimg;
-
+    private GameObject currentObject;
     //blueprint UI
     public Text planningMoney;
     public Text planningTurns;
 
     bool menuOpen = false;
-    // Use this for initialization
+
     void Start()
     {
         BlueprintManager.I.InitializeBlueprintModels();
@@ -157,6 +161,10 @@ public class Execution : MonoBehaviour
             PopUpText.text = "Helaas je hebt geen resources meer om 55% aurakracht te behalen";
             PopUps.SetActive(true);
         }
+        if (currentObject != null) {
+            infoPopUp.SetActive(false);
+        }
+        
     }
     //updating the Ui in blueprintmode
     void UpdatePlanningUI()
@@ -170,58 +178,146 @@ public class Execution : MonoBehaviour
    public void UpdateBuildingInfoUI(GameObject building)
     {
 
+        if (currentObject != building || currentObject == null) {
+            currentObject = building;
+        }
         infoPopUp.SetActive(true);
-
+        Text infoBox = infoPopUp.transform.GetChild(9).transform.GetChild(0).GetComponent<Text>();
         if (infoPopUp)
-            {
+        {
 
-            if (building.GetComponent<ColorGenerator>())
+            // Every incoming building has a buildingType
+            BuildingType buildingType = building.GetComponent<BuildingType>();
+
+            // Set general information
+            buildingTime.text = buildingType.buildTimeTotal.ToString();
+            powerInput.text = "- " + buildingType.buildingPowerUsage.ToString();
+            buildingCost.text = "- " + buildingType.buildingCost.ToString();
+            // Set information according to buildingtype
+            if (buildingType.type == Types.buildingtypes.colorgenerator) // Information for colorgenerators
             {
-                // Kleurgenerator, zet alle informatie
-                if (building.GetComponent<ColorGenerator>().selectedColor == Types.colortypes.Red)
+                ColorGenerator cgenerator = building.GetComponent<ColorGenerator>();
+                
+                if (cgenerator.selectedColor == Types.colortypes.Red)
                 {
                     buildingName.text = "Rode Generator";
-                    buildingTime.text = building.GetComponent<BuildingType>().buildTimeTotal.ToString();
-                    powerInput.text = "- " + building.GetComponent<BuildingType>().buildingPowerUsage.ToString();
-                    buildingCost.text = "- " + building.GetComponent<BuildingType>().buildingCost.ToString();
-
-                    Debug.Log("Ik ben rood");
                 }
-                else if (building.GetComponent<ColorGenerator>().selectedColor == Types.colortypes.Blue)
+                else if (cgenerator.selectedColor == Types.colortypes.Blue)
                 {
                     buildingName.text = "Blauwe Generator";
-                    buildingTime.text = building.GetComponent<BuildingType>().buildTimeTotal.ToString();
-                    powerInput.text = "- " + building.GetComponent<BuildingType>().buildingPowerUsage.ToString();
-                    buildingCost.text = "- " + building.GetComponent<BuildingType>().buildingCost.ToString();
-                    Debug.Log("Ik ben blauw");
                 }
                 //green
-                else if (building.GetComponent<ColorGenerator>().selectedColor == Types.colortypes.Green)
+                else if (cgenerator.selectedColor == Types.colortypes.Green)
                 {
                     buildingName.text = "Groene Generator";
-                    buildingTime.text = building.GetComponent<BuildingType>().buildTimeTotal.ToString();
-                    powerInput.text = "- " + building.GetComponent<BuildingType>().buildingPowerUsage.ToString();
-                    buildingCost.text = "- " + building.GetComponent<BuildingType>().buildingCost.ToString();
-                    Debug.Log("Ik ben groen");
                 }
                 //yellow
-                else if (building.GetComponent<ColorGenerator>().selectedColor == Types.colortypes.Yellow)
+                else if (cgenerator.selectedColor == Types.colortypes.Yellow)
                 {
                     buildingName.text = "Gele Generator";
-                    buildingTime.text = building.GetComponent<BuildingType>().buildTimeTotal.ToString();
-                    powerInput.text = "- " + building.GetComponent<BuildingType>().buildingPowerUsage.ToString();
-                    buildingCost.text = "- " + building.GetComponent<BuildingType>().buildingCost.ToString();
-                    Debug.Log("Ik ben geel");
                 }
+                // Set rest of information
+                infoBox.text = "Levert " + cgenerator.buildingAuraPower.ToString() + " aurakracht per beurt";
+
+                if (buildingType.bought)
+                {
+                    if (buildingType.buildTime == buildingType.buildTimeTotal)
+                    {
+                        deleteButton.SetActive(true);
+                    }
+                    else
+                    {
+                        deleteButton.SetActive(false);
+                    }
+                }
+                // Show delete button if needed
             }
-           } 
+            else if (building.GetComponent<SubBuilding>()) // Set information for all subbuildings
+            {
+                SubBuilding sub = building.GetComponent<SubBuilding>();
+                // General
+                if (!buildingType.bought) {
+                    buyButton.SetActive(true);
+                } else
+                {
+                    buyButton.SetActive(false);
+                }
+               
+                if (buildingType.type == Types.buildingtypes.mineraldrill)  // Set information for the mineraldrill
+                {
+                    buildingName.text = "Mineraalboor";
+                    infoBox.text = "Boort "+ sub.harvestPower.ToString() + " mineralen per beurt";
+                }               
+                else if (buildingType.type == Types.buildingtypes.energygenerator)  // Set information for the energygenerator
+                {
+                    buildingName.text = "Energiegenerator";
+                    infoBox.text = "Genereerd (!) eenmalig" + sub.energyPowerOnce.ToString() + " energie";
+                }
+                else if (buildingType.type == Types.buildingtypes.energytransformer)  // Set information for the energytransformer
+                {
+                    buildingName.text = "Energietransformer";
+                    infoBox.text = "Genereerd " + sub.constantEnergyPower.ToString() + " energie per beurt";
+                } else if (buildingType.type == Types.buildingtypes.coolsystem)  // Set information for the coolgenerator
+                {
+                    buildingName.text = "Koelsysteem";
+                    infoBox.text = "Koelt de planeet met 100 per beurt";
+                }
+
+            }
+
+            // Change ui elements for every type of building
+            if (buildingType.bought)
+            {
+                buyButton.SetActive(false);
+                if (buildingType.turnedOn)
+                {
+                    buildingState.text = "Aan";
+                }
+                else if (!buildingType.turnedOn && !buildingType.buildingDone)
+                {
+                    buildingState.text = "Bouwen";
+                }
+                else if (!buildingType.turnedOn && buildingType.buildingDone)
+                {
+                    buildingState.text = "Uit";
+                }
+
+                infoPopUp.transform.GetChild(1).gameObject.SetActive(true);
+                infoPopUp.transform.GetChild(2).gameObject.SetActive(true);
+            } else {
+                infoPopUp.transform.GetChild(1).gameObject.SetActive(false);
+                infoPopUp.transform.GetChild(2).gameObject.SetActive(false);
+            }
+
+        }
         else
         {
+            currentObject = null;
             infoPopUp.SetActive(false);
         }
 
     }
 
+    public void RemoveBuilding() {
+
+        if (currentObject != null) {
+            BuildingManager.I.RemoveBuilding(currentObject, gridManager);
+            infoPopUp.SetActive(false);
+            deleteButton.SetActive(false);
+        }
+
+    }
+    public void BuyBuilding()
+    {
+
+        if (currentObject != null)
+        {
+            BuildingManager.I.BuyBuilding(currentObject.GetComponent<BuildingType>());
+            infoPopUp.SetActive(false);
+            deleteButton.SetActive(false);
+        }
+
+    }
     public void OnmouseExit()
     {
         infoPopUp.SetActive(false);

@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012011955736}
   m_Enabled: 0
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -109,3 +109,9 @@ MonoBehaviour:
   tileType: 0
   inRange: 0
   currentObject: {fileID: 0}
+  inColorCluster: 0
+  inMixedCluster: 0
+  clusterId: 0
+  colorClusterAmount: 0
+  colorCluster: 0
+  blendedColors: 

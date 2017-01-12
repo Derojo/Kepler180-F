@@ -9,37 +9,24 @@ public class ColorGenerator : MonoBehaviour
     public int ColorGeneratorCode;
     public string ColorGeneratorName;
 
-    public bool blueprint = false;
+    private bool blueprint = false;
     public float buildingAuraPower;
     public int sizeOnGrid = 1;
-    public Canvas buildingInfoCanvas;
-    private GameObject buildingTurnInfo;
-    private GameObject buildingKrachtInfo;
-    private Text buildTimeInfo;
     private float _buildingAuraPower;
 
     // Use this for initialization
 
     void Start()
     {
+        blueprint = gameObject.GetComponent<BuildingType>().blueprint;
         _buildingAuraPower = buildingAuraPower;
         ColorGeneratorCode = (int)selectedColor;
         ColorGeneratorName = selectedColor.ToString();
-        if (!blueprint)
+        if (blueprint)
         {
-            
-            buildingTurnInfo = buildingInfoCanvas.transform.GetChild(0).gameObject;
-            buildingKrachtInfo = buildingInfoCanvas.transform.GetChild(3).gameObject;
-            buildTimeInfo = buildingTurnInfo.transform.GetChild(1).GetComponent<Text>();
-            buildTimeInfo.text = gameObject.GetComponent<BuildingType>().buildTime.ToString();
+            this.GetComponent<Renderer>().material.renderQueue = 4000;
+        }
 
-            buildingKrachtInfo.transform.GetChild(1).GetComponent<Text>().text = buildingAuraPower.ToString() + " kracht";
-            
-        }
-        else
-        {
-            this.GetComponent<Renderer>().material.renderQueue = 5000;
-        }
 
     }
 
@@ -47,9 +34,6 @@ public class ColorGenerator : MonoBehaviour
     public void turnOnGenerator()
     {
         determineAuraPower();
-        buildingInfoCanvas.transform.GetChild(1).gameObject.SetActive(false);
-        buildingInfoCanvas.transform.GetChild(2).gameObject.SetActive(true);
-        buildingKrachtInfo.SetActive(true);
         gameObject.transform.GetChild(3).gameObject.SetActive(true);
         gameObject.transform.GetChild(2).gameObject.SetActive(true);
 

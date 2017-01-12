@@ -36,4 +36,36 @@ public class BuildingManager : Singleton<BuildingManager>
         return false;
     }
 
+    public void RemoveBuilding(GameObject building, GridManager gridManager)
+    {
+        Tile tile = building.GetComponentInParent<Tile>();
+        tile.currentObject = null;
+        tile.tileType = 0;
+        PlacementData.I.removeBuildingNode(tile.x, tile.z, building);
+        if (tile.inMixedCluster) {
+            tile.inMixedCluster = false;
+            ColorManager.I.colorCluster[tile.clusterId].mixedColorSpots--;
+            if (ColorManager.I.colorCluster[tile.clusterId].mixedColorSpots == 1) {
+                Tile neighbor = ColorManager.I.getFirstAdjunctTile(tile, gridManager);
+                neighbor.inMixedCluster = false;
+                ColorManager.I.colorCluster.RemoveAt(tile.clusterId);
+            }
+        }
+        else {
+            ColorManager.I.sameColorAmount[tile.clusterId]--;
+            tile.colorClusterAmount--;
+            if (ColorManager.I.sameColorAmount[tile.clusterId] == 1) {
+                Tile neighbor = ColorManager.I.getFirstAdjunctTile(tile, gridManager);
+                neighbor.inColorCluster = false;
+                ColorManager.I.sameColorAmount.RemoveAt(tile.clusterId);
+
+            }
+            tile.inColorCluster = false;
+        }
+
+
+        GameObject.Destroy(building);
+
+    }
+
 }

@@ -8,6 +8,7 @@ public class BuildingType : MonoBehaviour
 {
 
     public Types.buildingtypes type;
+    public bool blueprint = false;
     public float buildingCost;
     public float buildingPowerUsage;
     public bool UsingPower = false;
@@ -22,7 +23,9 @@ public class BuildingType : MonoBehaviour
     //constructing building variables
     public int buildTime;
     public int buildTimeTotal;
-    public Text buildTimeInfo;
+    // Every building needs to have a buildingInfoCanvas!
+    public Canvas buildingInfoCanvas;
+    private Text buildTimeInfo;
     private bool eventBuildingcall = false;
 
     //eventlistner
@@ -36,7 +39,18 @@ public class BuildingType : MonoBehaviour
 
         EventManager.StopListening("EndTurn", setNextTurn);
     }
-  
+
+    void Start() {
+        buildTimeTotal = buildTime;
+        if (!blueprint && type != Types.buildingtypes.maingenerator) {
+            if (type == Types.buildingtypes.colorgenerator) {
+                buildingInfoCanvas.gameObject.SetActive(true);
+            }
+            buildTimeInfo = buildingInfoCanvas.transform.GetChild(1).GetComponent<Text>();
+            buildTimeInfo.text = buildTime.ToString();
+        }
+    }
+
     void setNextTurn()
     {
 
@@ -53,16 +67,18 @@ public class BuildingType : MonoBehaviour
             {
                 buildingDone = true;
             }
+            updateBuildingInfoCanvas();
             //when building is done and event is not called, call it ONCE to reduce money ONCE
             if (buildingDone && !eventBuildingcall)
             {
-                if (turnedOnMaterial != null) {
-                    gameObject.GetComponent<Renderer>().material = turnedOnMaterial;
+                if (turnedOnMaterial != null)
+                {
+                    GetComponent<Renderer>().material = turnedOnMaterial;
                 }
 
                 if (type == Types.buildingtypes.colorgenerator)
                 {
-                    gameObject.GetComponent<ColorGenerator>().turnOnGenerator();
+                    GetComponent<ColorGenerator>().turnOnGenerator();
                 }
 
                 eventBuildingcall = true;
@@ -79,17 +95,29 @@ public class BuildingType : MonoBehaviour
                 return;
             }
 
-            //If the building is turned on then it start using power.
+            // Building is on start the right functionalities
             if (turnedOn)
             {
                 if (type == Types.buildingtypes.colorgenerator)
                 {
-                    gameObject.GetComponent<ColorGenerator>().addAuraPower();
+                    GetComponent<ColorGenerator>().addAuraPower();
+                }
+                else if (type == Types.buildingtypes.mineraldrill)
+                {
+                    GetComponent<SubBuilding>().harvastMinerals();
+                }
+                else if (type == Types.buildingtypes.energytransformer)
+                {
+                    GetComponent<SubBuilding>().generateConstantPower();
+                }
+                else if (type == Types.buildingtypes.energygenerator)
+                {
+                    GetComponent<SubBuilding>().generatePowerOnce();
                 }
                 //reduce power if building is on
                 ResourceManager.I.powerLevel = ResourceManager.I.powerLevel - buildingPowerUsage;
                 EventManager.TriggerEvent("updateUI");
-                
+
             }
         }
 
@@ -99,9 +127,24 @@ public class BuildingType : MonoBehaviour
             gameObject.GetComponent<SubBuilding>().showSubBuilding();
         }
 
+
     }
 
+    private void updateBuildingInfoCanvas()
+    {
+        if (type != Types.buildingtypes.maingenerator)
+        {
+            buildTimeInfo.text = buildTime.ToString();
+            if (buildingDone) {
+                buildingInfoCanvas.transform.GetChild(0).gameObject.SetActive(false);
+                buildingInfoCanvas.transform.GetChild(1).gameObject.SetActive(false);
+                buildingInfoCanvas.transform.GetChild(2).gameObject.SetActive(false);
+                buildingInfoCanvas.transform.GetChild(3).gameObject.SetActive(true);
+            }
+        }
+    }
 }
+
 
 
 

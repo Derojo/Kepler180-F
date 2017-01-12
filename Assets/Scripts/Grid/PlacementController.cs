@@ -152,6 +152,7 @@ public class PlacementController : MonoBehaviour
                 return;
             GameObject objectInPlace = Instantiate(objectInDrag) as GameObject;
             objectInPlace.transform.position = objectInDrag.transform.position;
+            objectInPlace.name = objectInDrag.name + lastTileSelected[0].name;
             lastTileSelected[0].currentObject = objectInPlace;
             lastTileSelected[0].tileType = (int)objectInPlace.GetComponent<BuildingType>().type;
             objectInPlace.transform.parent = lastTileSelected[0].transform;

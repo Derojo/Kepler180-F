@@ -7,8 +7,13 @@ public class SubBuilding : MonoBehaviour {
 
     public GameObject firstParent;
     public GameObject secondParent;
+    public float harvestPower;
+    public float constantEnergyPower;
+    public float energyPowerOnce;
+    private bool generatedPowerOnce = false;
 
     private bool visible = false;
+
 
     void Start()
     {
@@ -19,12 +24,15 @@ public class SubBuilding : MonoBehaviour {
             }
         }
     }
+
     public void showSubBuilding() {
         if (visible)
             return;
 
         if (firstParent.GetComponent<BuildingType>().buildingDone && secondParent.GetComponent<BuildingType>().buildingDone)
         {
+            this.gameObject.GetComponent<Collider>().enabled = true;
+            this.gameObject.GetComponent<BuildingType>().buildingInfoCanvas.gameObject.SetActive(true);
             if (gameObject.GetComponent<Renderer>()) {
                 gameObject.GetComponent<Renderer>().enabled = true;
             }
@@ -38,6 +46,31 @@ public class SubBuilding : MonoBehaviour {
             visible = true;
         }
 
+    }
+
+
+    // MineralDrill specific functions
+
+    public void harvastMinerals()
+    {
+        ResourceManager.I.fundings = ResourceManager.I.fundings + harvestPower;
+    }
+
+
+    // Power specific functions
+
+    public void generatePowerOnce()
+    {
+        if (!generatedPowerOnce) {
+            generatedPowerOnce = true;
+            ResourceManager.I.powerLevel = ResourceManager.I.powerLevel + energyPowerOnce;
+        }
+
+    }
+
+    public void generateConstantPower()
+    {
+        ResourceManager.I.powerLevel = ResourceManager.I.powerLevel + constantEnergyPower;
     }
 
 }
