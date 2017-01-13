@@ -138,7 +138,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1600828444165110}
   m_LocalRotation: {x: -0, y: -0.70710677, z: -0.7071069, w: 0}
-  m_LocalPosition: {x: 0.94000006, y: 2.02, z: 0.57}
+  m_LocalPosition: {x: 1.72, y: 4.22, z: 0.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4695444657195512}
@@ -410,6 +410,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstParent: {fileID: 0}
   secondParent: {fileID: 0}
+  harvestPower: 0
+  constantEnergyPower: 0
+  energyPowerOnce: 0
 --- !u!114 &114641289376715986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -422,6 +425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  blueprint: 0
   buildingCost: 0
   buildingPowerUsage: 0
   UsingPower: 0
@@ -433,7 +437,7 @@ MonoBehaviour:
   turnedOnMaterial: {fileID: 0}
   buildTime: 0
   buildTimeTotal: 0
-  buildTimeInfo: {fileID: 0}
+  buildingInfoCanvas: {fileID: 0}
 --- !u!198 &198053147652928636
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -653,7 +657,7 @@ ParticleSystem:
       maxColor: {r: 0.8666667, g: 0.9647059, b: 1, a: 0.19607843}
       minMaxState: 3
     startSize:
-      scalar: 2
+      scalar: 4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -671,7 +675,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.5
+          value: 0.25
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -864,9 +868,9 @@ ParticleSystem:
     radius: 1
     angle: 25
     length: 5
-    boxX: 5
+    boxX: 8
     boxY: 0.01
-    boxZ: 5
+    boxZ: 8
     arc: 360
     placementMode: 0
     m_Mesh: {fileID: 0}
@@ -2988,7 +2992,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -112197933
+  randomSeed: 287672172
   InitialModule:
     serializedVersion: 3
     enabled: 1
