@@ -21,24 +21,32 @@ public class PlacementData : Singleton<PlacementData> {
 
     public void removeBuildingNode(int x, int z, GameObject building) {
         GameObject find = null;
-        foreach (BuildingNode node in placementNodes) {
-            if (node.x == x && node.z == z) {
-                placementNodes.Remove(node);
-            }
-            GameObject parent = Grid.getGridCellAtPosition(x, z);
-            
-            if (parent.GetComponentInChildren<SubBuilding>()) {
-                Debug.Log("parent has subbuilding");
-                foreach (SubBuilding sub in parent.GetComponentsInChildren<SubBuilding>())
+        if (placementNodes.Count > 1) {
+            foreach (BuildingNode node in placementNodes)
+            {
+                if (node.x == x && node.z == z)
                 {
-                    if (sub.firstParent == building || sub.secondParent == building) {
-                        DestroyObject(sub.gameObject);
-                        return;
+                    placementNodes.Remove(node);
+                }
+                GameObject parent = Grid.getGridCellAtPosition(x, z);
+
+                if (parent.GetComponentInChildren<SubBuilding>())
+                {
+                    foreach (SubBuilding sub in parent.GetComponentsInChildren<SubBuilding>())
+                    {
+                        if (sub.firstParent == building || sub.secondParent == building)
+                        {
+                            DestroyObject(sub.gameObject);
+                            return;
+                        }
                     }
                 }
-            }
 
+            } 
+        } else {
+            placementNodes.RemoveAt(0);
         }
+
     }
     public void AddBuildingNode(int x, int z, Types.buildingtypes type, GameObject model, bool inPlanningMode) {
         BuildingNode bn = new BuildingNode();

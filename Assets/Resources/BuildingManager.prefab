@@ -53,14 +53,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingObjects:
   - blendedColor: 1
-    bObject: {fileID: 1832428993285000, guid: 6d507efdd9cb8f346b1933c2d9dc241e, type: 2}
-    offset: 1.5
+    bObject: {fileID: 1304770380141130, guid: 1de126e7b560fe94b9e63bbf5c36961d, type: 2}
+    offset: 0
+    offsetZ: 0
+    offsetX: -3
   - blendedColor: 6
     bObject: {fileID: 1797626920640808, guid: 12ecc1ea5fbfd854cbd04a52f0ed4d40, type: 2}
-    offset: 1.5
+    offset: 1.3
+    offsetZ: 0
+    offsetX: 0
   - blendedColor: 3
     bObject: {fileID: 1307484975252142, guid: 649dad146a42dba4c832fb13f9bcf19b, type: 2}
-    offset: 1.5
+    offset: 0
+    offsetZ: 0
+    offsetX: 0
   - blendedColor: 5
     bObject: {fileID: 1357239095588294, guid: 713ffe810c4c9a04087761c3d6a31032, type: 2}
     offset: 0
+    offsetZ: 0
+    offsetX: 0

@@ -38,23 +38,29 @@ public class BuildingManager : Singleton<BuildingManager>
 
     public void RemoveBuilding(GameObject building, GridManager gridManager)
     {
+        Debug.Log(building.name);
         Tile tile = building.GetComponentInParent<Tile>();
         tile.currentObject = null;
         tile.tileType = 0;
         PlacementData.I.removeBuildingNode(tile.x, tile.z, building);
-        if (tile.inMixedCluster) {
+        
+        if (tile.inMixedCluster)
+        {
             tile.inMixedCluster = false;
             ColorManager.I.colorCluster[tile.clusterId].mixedColorSpots--;
-            if (ColorManager.I.colorCluster[tile.clusterId].mixedColorSpots == 1) {
+            if (ColorManager.I.colorCluster[tile.clusterId].mixedColorSpots == 1)
+            {
                 Tile neighbor = ColorManager.I.getFirstAdjunctTile(tile, gridManager);
                 neighbor.inMixedCluster = false;
                 ColorManager.I.colorCluster.RemoveAt(tile.clusterId);
             }
         }
-        else {
+        else if (tile.inColorCluster)
+        {
             ColorManager.I.sameColorAmount[tile.clusterId]--;
             tile.colorClusterAmount--;
-            if (ColorManager.I.sameColorAmount[tile.clusterId] == 1) {
+            if (ColorManager.I.sameColorAmount[tile.clusterId] == 1)
+            {
                 Tile neighbor = ColorManager.I.getFirstAdjunctTile(tile, gridManager);
                 neighbor.inColorCluster = false;
                 ColorManager.I.sameColorAmount.RemoveAt(tile.clusterId);
@@ -65,6 +71,7 @@ public class BuildingManager : Singleton<BuildingManager>
 
 
         GameObject.Destroy(building);
+        return;
 
     }
 
