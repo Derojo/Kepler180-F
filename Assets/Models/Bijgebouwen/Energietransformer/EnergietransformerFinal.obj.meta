@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: ad711d91fd37fd4498f9a75700b0c4a9
-timeCreated: 1484053717
+guid: 214caec9ddd4dea41a0b44790ead63f3
+timeCreated: 1484215213
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -68,7 +68,7 @@ ModelImporter:
     4300020: SunPanel3
     4300022: SunPanel4
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:
