@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 24742666cc53a5e4bb5bb241fb257582
-timeCreated: 1484252352
+timeCreated: 1484316018
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -27,6 +27,11 @@ TextureImporter:
     21300040: Blauw
     21300042: Geel
     21300044: ShopPanel
+    21300046: Funds
+    21300048: KGRood
+    21300050: KGBlauw
+    21300052: KGGroen
+    21300054: KGGeel
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -386,6 +391,71 @@ TextureImporter:
         y: 331
         width: 1277
         height: 166
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Funds
+      rect:
+        serializedVersion: 2
+        x: 1845
+        y: 1715
+        width: 52
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: KGRood
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 1845
+        width: 164
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: KGBlauw
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 1845
+        width: 175
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: KGGroen
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 1844
+        width: 175
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: KGGeel
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 1845
+        width: 175
+        height: 173
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
