@@ -256,17 +256,17 @@ public class PlacementController : MonoBehaviour
             Vector3 location = new Vector3();
             if (tileA.x == tileB.x)
             { // vertical placement
-                location = new Vector3(tileA.transform.position.x, blendObject.offset, (tileA.transform.position.z + tileB.transform.position.z) / 2);
+                location = new Vector3(tileA.transform.position.x + blendObject.offsetX, blendObject.offset, (tileA.transform.position.z + tileB.transform.position.z) + blendObject.offsetZ / 2);
             }
             else
             {
                 if (tileA.z == tileB.z)
                 { // horizontal placement
-                    location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) / 2, blendObject.offset, tileA.transform.position.z);
+                    location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) + blendObject.offsetX / 2, blendObject.offset, tileA.transform.position.z + blendObject.offsetZ);
                 }
                 else
                 { // diagonal placement
-                    location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) / 2, blendObject.offset, (tileA.transform.position.z + tileB.transform.position.z) / 2);
+                    location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) + blendObject.offsetX / 2 , blendObject.offset, (tileA.transform.position.z + tileB.transform.position.z) + blendObject.offsetZ / 2);
                 }
             }
 
