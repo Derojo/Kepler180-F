@@ -15,6 +15,11 @@ public class EvaluationScript : MonoBehaviour
     public GameObject levelWonButton;
     public GameObject levelLostButton;
 
+    public Sprite completedLevelIMG;
+    public Sprite failedLevelIMG;
+
+    public Image ConditionIMG;
+
     // Use this for initialization
     void Start ()
     {
@@ -23,11 +28,13 @@ public class EvaluationScript : MonoBehaviour
 
         if(AuraManager.I.auraLevelPercentage >= 55)
         {
+            ConditionIMG.sprite = completedLevelIMG;
             levelStatus.text = "Level gehaald!";
             levelWonButton.SetActive(true);
         }
         if(AuraManager.I.auraLevelPercentage <= 55)
         {
+            ConditionIMG.sprite = failedLevelIMG;
             levelStatus.text = "Level verloren!";
             levelLostButton.SetActive(true);
         }

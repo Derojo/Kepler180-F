@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 24742666cc53a5e4bb5bb241fb257582
-timeCreated: 1484252352
+timeCreated: 1484311715
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -89,6 +89,22 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -110,12 +126,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 341
-        y: 153
-        width: 311
-        height: 144
+        y: 160
+        width: 305
+        height: 131
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 9, y: 3, z: 0, w: 3}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
@@ -226,13 +242,13 @@ TextureImporter:
       name: VierkantLine
       rect:
         serializedVersion: 2
-        x: 12
+        x: 17
         y: 535
-        width: 354
+        width: 349
         height: 353
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 5, z: 6, w: 1}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
@@ -258,14 +274,14 @@ TextureImporter:
         height: 133
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 4, y: 4, z: 4, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: Button2
       rect:
         serializedVersion: 2
-        x: 31
+        x: 28
         y: 923
         width: 317
         height: 149
