@@ -254,26 +254,34 @@ public class PlacementController : MonoBehaviour
         {
             GameObject subBuilding = Instantiate(blendObject.bObject) as GameObject;
             Vector3 location = new Vector3();
+            Tile maxTile = null;
             if (tileA.x == tileB.x)
             { // vertical placement
-                location = new Vector3(tileA.transform.position.x + blendObject.offsetX, blendObject.offset, (tileA.transform.position.z + tileB.transform.position.z) + blendObject.offsetZ / 2);
+                maxTile = (tileA.z > tileB.z ? tileA : tileB);
+                location = new Vector3(tileA.transform.position.x + blendObject.offsetX, blendObject.offset, (tileA.transform.position.z + tileB.transform.position.z) / 2 + blendObject.offsetZ);
             }
             else
             {
                 if (tileA.z == tileB.z)
                 { // horizontal placement
-                    location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) + blendObject.offsetX / 2, blendObject.offset, tileA.transform.position.z + blendObject.offsetZ);
+                    maxTile = (tileA.x > tileB.x ? tileA : tileB);
+ 
+                    location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) / 2 +blendObject.offsetX, blendObject.offset, maxTile.transform.position.z + blendObject.offsetZ);
+                    
+
                 }
                 else
                 { // diagonal placement
-                    location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) + blendObject.offsetX / 2 , blendObject.offset, (tileA.transform.position.z + tileB.transform.position.z) + blendObject.offsetZ / 2);
+                    maxTile = (tileA.z > tileB.z ? tileA : tileB);
+                    location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) / 2 + blendObject.offsetX, blendObject.offset, (tileA.transform.position.z + tileB.transform.position.z) / 2 + blendObject.offsetZ);
                 }
             }
 
             subBuilding.GetComponent<SubBuilding>().firstParent = tileA.currentObject;
             subBuilding.GetComponent<SubBuilding>().secondParent = tileB.currentObject;
             subBuilding.transform.position = location;
-            subBuilding.transform.parent = lastTileSelected[0].transform;
+            Debug.Log(maxTile.name);
+            subBuilding.transform.parent = maxTile.transform;
         }
 
     }

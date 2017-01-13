@@ -56,7 +56,7 @@ MonoBehaviour:
     bObject: {fileID: 1304770380141130, guid: 1de126e7b560fe94b9e63bbf5c36961d, type: 2}
     offset: 0
     offsetZ: 0
-    offsetX: -3
+    offsetX: -2
   - blendedColor: 6
     bObject: {fileID: 1797626920640808, guid: 12ecc1ea5fbfd854cbd04a52f0ed4d40, type: 2}
     offset: 1.3

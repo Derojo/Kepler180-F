@@ -651,7 +651,7 @@ MonoBehaviour:
   buildingCost: 100
   buildingPowerUsage: 50
   UsingPower: 0
-  buildingDone: 1
+  buildingDone: 0
   turnedOn: 0
   noEnergy: 0
   bought: 0
