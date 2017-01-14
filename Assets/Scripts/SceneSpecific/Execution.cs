@@ -9,6 +9,8 @@ using RTS_Cam;
 public class Execution : MonoBehaviour
 {
     public UIManager uimanager;
+    // Goals box
+    public Animator goals;
     //Ingame text
     public Text totalFunding;
     public Text auraDisplay;
@@ -48,6 +50,7 @@ public class Execution : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(hideGoals(2f));
         BlueprintManager.I.InitializeBlueprintModels();
         UpdateUI();
         UpdatePlanningUI();
@@ -71,6 +74,11 @@ public class Execution : MonoBehaviour
         byte b = byte.Parse(rgba[2]);
         byte a = byte.Parse(rgba[3]);
         AuraColorimg.color = new Color32(r, g, b, a);
+    }
+
+    private IEnumerator hideGoals(float time) {
+        yield return new WaitForSeconds(time);
+        uimanager.DisableBoolAnimator(goals);
     }
 
     void Update()

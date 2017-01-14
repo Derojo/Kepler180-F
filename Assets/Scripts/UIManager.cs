@@ -69,4 +69,24 @@ public class UIManager : MonoBehaviour {
         UIObject.SetActive(false);
 
     }
+
+    public void ToggleBoolAnimator(Animator anim) {
+        bool isDisplayed = anim.GetBool("isDisplayed");
+        if (isDisplayed)
+        {
+            anim.SetBool("isDisplayed", false);
+        }
+        else {
+            anim.SetBool("isDisplayed", true);
+        }
+    }
+
+    public void EnableBoolAnimator(Animator anim)
+    {
+        anim.SetBool("isDisplayed", true);
+    }
+
+    public void DisableBoolAnimator(Animator anim) {
+        anim.SetBool("isDisplayed", false);
+    }
 }
