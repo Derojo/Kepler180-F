@@ -8,6 +8,9 @@ using RTS_Cam;
 
 public class Execution : MonoBehaviour
 {
+    public UIManager uimanager;
+    // Goals box
+    public Animator goals;
     //Ingame text
     public Text totalFunding;
     public Text auraDisplay;
@@ -47,6 +50,7 @@ public class Execution : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(hideGoals(2f));
         BlueprintManager.I.InitializeBlueprintModels();
         UpdateUI();
         UpdatePlanningUI();
@@ -72,12 +76,17 @@ public class Execution : MonoBehaviour
         AuraColorimg.color = new Color32(r, g, b, a);
     }
 
+    private IEnumerator hideGoals(float time) {
+        yield return new WaitForSeconds(time);
+        uimanager.DisableBoolAnimator(goals);
+    }
+
     void Update()
     {
         if (Input.GetButtonDown("Cancel") && !menuOpen)
         {
         
-                escPopUp.SetActive(true);
+            escPopUp.SetActive(true);
             menuOpen = true;
             return;
 
@@ -156,9 +165,16 @@ public class Execution : MonoBehaviour
             PopUps.SetActive(true);
         }
 
-        if (TurnManager.I.levelLostNoResources)
+        if (TurnManager.I.levelLostNoPower )
         {
-            PopUpText.text = "Helaas je hebt geen resources meer om 55% aurakracht te behalen";
+            if (!TurnManager.I.checkedLevelComplete)
+            {
+                PopUpText.text = "Helaas je hebt geen stroom meer om 55% aurakracht te behalen";
+            }
+            else {
+                PopUpText.text = "Helaas je hebt het level niet gehaald, al je gebouwen zijn uitgevallen omdat er geen stroom meer is! ";
+            }
+
             PopUps.SetActive(true);
         }
         if (currentObject != null) {
@@ -182,7 +198,7 @@ public class Execution : MonoBehaviour
             currentObject = building;
         }
         infoPopUp.SetActive(true);
-        Text infoBox = infoPopUp.transform.GetChild(9).transform.GetChild(0).GetComponent<Text>();
+        Text infoBox = infoPopUp.transform.GetChild(8).transform.GetChild(0).GetComponent<Text>();
         if (infoPopUp)
         {
 
@@ -309,22 +325,27 @@ public class Execution : MonoBehaviour
     }
     public void BuyBuilding()
     {
-
         if (currentObject != null)
         {
-            BuildingManager.I.BuyBuilding(currentObject.GetComponent<BuildingType>());
-            infoPopUp.SetActive(false);
-            deleteButton.SetActive(false);
+            if (!BuildingManager.I.AbleToBuy(currentObject.GetComponent<BuildingType>()))
+            {
+                uimanager.ShowMessage(Types.messages.noFunding);
+            }
+            else {
+                BuildingManager.I.BuyBuilding(currentObject.GetComponent<BuildingType>());
+                infoPopUp.SetActive(false);
+                deleteButton.SetActive(false);
+            }
         }
-
     }
+
     public void OnmouseExit()
     {
         infoPopUp.SetActive(false);
     }
 
-//buttons
-public void QuitLevelPopUp()
+    //buttons
+    public void QuitLevelPopUp()
     {
         completeLevelPopUp.SetActive(true);
     }
