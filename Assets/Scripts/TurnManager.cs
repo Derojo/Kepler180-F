@@ -15,7 +15,9 @@ public class TurnManager : Singleton<TurnManager>{
     public bool checkedLevelComplete = false;
     public bool LevelCompleted = false;
     public bool levelLostNoTurns = false;
-    public bool levelLostNoResources = false;
+    public bool levelLostNoPower = false;
+
+    private bool showedMessage = false;
 
     // Use this for initialization
     void Start()
@@ -54,11 +56,19 @@ public class TurnManager : Singleton<TurnManager>{
         }
 
 
-        //check rfesources
-        if (ResourceManager.I.fundings <= 0 || ResourceManager.I.powerLevel <= 0 && !checkedLevelComplete)
+        //check resources
+        if (ResourceManager.I.powerLevel <= 0 )
         {
-            levelLostNoResources = true;
-            EventManager.TriggerEvent("updateUI");
+            if (!showedMessage) {
+                if (checkedLevelComplete)
+                {
+                    checkedLevelComplete = false;
+                }
+                levelLostNoPower = true;
+                EventManager.TriggerEvent("updateUI");
+                showedMessage = true;
+            }
+
         }
     }
   

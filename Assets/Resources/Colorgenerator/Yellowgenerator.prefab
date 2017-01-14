@@ -97,10 +97,8 @@ MonoBehaviour:
   selectedColor: 3
   ColorGeneratorCode: 0
   ColorGeneratorName: 
-  blueprint: 1
-  buildingAuraPower: 0
+  buildingAuraPower: 100
   sizeOnGrid: 1
-  buildingInfoCanvas: {fileID: 0}
 --- !u!114 &114138131315577292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -113,8 +111,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  buildingCost: 250
-  buildingPowerUsage: 0
+  blueprint: 0
+  buildingCost: 100
+  buildingPowerUsage: 75
   UsingPower: 0
   buildingDone: 0
   turnedOn: 0
@@ -123,7 +122,8 @@ MonoBehaviour:
   boughtMaterial: {fileID: 0}
   turnedOnMaterial: {fileID: 0}
   buildTime: 2
-  buildTimeInfo: {fileID: 0}
+  buildTimeTotal: 0
+  buildingInfoCanvas: {fileID: 0}
 --- !u!114 &114501895285425120
 MonoBehaviour:
   m_ObjectHideFlags: 1

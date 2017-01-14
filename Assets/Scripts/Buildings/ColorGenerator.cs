@@ -57,7 +57,7 @@ public class ColorGenerator : MonoBehaviour
         {
 
             // Aurapower is going to increase since the same colors strengthen the aurapower
-            buildingAuraPower = _buildingAuraPower + ((_buildingAuraPower / 4) * (ColorManager.I.sameColorAmount[cgeneratorTile.clusterId] - 1));
+            buildingAuraPower = _buildingAuraPower + ((_buildingAuraPower / 10) * (ColorManager.I.sameColorAmount[cgeneratorTile.clusterId] - 1));
             if (buildingAuraPower > _buildingAuraPower)
             {
                 float strengthen = (buildingAuraPower - _buildingAuraPower) / 100;

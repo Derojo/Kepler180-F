@@ -95,7 +95,6 @@ public class PlacementController : MonoBehaviour
         if (!BuildingManager.I.AbleToBuy(building.GetComponent<BuildingType>()))
         {
             uimanager.ShowMessage(Types.messages.noFunding);
-
         }
         else
         {
