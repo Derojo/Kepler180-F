@@ -903,7 +903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstParent: {fileID: 0}
   secondParent: {fileID: 0}
-  harvestPower: 100
+  harvestPower: 75
   constantEnergyPower: 0
   energyPowerOnce: 0
 --- !u!114 &114862155465766472
@@ -999,8 +999,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   blueprint: 0
-  buildingCost: 200
-  buildingPowerUsage: 50
+  buildingCost: 150
+  buildingPowerUsage: 75
   UsingPower: 0
   buildingDone: 0
   turnedOn: 0
@@ -1008,7 +1008,7 @@ MonoBehaviour:
   bought: 0
   boughtMaterial: {fileID: 0}
   turnedOnMaterial: {fileID: 0}
-  buildTime: 1
+  buildTime: 2
   buildTimeTotal: 0
   buildingInfoCanvas: {fileID: 223508977792688618}
 --- !u!198 &198429302870554010

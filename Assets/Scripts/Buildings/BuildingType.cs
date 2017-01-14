@@ -115,7 +115,7 @@ public class BuildingType : MonoBehaviour
                     GetComponent<SubBuilding>().generatePowerOnce();
                 }
                 //reduce power if building is on
-                ResourceManager.I.powerLevel = ResourceManager.I.powerLevel - buildingPowerUsage;
+                ResourceManager.I.calculatePowerLevel(buildingPowerUsage);
                 EventManager.TriggerEvent("updateUI");
 
             }

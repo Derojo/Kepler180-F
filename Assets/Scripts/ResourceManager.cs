@@ -12,5 +12,15 @@ public class ResourceManager : Singleton<ResourceManager>
     public float planetHeat;
 
     public void Load() { return; }
+
+    public void calculatePowerLevel(float amount) {
+        float calc = powerLevel - amount;
+        if ((powerLevel - amount) <= 0) {
+            powerLevel = 0;
+        } else {
+            powerLevel = powerLevel - amount;
+        }
+
+    }
 }
 

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 24742666cc53a5e4bb5bb241fb257582
-timeCreated: 1484311715
+timeCreated: 1484318696
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -27,6 +27,7 @@ TextureImporter:
     21300040: Blauw
     21300042: Geel
     21300044: ShopPanel
+    21300046: MoneyIcon
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -402,6 +403,19 @@ TextureImporter:
         y: 331
         width: 1277
         height: 166
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MoneyIcon
+      rect:
+        serializedVersion: 2
+        x: 1848
+        y: 1715
+        width: 48
+        height: 51
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

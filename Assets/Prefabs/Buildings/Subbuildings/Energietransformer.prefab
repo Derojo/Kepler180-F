@@ -1131,8 +1131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 4
   blueprint: 0
-  buildingCost: 200
-  buildingPowerUsage: 10
+  buildingCost: 150
+  buildingPowerUsage: 25
   UsingPower: 0
   buildingDone: 0
   turnedOn: 0
@@ -1305,7 +1305,7 @@ MonoBehaviour:
   firstParent: {fileID: 0}
   secondParent: {fileID: 0}
   harvestPower: 0
-  constantEnergyPower: 25
+  constantEnergyPower: 75
   energyPowerOnce: 0
 --- !u!114 &114831815896306176
 MonoBehaviour:

@@ -779,7 +779,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   blueprint: 0
-  buildingCost: 100
+  buildingCost: 150
   buildingPowerUsage: 25
   UsingPower: 0
   buildingDone: 0
@@ -788,7 +788,7 @@ MonoBehaviour:
   bought: 0
   boughtMaterial: {fileID: 0}
   turnedOnMaterial: {fileID: 0}
-  buildTime: 1
+  buildTime: 2
   buildTimeTotal: 0
   buildingInfoCanvas: {fileID: 223765599788797180}
 --- !u!114 &114874936092577126
