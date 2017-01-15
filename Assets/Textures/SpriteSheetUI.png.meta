@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 24742666cc53a5e4bb5bb241fb257582
-timeCreated: 1484471064
+timeCreated: 1484518309
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -32,6 +32,10 @@ TextureImporter:
     21300050: Green Generator
     21300052: YellowGenerator
     21300054: FundsIcon
+    21300056: AuraGroot
+    21300058: EnergieGroot
+    21300060: HitteGroot
+    21300062: FundsGroot
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -247,13 +251,13 @@ TextureImporter:
       name: VierkantLine
       rect:
         serializedVersion: 2
-        x: 17
-        y: 535
-        width: 349
-        height: 353
+        x: 14
+        y: 537
+        width: 350
+        height: 350
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 5, z: 6, w: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
@@ -286,9 +290,9 @@ TextureImporter:
       name: Button2
       rect:
         serializedVersion: 2
-        x: 28
-        y: 923
-        width: 317
+        x: 30
+        y: 924
+        width: 321
         height: 149
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -472,6 +476,58 @@ TextureImporter:
         y: 1715
         width: 52
         height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: AuraGroot
+      rect:
+        serializedVersion: 2
+        x: 1986
+        y: 1635
+        width: 52
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: EnergieGroot
+      rect:
+        serializedVersion: 2
+        x: 1902
+        y: 1621
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HitteGroot
+      rect:
+        serializedVersion: 2
+        x: 1836
+        y: 1620
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: FundsGroot
+      rect:
+        serializedVersion: 2
+        x: 1763
+        y: 1620
+        width: 72
+        height: 72
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
