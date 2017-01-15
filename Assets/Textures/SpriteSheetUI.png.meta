@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 24742666cc53a5e4bb5bb241fb257582
-timeCreated: 1484402732
+timeCreated: 1484471064
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -130,13 +130,13 @@ TextureImporter:
       name: Button1_1
       rect:
         serializedVersion: 2
-        x: 341
+        x: 347
         y: 160
-        width: 305
+        width: 299
         height: 131
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 9, y: 3, z: 0, w: 3}
+      border: {x: 3, y: 3, z: 0, w: 3}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2

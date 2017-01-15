@@ -99,9 +99,12 @@ public class PlacementController : MonoBehaviour
         }
         else
         {
-            if(TurnManager.I.placementsDone < TurnManager.I.maxPlacementsPerTurn)
+            if(TurnManager.I.placementsDone < TurnManager.I.maxPlacementsPerTurn || inPlanningMode)
             {
-                TurnManager.I.placementsDone++;
+                if(!inPlanningMode) {
+                    TurnManager.I.placementsDone++;
+                }
+
                 if (objectInDrag != null)
                 {
                     objectInDrag.SetActive(false);
@@ -131,10 +134,14 @@ public class PlacementController : MonoBehaviour
 
     public void CancelPlacement()
     {
-        if (TurnManager.I.placementsDone > 0)
+        if (!inPlanningMode)
         {
-            TurnManager.I.placementsDone--;
+            if (TurnManager.I.placementsDone > 0)
+            {
+                TurnManager.I.placementsDone--;
+            }
         }
+
         objectInDrag.SetActive(false);
         tileSelect[0].Deselect(lastTileSelected[0]);
         startPlacement = false;
@@ -147,7 +154,7 @@ public class PlacementController : MonoBehaviour
         if (lastTileSelected[0].inRange)
         {
 
-            if (PlacementData.I.placementNodes.Count > 0)
+            if (PlacementData.I.placementNodes.Count > 0 || inPlanningMode && PlacementData.I.planningNodes.Count > 0)
             {
 
                 if (lastTileSelected[0].tileType == (int)Types.buildingtypes.colorgenerator)
@@ -169,7 +176,8 @@ public class PlacementController : MonoBehaviour
             // Store object with x,z,type and model in placementNodes
             PlacementData.I.AddBuildingNode(lastTileSelected[0].x, lastTileSelected[0].z, objectInPlace.GetComponent<BuildingType>().type, Resources.Load<GameObject>(objectInPlace.GetComponent<BuildingType>().type + "/" + objectInDrag.name), inPlanningMode);
             // Buy building, activate turn on process
-            BuildingManager.I.BuyBuilding(objectInPlace.GetComponent<BuildingType>());
+            BuildingManager.I.BuyBuilding(objectInPlace.GetComponent<BuildingType>(), inPlanningMode);
+            
             // Check for colorblending
             if (lastTileSelected[0].inMixedCluster)
             {
@@ -189,8 +197,6 @@ public class PlacementController : MonoBehaviour
 
     private void DetermineCluster()
     {
-
-
         Types.colortypes color = objectInDrag.GetComponent<ColorGenerator>().selectedColor;
         Tile adjunctTile = ColorManager.I.getFirstAdjunctTile(lastTileSelected[0], GetComponent<GridManager>());
 

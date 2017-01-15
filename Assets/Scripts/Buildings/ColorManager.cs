@@ -31,6 +31,12 @@ public class ColorManager : Singleton<ColorManager>
     void Start() {
         Initialize();
     }
+
+    public void resetClusters() {
+        colorCluster = null;
+        sameColorAmount = new List<int>();
+    }
+
     private void Initialize() {
         blends.Add(new ColorBlend((int)Types.blendedColors.Purple, (int)Types.colortypes.Red, (int)Types.colortypes.Blue));
         blends.Add(new ColorBlend((int)Types.blendedColors.Brown, (int)Types.colortypes.Red, (int)Types.colortypes.Green));

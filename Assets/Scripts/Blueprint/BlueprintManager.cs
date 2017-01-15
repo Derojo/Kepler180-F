@@ -38,6 +38,10 @@ public class BlueprintManager : Singleton<BlueprintManager>
 
             // Deactivate mesh renderer, we don't want to see it on default
             building.GetComponent<MeshRenderer>().enabled = false;
+            foreach (Transform child in building.transform)
+            {
+                child.gameObject.SetActiveRecursively(false);
+            }
         }
     }
 

@@ -88,20 +88,6 @@ public class Execution : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Cancel") && !menuOpen)
-        {
-        
-            escPopUp.SetActive(true);
-            menuOpen = true;
-            return;
-
-        }
-        if (Input.GetButtonDown("Cancel") && menuOpen)
-        {
-            escPopUp.SetActive(false);
-            menuOpen = false;
-        }
-
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitObject;
 
@@ -340,7 +326,7 @@ public class Execution : MonoBehaviour
                 uimanager.ShowMessage(Types.messages.noFunding);
             }
             else {
-                BuildingManager.I.BuyBuilding(currentObject.GetComponent<BuildingType>());
+                BuildingManager.I.BuyBuilding(currentObject.GetComponent<BuildingType>(), false);
                 infoPopUp.SetActive(false);
                 deleteButton.SetActive(false);
             }

@@ -32,6 +32,9 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    void Start() {
+        DontDestroyOnLoad(this);
+    }
     void Init()
     {
         if (eventDictionary == null)

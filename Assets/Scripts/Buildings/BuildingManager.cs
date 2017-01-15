@@ -17,9 +17,16 @@ public class BuildingManager : Singleton<BuildingManager>
         return null;
     }
 
-    public void BuyBuilding(BuildingType buildingInfo) {
+    public void BuyBuilding(BuildingType buildingInfo, bool inPlanning) {
         ResourceManager.I.fundings = ResourceManager.I.fundings - buildingInfo.buildingCost;
-        BlueprintManager.I.bluePrintMoneyTotal = BlueprintManager.I.bluePrintMoneyTotal - buildingInfo.buildingCost;
+        if (!inPlanning)
+        {
+            BlueprintManager.I.bluePrintMoneyTotal = BlueprintManager.I.bluePrintMoneyTotal - buildingInfo.buildingCost;
+        }
+        else {
+            BlueprintManager.I.bluePrintTurnsTotal = BlueprintManager.I.bluePrintTurnsTotal + buildingInfo.buildTime;
+            BlueprintManager.I.bluePrintMoneyTotal = BlueprintManager.I.bluePrintMoneyTotal + buildingInfo.buildingCost;
+        }
         buildingInfo.bought = true;
         if (buildingInfo.boughtMaterial != null) {
             buildingInfo.gameObject.GetComponent<Renderer>().material = buildingInfo.boughtMaterial;
@@ -36,13 +43,13 @@ public class BuildingManager : Singleton<BuildingManager>
         return false;
     }
 
-    public void RemoveBuilding(GameObject building, GridManager gridManager)
+    public void RemoveBuilding(GameObject building, GridManager gridManager, bool planning = false)
     {
         Debug.Log(building.name);
         Tile tile = building.GetComponentInParent<Tile>();
         tile.currentObject = null;
         tile.tileType = 0;
-        PlacementData.I.removeBuildingNode(tile.x, tile.z, building);
+        PlacementData.I.removeBuildingNode(tile.x, tile.z, building, planning);
         
         if (tile.inMixedCluster)
         {

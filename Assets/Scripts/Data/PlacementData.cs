@@ -19,10 +19,12 @@ public class PlacementData : Singleton<PlacementData> {
         }
     }
 
-    public void removeBuildingNode(int x, int z, GameObject building) {
+    public void removeBuildingNode(int x, int z, GameObject building, bool planning = false) {
         GameObject find = null;
+        List<BuildingNode> nodeList = (planning ? planningNodes : placementNodes);
+        Debug.Log(nodeList.Count);
         if (placementNodes.Count > 1) {
-            foreach (BuildingNode node in placementNodes)
+            foreach (BuildingNode node in nodeList)
             {
                 if (node.x == x && node.z == z)
                 {
@@ -44,7 +46,7 @@ public class PlacementData : Singleton<PlacementData> {
 
             } 
         } else {
-            placementNodes.RemoveAt(0);
+            nodeList.RemoveAt(0);
         }
 
     }
@@ -63,8 +65,7 @@ public class PlacementData : Singleton<PlacementData> {
         }
         else
         {
-            BlueprintManager.I.bluePrintTurnsTotal = BlueprintManager.I.bluePrintTurnsTotal + model.GetComponent<BuildingType>().buildTime;
-            BlueprintManager.I.bluePrintMoneyTotal = BlueprintManager.I.bluePrintMoneyTotal + model.GetComponent<BuildingType>().buildingCost;
+
             if (!planningNodes.Contains(bn))
             {
                 planningNodes.Add(bn);

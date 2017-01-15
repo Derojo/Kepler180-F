@@ -42,10 +42,11 @@ public class BuildingType : MonoBehaviour
 
     void Start() {
         buildTimeTotal = buildTime;
-        if (!blueprint && type != Types.buildingtypes.maingenerator) {
+        if (type != Types.buildingtypes.maingenerator) {
             if (type == Types.buildingtypes.colorgenerator) {
                 buildingInfoCanvas.gameObject.SetActive(true);
             }
+            Debug.Log(buildTime.ToString());
             buildTimeInfo = buildingInfoCanvas.transform.GetChild(1).GetComponent<Text>();
             buildTimeInfo.text = buildTime.ToString();
         }

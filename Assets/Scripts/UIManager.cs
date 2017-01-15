@@ -13,7 +13,24 @@ public class UIManager : MonoBehaviour {
     }
 
     private bool inTween = false;
+    public GameObject escPopUp;
+    public bool menuOpen = false;
     public Message[] Messages = new Message[0];
+
+    void Update() {
+        if (Input.GetButtonDown("Cancel") && !menuOpen)
+        {
+            escPopUp.SetActive(true);
+            menuOpen = true;
+            return;
+
+        }
+        if (Input.GetButtonDown("Cancel") && menuOpen)
+        {
+            escPopUp.SetActive(false);
+            menuOpen = false;
+        }
+    }
 
     public Message getMessageByType(Types.messages type) {
         foreach (Message m in Messages) {
