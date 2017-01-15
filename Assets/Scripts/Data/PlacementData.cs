@@ -29,18 +29,19 @@ public class PlacementData : Singleton<PlacementData> {
                 {
                     if (node.x == x && node.z == z)
                     {
-                            placementNodes.Remove(node);
+                        removingNode = node;
                     }
+                    placementNodes.Remove(node);
                     removeSubbuildings(x, z, building);
                 }
             }
             else
             {
                 placementNodes.RemoveAt(0);
+                removeSubbuildings(x, z, building);
             }
         } else
         {
-            Debug.Log(planningNodes.Count);
             if (planningNodes.Count > 1)
             {
                 foreach (BuildingNode node in planningNodes)
@@ -51,12 +52,10 @@ public class PlacementData : Singleton<PlacementData> {
                     }
                 }
                 planningNodes.Remove(removingNode);
-                Debug.Log(planningNodes.Count);
                 removeSubbuildings(x, z, building);
             }
             else
             {
-                Debug.Log("only one");
                 planningNodes.RemoveAt(0);
                 removeSubbuildings(x, z, building);
             }
@@ -82,6 +81,7 @@ public class PlacementData : Singleton<PlacementData> {
         }
         return;
     }
+
     public void AddBuildingNode(int x, int z, Types.buildingtypes type, GameObject model, bool inPlanningMode) {
         BuildingNode bn = new BuildingNode();
         bn.x = x;

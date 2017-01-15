@@ -22,7 +22,7 @@ public class ResourceManager : Singleton<ResourceManager>
     public void Load() { return; }
 
     public void subtractPowerLevel(float amount) {
-        Debug.Log("SUBTRACT POWER");
+        Debug.Log("SUBTRACT POWER"+ amount);
         float calc = powerLevel - amount;
         if ((powerLevel - amount) <= 0) {
           
@@ -32,11 +32,10 @@ public class ResourceManager : Singleton<ResourceManager>
             powerLevel = powerLevel - amount;
             updatePowerPercentage();
         }
-        Debug.Log("powerlevel:"+powerLevel);
     }
 
     public void addPowerLevel(float amount) {
-        Debug.Log("ADD POWER");
+        Debug.Log("ADD POWER+"+amount);
         float overload = powerLevel + amount;
         if (overload <= powerMax)
         {
@@ -44,6 +43,7 @@ public class ResourceManager : Singleton<ResourceManager>
             updatePowerPercentage();
         }
         else {
+            Debug.Log("powermax");
             powerLevel = powerMax;
         }
     }

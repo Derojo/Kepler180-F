@@ -97,7 +97,7 @@ public class Execution : MonoBehaviour
             {
                 if (hitObject.collider.GetComponent<BuildingType>())
                 {
-                    Camera.main.GetComponent<RTS_Camera>().SetTarget(hitObject.collider.gameObject.transform);
+                    //Camera.main.GetComponent<RTS_Camera>().SetTarget(hitObject.collider.gameObject.transform);
                     infoPopUp.SetActive(true);
                     UpdateBuildingInfoUI(hitObject.collider.gameObject);
 

@@ -27,6 +27,7 @@ public class BuildingType : MonoBehaviour
     public Canvas buildingInfoCanvas;
     private Text buildTimeInfo;
     private bool eventBuildingcall = false;
+    private bool generatedPowerOnce;
 
     //eventlistner
     void OnEnable()
@@ -101,27 +102,29 @@ public class BuildingType : MonoBehaviour
             {
                 //reduce power if building is on
 
-
+                SubBuilding sub = GetComponent<SubBuilding>();
                 if (type == Types.buildingtypes.colorgenerator)
                 {
                     GetComponent<ColorGenerator>().addAuraPower();
                 }
                 else if (type == Types.buildingtypes.mineraldrill)
                 {
-                    GetComponent<SubBuilding>().harvastMinerals();
+                    sub.harvastMinerals();
+                    ResourceManager.I.fundings = ResourceManager.I.fundings + sub.harvestPower;
                 }
                 else if (type == Types.buildingtypes.energytransformer || type == Types.buildingtypes.maingenerator)
                 {
-                    GetComponent<SubBuilding>().generateConstantPower();
+                    ResourceManager.I.addPowerLevel(sub.constantEnergyPower);
                 }
                 else if (type == Types.buildingtypes.energygenerator)
                 {
-                    GetComponent<SubBuilding>().generatePowerOnce();
+                    if (!generatedPowerOnce)
+                    {
+                        generatedPowerOnce = true;
+                        ResourceManager.I.addPowerLevel(sub.energyPowerOnce);
+                    }
                 }
-                ResourceManager.I.subtractPowerLevel(buildingPowerUsage);
-                EventManager.TriggerEvent("updateUI");
-
-
+                StartCoroutine(subtractPower(1f));
             }
         }
 
@@ -132,6 +135,12 @@ public class BuildingType : MonoBehaviour
         }
 
 
+    }
+
+    private IEnumerator subtractPower(float time) {
+        yield return new WaitForSeconds(time);
+        ResourceManager.I.subtractPowerLevel(buildingPowerUsage);
+        EventManager.TriggerEvent("updateUI");
     }
 
     private void updateBuildingInfoCanvas()
