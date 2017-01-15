@@ -12,7 +12,7 @@ public class SubBuilding : MonoBehaviour {
     public float energyPowerOnce;
     private bool generatedPowerOnce = false;
 
-    private bool visible = false;
+    public bool visible = false;
 
 
     void Start()
@@ -63,14 +63,14 @@ public class SubBuilding : MonoBehaviour {
     {
         if (!generatedPowerOnce) {
             generatedPowerOnce = true;
-            ResourceManager.I.powerLevel = ResourceManager.I.powerLevel + energyPowerOnce;
+            ResourceManager.I.addPowerLevel(energyPowerOnce);
         }
 
     }
 
     public void generateConstantPower()
     {
-        ResourceManager.I.powerLevel = ResourceManager.I.powerLevel + constantEnergyPower;
+        ResourceManager.I.addPowerLevel(constantEnergyPower);
     }
 
 }

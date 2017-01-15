@@ -36,7 +36,6 @@ public class LevelManager : Singleton<LevelManager>
         AuraManager.I.isBlend = levelData.levels[(currentLevel - 1)].isBlend;
         AuraManager.I.A_C_C = levelData.levels[(currentLevel - 1)].A_C_C;
 
-        Debug.Log(nextLevelSkill);
         if (nextLevelSkill == 1)
         {
             

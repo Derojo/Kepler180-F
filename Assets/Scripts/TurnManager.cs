@@ -11,6 +11,8 @@ public class TurnManager : Singleton<TurnManager>{
     public int turnCount = 1;
     public float maxTurns;
     public float turnsLeft;
+    public int maxPlacementsPerTurn;
+    public int placementsDone = 0;
 
     public bool checkedLevelComplete = false;
     public bool LevelCompleted = false;
@@ -59,6 +61,7 @@ public class TurnManager : Singleton<TurnManager>{
         //check resources
         if (ResourceManager.I.powerLevel <= 0 )
         {
+            Debug.Log("Powerlevel is low");
             if (!showedMessage) {
                 if (checkedLevelComplete)
                 {
@@ -87,6 +90,7 @@ public class TurnManager : Singleton<TurnManager>{
     // end turn eand call EndTurn event
     public void OnButtonEndTurn()
     {
+        placementsDone = 0;
         EventManager.TriggerEvent("EndTurn");
         EventManager.TriggerEvent("updateUI");
     }

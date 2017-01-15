@@ -779,8 +779,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   blueprint: 0
-  buildingCost: 150
-  buildingPowerUsage: 25
+  buildingCost: 100
+  buildingPowerUsage: 0
   UsingPower: 0
   buildingDone: 0
   turnedOn: 0
@@ -834,7 +834,8 @@ MonoBehaviour:
   secondParent: {fileID: 0}
   harvestPower: 0
   constantEnergyPower: 0
-  energyPowerOnce: 500
+  energyPowerOnce: 800
+  visible: 0
 --- !u!198 &198149555832483330
 ParticleSystem:
   m_ObjectHideFlags: 1

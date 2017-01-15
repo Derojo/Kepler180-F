@@ -11,6 +11,9 @@ public class Execution : MonoBehaviour
     public UIManager uimanager;
     // Goals box
     public Animator goals;
+    public Text currentLevel;
+    public Text auraGoal;
+
     //Ingame text
     public Text totalFunding;
     public Text auraDisplay;
@@ -57,7 +60,9 @@ public class Execution : MonoBehaviour
         turnsleft.text = "nog " + TurnManager.I.maxTurns.ToString() + " beurten over";
         currentTurn.text = TurnManager.I.turnCount + " / " + TurnManager.I.maxTurns.ToString();
 
-        //turnMaxText.text = LevelManager.I.M_T_A.ToString();
+        // Set level information
+        currentLevel.text = "Level "+LevelManager.I.currentLevel;
+        auraGoal.text = "= "+AuraManager.I.A_C;
         powerAuraText.text = LevelManager.I.A_P_T.ToString();
 
         //set complete level button to false
@@ -187,7 +192,6 @@ public class Execution : MonoBehaviour
     {
         planningMoney.text = BlueprintManager.I.bluePrintMoneyTotal.ToString();
         planningTurns.text = BlueprintManager.I.bluePrintTurnsTotal.ToString() + "/" + LevelManager.I.M_T_A.ToString();
-        Debug.Log(BlueprintManager.I.bluePrintTurnsTotal);
     }
 
  
@@ -206,7 +210,7 @@ public class Execution : MonoBehaviour
             BuildingType buildingType = building.GetComponent<BuildingType>();
 
             // Set general information
-            buildingTime.text = buildingType.buildTimeTotal.ToString();
+            buildingTime.text = buildingType.buildTime.ToString();
             powerInput.text = "- " + buildingType.buildingPowerUsage.ToString();
             buildingCost.text = "- " + buildingType.buildingCost.ToString();
             // Set information according to buildingtype
@@ -317,6 +321,10 @@ public class Execution : MonoBehaviour
     public void RemoveBuilding() {
 
         if (currentObject != null) {
+            if (TurnManager.I.placementsDone != 0) {
+                TurnManager.I.placementsDone--;
+            }
+            
             BuildingManager.I.RemoveBuilding(currentObject, gridManager);
             infoPopUp.SetActive(false);
             deleteButton.SetActive(false);

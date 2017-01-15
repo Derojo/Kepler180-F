@@ -98,6 +98,9 @@ public class BuildingType : MonoBehaviour
             // Building is on start the right functionalities
             if (turnedOn)
             {
+                //reduce power if building is on
+
+
                 if (type == Types.buildingtypes.colorgenerator)
                 {
                     GetComponent<ColorGenerator>().addAuraPower();
@@ -106,7 +109,7 @@ public class BuildingType : MonoBehaviour
                 {
                     GetComponent<SubBuilding>().harvastMinerals();
                 }
-                else if (type == Types.buildingtypes.energytransformer)
+                else if (type == Types.buildingtypes.energytransformer || type == Types.buildingtypes.maingenerator)
                 {
                     GetComponent<SubBuilding>().generateConstantPower();
                 }
@@ -114,9 +117,9 @@ public class BuildingType : MonoBehaviour
                 {
                     GetComponent<SubBuilding>().generatePowerOnce();
                 }
-                //reduce power if building is on
-                ResourceManager.I.calculatePowerLevel(buildingPowerUsage);
+                ResourceManager.I.subtractPowerLevel(buildingPowerUsage);
                 EventManager.TriggerEvent("updateUI");
+
 
             }
         }

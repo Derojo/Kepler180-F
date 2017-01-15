@@ -554,7 +554,7 @@ MonoBehaviour:
   boughtMaterial: {fileID: 2100000, guid: f84864df6fdbd1640a186d4c99248e98, type: 2}
   turnedOnMaterial: {fileID: 2100000, guid: c937b56a8e4af7443bb27b207d88f4c5, type: 2}
   buildTime: 2
-  buildTimeTotal: 2
+  buildTimeTotal: 0
   buildingInfoCanvas: {fileID: 223174624804472546}
 --- !u!114 &114522112171780492
 MonoBehaviour:

@@ -6,10 +6,11 @@ using UnityEngine.UI;
 
 public class LevelInfoInit : MonoBehaviour {
 
-    Level currentLevel;
     public Text auraPercText;
     public Image AuraColor;
     public Text turnsInit;
+    public Text currentLevel;
+
     // Use this for initialization
     void Start ()
     {
@@ -29,6 +30,7 @@ public class LevelInfoInit : MonoBehaviour {
         //LevelManager.I.turnMaxText.text = LevelManager.I.M_T_A.ToString();
         //setting minimum aurapercentage goal
         AuraManager.I.auraPercentage = 55;
+        currentLevel.text = "Level " + LevelManager.I.currentLevel;
         auraPercText.text = AuraManager.I.auraPercentage.ToString() + " %";
         turnsInit.text = LevelManager.I.M_T_A.ToString();
         //setting auracolor goal

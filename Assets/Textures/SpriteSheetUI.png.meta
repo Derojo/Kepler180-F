@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 24742666cc53a5e4bb5bb241fb257582
-timeCreated: 1484319036
+timeCreated: 1484402732
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -31,6 +31,7 @@ TextureImporter:
     21300048: BlueGenerator
     21300050: Green Generator
     21300052: YellowGenerator
+    21300054: FundsIcon
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -415,10 +416,10 @@ TextureImporter:
       name: RedGenerator
       rect:
         serializedVersion: 2
-        x: 56
-        y: 1856
-        width: 158
-        height: 156
+        x: 22
+        y: 1846
+        width: 223
+        height: 158
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -428,10 +429,10 @@ TextureImporter:
       name: BlueGenerator
       rect:
         serializedVersion: 2
-        x: 268
-        y: 1855
-        width: 158
-        height: 156
+        x: 242
+        y: 1844
+        width: 221
+        height: 160
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -441,10 +442,10 @@ TextureImporter:
       name: Green Generator
       rect:
         serializedVersion: 2
-        x: 484
-        y: 1848
-        width: 158
-        height: 156
+        x: 462
+        y: 1840
+        width: 202
+        height: 165
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -454,10 +455,23 @@ TextureImporter:
       name: YellowGenerator
       rect:
         serializedVersion: 2
-        x: 693
-        y: 1847
-        width: 155
-        height: 156
+        x: 667
+        y: 1838
+        width: 201
+        height: 168
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: FundsIcon
+      rect:
+        serializedVersion: 2
+        x: 1844
+        y: 1715
+        width: 52
+        height: 51
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

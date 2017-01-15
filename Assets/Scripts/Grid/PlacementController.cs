@@ -17,6 +17,7 @@ public class PlacementController : MonoBehaviour
     public UIManager uimanager;
 
 
+
     private string currentTileScan;
 
     public TileSelect[] tileSelect;
@@ -98,33 +99,42 @@ public class PlacementController : MonoBehaviour
         }
         else
         {
-            if (objectInDrag != null)
+            if(TurnManager.I.placementsDone < TurnManager.I.maxPlacementsPerTurn)
             {
-                objectInDrag.SetActive(false);
-                tileSelect[0].Deselect(lastTileSelected[0]);
-            }
-            GameObject dragObject;
-            if (BuildingContainer.transform.Find(building.name) != null)
-            {
-                dragObject = BuildingContainer.transform.Find(building.name).gameObject;
+                TurnManager.I.placementsDone++;
+                if (objectInDrag != null)
+                {
+                    objectInDrag.SetActive(false);
+                    tileSelect[0].Deselect(lastTileSelected[0]);
+                }
+                GameObject dragObject;
+                if (BuildingContainer.transform.Find(building.name) != null)
+                {
+                    dragObject = BuildingContainer.transform.Find(building.name).gameObject;
 
-            }
-            else
-            {
-                dragObject = Instantiate(building) as GameObject;
-                dragObject.name = building.name;
-                dragObject.transform.parent = BuildingContainer.transform;
+                }
+                else
+                {
+                    dragObject = Instantiate(building) as GameObject;
+                    dragObject.name = building.name;
+                    dragObject.transform.parent = BuildingContainer.transform;
 
+                }
+
+                objectInDrag = dragObject;
+                startPlacement = true;
             }
 
-            objectInDrag = dragObject;
-            startPlacement = true;
         }
 
     }
 
     public void CancelPlacement()
     {
+        if (TurnManager.I.placementsDone > 0)
+        {
+            TurnManager.I.placementsDone--;
+        }
         objectInDrag.SetActive(false);
         tileSelect[0].Deselect(lastTileSelected[0]);
         startPlacement = false;
@@ -279,7 +289,7 @@ public class PlacementController : MonoBehaviour
             subBuilding.GetComponent<SubBuilding>().firstParent = tileA.currentObject;
             subBuilding.GetComponent<SubBuilding>().secondParent = tileB.currentObject;
             subBuilding.transform.position = location;
-            Debug.Log(maxTile.name);
+
             subBuilding.transform.parent = maxTile.transform;
         }
 
