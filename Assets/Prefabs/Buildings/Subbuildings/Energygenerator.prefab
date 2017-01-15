@@ -788,7 +788,7 @@ MonoBehaviour:
   bought: 0
   boughtMaterial: {fileID: 0}
   turnedOnMaterial: {fileID: 0}
-  buildTime: 2
+  buildTime: 1
   buildTimeTotal: 0
   buildingInfoCanvas: {fileID: 223765599788797180}
 --- !u!114 &114874936092577126
@@ -834,7 +834,7 @@ MonoBehaviour:
   secondParent: {fileID: 0}
   harvestPower: 0
   constantEnergyPower: 0
-  energyPowerOnce: 800
+  energyPowerOnce: 700
   visible: 0
 --- !u!198 &198149555832483330
 ParticleSystem:

@@ -20,35 +20,67 @@ public class PlacementData : Singleton<PlacementData> {
     }
 
     public void removeBuildingNode(int x, int z, GameObject building, bool planning = false) {
-        GameObject find = null;
-        List<BuildingNode> nodeList = (planning ? planningNodes : placementNodes);
-        Debug.Log(nodeList.Count);
-        if (placementNodes.Count > 1) {
-            foreach (BuildingNode node in nodeList)
-            {
-                if (node.x == x && node.z == z)
-                {
-                    placementNodes.Remove(node);
-                }
-                GameObject parent = Grid.getGridCellAtPosition(x, z);
 
-                if (parent.GetComponentInChildren<SubBuilding>())
+        BuildingNode removingNode = null;
+        if (!planning) {
+            if (placementNodes.Count > 1)
+            {
+                foreach (BuildingNode node in placementNodes)
                 {
-                    foreach (SubBuilding sub in parent.GetComponentsInChildren<SubBuilding>())
+                    if (node.x == x && node.z == z)
                     {
-                        if (sub.firstParent == building || sub.secondParent == building)
-                        {
-                            DestroyObject(sub.gameObject);
-                            return;
-                        }
+                            placementNodes.Remove(node);
+                    }
+                    removeSubbuildings(x, z, building);
+                }
+            }
+            else
+            {
+                placementNodes.RemoveAt(0);
+            }
+        } else
+        {
+            Debug.Log(planningNodes.Count);
+            if (planningNodes.Count > 1)
+            {
+                foreach (BuildingNode node in planningNodes)
+                {
+                    if (node.x == x && node.z == z)
+                    {
+                        removingNode = node;
                     }
                 }
+                planningNodes.Remove(removingNode);
+                Debug.Log(planningNodes.Count);
+                removeSubbuildings(x, z, building);
+            }
+            else
+            {
+                Debug.Log("only one");
+                planningNodes.RemoveAt(0);
+                removeSubbuildings(x, z, building);
+            }
 
-            } 
-        } else {
-            nodeList.RemoveAt(0);
         }
 
+    }
+
+    private void removeSubbuildings(int x, int z, GameObject building) {
+        GameObject parent = Grid.getGridCellAtPosition(x, z);
+        if (parent.GetComponentInChildren<SubBuilding>())
+        {
+
+            foreach (SubBuilding sub in parent.GetComponentsInChildren<SubBuilding>())
+            {
+                Debug.Log(sub.name);
+                if (sub.firstParent == building || sub.secondParent == building)
+                {
+                    DestroyObject(sub.gameObject);
+                    return;
+                }
+            }
+        }
+        return;
     }
     public void AddBuildingNode(int x, int z, Types.buildingtypes type, GameObject model, bool inPlanningMode) {
         BuildingNode bn = new BuildingNode();

@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class PlanningScript : MonoBehaviour {
 
+    //Ingame text
+    public Text totalFunding;
+    public Text totalPower;
     public UIManager uimanager;
     public Text totalPlanningCost;
     public Text totalTurnCostText;
@@ -47,6 +50,8 @@ public class PlanningScript : MonoBehaviour {
         currentLevel.text = "Level " + LevelManager.I.currentLevel;
         auraGoal.text = "= " + AuraManager.I.A_C;
         powerAuraText.text = LevelManager.I.A_P_T.ToString();
+        totalFunding.text = ResourceManager.I.fundings.ToString();
+        totalPower.text = ResourceManager.I.powerLevel.ToString();
         //loading/diplaying turn info
         currentTurnCostText.text = BlueprintManager.I.bluePrintTurnsTotal.ToString() + "/" + LevelManager.I.M_T_A.ToString();
         //loading/showing aura color Goals
@@ -82,7 +87,6 @@ public class PlanningScript : MonoBehaviour {
     void UpdatePlanningUI ()
     {
         currentTurnCostText.text = BlueprintManager.I.bluePrintTurnsTotal.ToString() + "/" + LevelManager.I.M_T_A.ToString();
-        Debug.Log(BlueprintManager.I.bluePrintMoneyTotal.ToString());
         totalPlanningCost.text = BlueprintManager.I.bluePrintMoneyTotal.ToString();
     }
 
@@ -151,6 +155,7 @@ public class PlanningScript : MonoBehaviour {
             }
             else if (building.GetComponent<SubBuilding>()) // Set information for all subbuildings
             {
+                deleteButton.SetActive(false);
                 SubBuilding sub = building.GetComponent<SubBuilding>();
                 // General
                 if (buildingType.type == Types.buildingtypes.mineraldrill)  // Set information for the mineraldrill

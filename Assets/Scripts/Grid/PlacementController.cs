@@ -102,6 +102,7 @@ public class PlacementController : MonoBehaviour
             if(TurnManager.I.placementsDone < TurnManager.I.maxPlacementsPerTurn || inPlanningMode)
             {
                 if(!inPlanningMode) {
+                    
                     TurnManager.I.placementsDone++;
                 }
 
@@ -132,13 +133,16 @@ public class PlacementController : MonoBehaviour
 
     }
 
-    public void CancelPlacement()
+    public void CancelPlacement(bool removePlacement = true)
     {
-        if (!inPlanningMode)
-        {
-            if (TurnManager.I.placementsDone > 0)
+        if (removePlacement) {
+            if (!inPlanningMode)
             {
-                TurnManager.I.placementsDone--;
+                if (TurnManager.I.placementsDone > 0)
+                {
+                    Debug.Log("remove placement done");
+                    TurnManager.I.placementsDone--;
+                }
             }
         }
 
@@ -190,7 +194,7 @@ public class PlacementController : MonoBehaviour
                 }
             }
             // Reinitialize
-            CancelPlacement();
+            CancelPlacement(false);
             objectInDrag = null;
         }
     }
@@ -297,6 +301,10 @@ public class PlacementController : MonoBehaviour
             subBuilding.transform.position = location;
 
             subBuilding.transform.parent = maxTile.transform;
+            // show subbuilding if we are planning
+            if (inPlanningMode) {
+                subBuilding.GetComponent<SubBuilding>().showSubBuilding(true);
+            }
         }
 
     }

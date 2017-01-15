@@ -18,9 +18,10 @@ public class BuildingManager : Singleton<BuildingManager>
     }
 
     public void BuyBuilding(BuildingType buildingInfo, bool inPlanning) {
-        ResourceManager.I.fundings = ResourceManager.I.fundings - buildingInfo.buildingCost;
+
         if (!inPlanning)
         {
+            ResourceManager.I.fundings = ResourceManager.I.fundings - buildingInfo.buildingCost;
             BlueprintManager.I.bluePrintMoneyTotal = BlueprintManager.I.bluePrintMoneyTotal - buildingInfo.buildingCost;
         }
         else {
@@ -45,7 +46,12 @@ public class BuildingManager : Singleton<BuildingManager>
 
     public void RemoveBuilding(GameObject building, GridManager gridManager, bool planning = false)
     {
-        Debug.Log(building.name);
+        BuildingType buildingInfo = building.GetComponent<BuildingType>();
+        if (planning) {
+            BlueprintManager.I.bluePrintTurnsTotal = BlueprintManager.I.bluePrintTurnsTotal - buildingInfo.buildTime;
+            BlueprintManager.I.bluePrintMoneyTotal = BlueprintManager.I.bluePrintMoneyTotal - buildingInfo.buildingCost;
+            EventManager.TriggerEvent("updateplanUI");
+        }
         Tile tile = building.GetComponentInParent<Tile>();
         tile.currentObject = null;
         tile.tileType = 0;

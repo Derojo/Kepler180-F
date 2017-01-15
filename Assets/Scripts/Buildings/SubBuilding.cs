@@ -17,7 +17,6 @@ public class SubBuilding : MonoBehaviour {
 
     void Start()
     {
-
         if (!visible) {
             foreach (Renderer render in gameObject.GetComponentsInChildren<Renderer>()) {
                 render.enabled = false;
@@ -25,11 +24,11 @@ public class SubBuilding : MonoBehaviour {
         }
     }
 
-    public void showSubBuilding() {
+    public void showSubBuilding(bool planning = false) {
         if (visible)
             return;
 
-        if (firstParent.GetComponent<BuildingType>().buildingDone && secondParent.GetComponent<BuildingType>().buildingDone)
+        if (firstParent.GetComponent<BuildingType>().buildingDone && secondParent.GetComponent<BuildingType>().buildingDone || planning)
         {
             this.gameObject.GetComponent<Collider>().enabled = true;
             this.gameObject.GetComponent<BuildingType>().buildingInfoCanvas.gameObject.SetActive(true);
