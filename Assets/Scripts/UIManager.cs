@@ -18,18 +18,7 @@ public class UIManager : MonoBehaviour {
     public Message[] Messages = new Message[0];
 
     void Update() {
-        if (Input.GetButtonDown("Cancel") && !menuOpen)
-        {
-            escPopUp.SetActive(true);
-            menuOpen = true;
-            return;
 
-        }
-        if (Input.GetButtonDown("Cancel") && menuOpen)
-        {
-            escPopUp.SetActive(false);
-            menuOpen = false;
-        }
     }
 
     public Message getMessageByType(Types.messages type) {

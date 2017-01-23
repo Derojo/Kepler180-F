@@ -86,8 +86,24 @@ public class Execution : MonoBehaviour
         uimanager.DisableBoolAnimator(goals);
     }
 
+    public void setNextTurn() {
+        TurnManager.I.EndTurn();
+    }
+
     void Update()
     {
+        if (Input.GetButtonDown("Cancel") && !menuOpen)
+        {
+            escPopUp.SetActive(true);
+            menuOpen = true;
+            return;
+
+        }
+        if (Input.GetButtonDown("Cancel") && menuOpen)
+        {
+            escPopUp.SetActive(false);
+            menuOpen = false;
+        }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitObject;
 
@@ -358,7 +374,6 @@ public class Execution : MonoBehaviour
  
         if (menuOpen)
         {
-       
             escPopUp.SetActive(false);
             menuOpen = false;
         }

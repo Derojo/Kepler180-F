@@ -49,4 +49,11 @@ public class EvaluationScript : MonoBehaviour
     {
         SceneManager.LoadSceneAsync("Execution");
     }
+
+    public void BackToMain()
+    {
+        SceneManager.LoadSceneAsync("StartMenu");
+        PlacementData.I.placementNodes = null;
+        PlacementData.I.planningNodes = null;
+    }
 }

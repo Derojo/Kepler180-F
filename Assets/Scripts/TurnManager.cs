@@ -88,9 +88,10 @@ public class TurnManager : Singleton<TurnManager>{
     }
 
     // end turn eand call EndTurn event
-    public void OnButtonEndTurn()
+    public void EndTurn()
     {
         placementsDone = 0;
+        Debug.Log("set placements done to zero");
         EventManager.TriggerEvent("EndTurn");
         EventManager.TriggerEvent("updateUI");
     }

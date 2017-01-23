@@ -3,7 +3,7 @@
   <Levels>
     <Level name="Level 1">
       <A_C>Oranje</A_C>
-      <A_C_C>71, 11, 88, 255</A_C_C>
+      <A_C_C>255, 174, 0, 255</A_C_C>
       <colorTypeCode>3</colorTypeCode>
       <isBlend>true</isBlend>
       
