@@ -39,7 +39,9 @@ public class Types
     public enum messages
     {
         noFunding,
-        noEnergy
+        noEnergy,
+        lowEnergy,
+        lowFunding,
     }
 
 };

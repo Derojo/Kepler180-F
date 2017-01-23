@@ -120,8 +120,7 @@ public class Execution : MonoBehaviour
                 }
             }
         }//end rayccast
-
-      
+    
     }
     //eventlistner
     void OnEnable()
@@ -187,7 +186,16 @@ public class Execution : MonoBehaviour
         if (currentObject != null) {
             infoPopUp.SetActive(false);
         }
-        
+        //Guided activity 
+        if (ResourceManager.I.powerLevel <= 500)
+        {
+            uimanager.ShowMessage(Types.messages.lowEnergy);
+        }
+
+        if (ResourceManager.I.fundings <= 500 && LevelManager.I.currentLevel == 1)
+        {
+            uimanager.ShowMessage(Types.messages.lowFunding);
+        }
     }
     //updating the Ui in blueprintmode
     void UpdatePlanningUI()
