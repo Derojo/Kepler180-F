@@ -30,6 +30,7 @@ public class Execution : MonoBehaviour
     public GameObject infoPopUp;
     public GameObject escPopUp;
 
+
     public Text redAmount;
     public Text blueAmount;
     public Text greenAmount;
@@ -45,6 +46,7 @@ public class Execution : MonoBehaviour
     public GridManager gridManager;
     public Image AuraColorimg;
     private GameObject currentObject;
+
     //blueprint UI
     public Text planningMoney;
     public Text planningTurns;
@@ -156,7 +158,9 @@ public class Execution : MonoBehaviour
         //Set ënd level button to enable if level is completed
          if(TurnManager.I.checkedLevelComplete)
          {
+            completeLevelPopUp.SetActive(true);
             completeLevelButton.SetActive(true);
+
          }
         if (TurnManager.I.LevelCompleted)
         {
