@@ -28,9 +28,19 @@ public class EvaluationScript : MonoBehaviour
 
         if(AuraManager.I.auraLevelPercentage >= 55)
         {
-            ConditionIMG.sprite = completedLevelIMG;
-            levelStatus.text = "Level gehaald!";
-            levelWonButton.SetActive(true);
+            if(ResourceManager.I.powerLevel == 0)
+            {
+                ConditionIMG.sprite = failedLevelIMG;
+                levelStatus.text = "Level verloren!";
+                levelLostButton.SetActive(true);
+            }
+            else
+            {
+                ConditionIMG.sprite = completedLevelIMG;
+                levelStatus.text = "Level gehaald!";
+                levelWonButton.SetActive(true);
+            }
+          
         }
         if(AuraManager.I.auraLevelPercentage <= 55)
         {
