@@ -196,6 +196,10 @@ public class Execution : MonoBehaviour
         {
             uimanager.ShowMessage(Types.messages.lowFunding);
         }
+        if (TurnManager.I.turnsLeft <= 5)
+        {
+            uimanager.ShowMessage(Types.messages.lowTurns);
+        }
     }
     //updating the Ui in blueprintmode
     void UpdatePlanningUI()

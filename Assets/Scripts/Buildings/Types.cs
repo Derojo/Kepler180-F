@@ -42,6 +42,7 @@ public class Types
         noEnergy,
         lowEnergy,
         lowFunding,
+        lowTurns
     }
 
 };
