@@ -165,6 +165,12 @@ namespace RTS_Cam
 
         #region Unity_Methods
 
+        public void camereState(bool pause)
+        {
+            useScrollwheelZooming = (pause ? false : true);
+            usePanning = (pause ? false : true);
+        }
+
         private void Start()
         {
             m_Transform = transform;
