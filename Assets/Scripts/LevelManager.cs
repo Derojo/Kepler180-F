@@ -11,7 +11,6 @@ public class LevelManager : Singleton<LevelManager>
     //Defining maximum amount of turns & total aurapower need for levelcompletion
     //maximum turn amount
     public float M_T_A;
-   
     // Total aura power
     public float A_P_T;
    
@@ -35,6 +34,12 @@ public class LevelManager : Singleton<LevelManager>
         AuraManager.I.colorTypeCode = levelData.levels[(currentLevel - 1)].colorTypeCode;
         AuraManager.I.isBlend = levelData.levels[(currentLevel - 1)].isBlend;
         AuraManager.I.A_C_C = levelData.levels[(currentLevel - 1)].A_C_C;
+
+        ResourceManager.I.powerLevel = levelData.levels[(currentLevel - 1)].StartupPower;
+        ResourceManager.I.fundings = levelData.levels[(currentLevel - 1)].StartupMoney;
+        ResourceManager.I.planetHeat = levelData.levels[(currentLevel - 1)].StartupHeat;
+
+        Debug.Log(levelData.levels[(currentLevel - 1)].StartupMoney +"xml");
 
         if (nextLevelSkill == 1)
         {

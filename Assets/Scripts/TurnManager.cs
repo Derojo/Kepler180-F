@@ -35,6 +35,7 @@ public class TurnManager : Singleton<TurnManager>{
     // Update is called once per frame
     void Update()
     {
+
         //check if minimum aura % is reached
         if (AuraManager.I.auraLevelPercentage >= 55 && !checkedLevelComplete)
         {
@@ -62,15 +63,15 @@ public class TurnManager : Singleton<TurnManager>{
         if (ResourceManager.I.powerLevel <= 0 )
         {
             Debug.Log("Powerlevel is low");
-            if (!showedMessage) {
+        
                 if (checkedLevelComplete)
                 {
                     checkedLevelComplete = false;
                 }
                 levelLostNoPower = true;
                 EventManager.TriggerEvent("updateUI");
-                showedMessage = true;
-            }
+
+            
 
         }
     }

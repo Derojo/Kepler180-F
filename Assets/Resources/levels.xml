@@ -6,6 +6,10 @@
       <A_C_C>255, 174, 0, 255</A_C_C>
       <colorTypeCode>3</colorTypeCode>
       <isBlend>true</isBlend>
+
+      <StartupMoney>1000</StartupMoney>
+      <StartupPower>1400</StartupPower>
+      <StartupHeat>1400</StartupHeat>
       
       <M_T_E>15</M_T_E>
       <A_P_E>3000</A_P_E>
@@ -16,6 +20,7 @@
       <M_T_H>40</M_T_H>
       <A_P_H>3000</A_P_H>
     </Level>
+    
     <Level name="Level 2">
       <A_C>Bruin</A_C>
       <A_C_C>133, 87, 5, 255</A_C_C>

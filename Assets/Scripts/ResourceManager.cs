@@ -14,7 +14,9 @@ public class ResourceManager : Singleton<ResourceManager>
     private float powerMax;
     public float powerPercentage;
 
-    void Start() {
+
+    void OnEnable()
+    {
         powerMax = powerLevel;
         updatePowerPercentage();
     }

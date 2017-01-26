@@ -23,6 +23,7 @@ public class EvaluationScript : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+
         levelWonButton.SetActive(false);
         levelLostButton.SetActive(false);
 
@@ -65,5 +66,38 @@ public class EvaluationScript : MonoBehaviour
         SceneManager.LoadSceneAsync("StartMenu");
         PlacementData.I.placementNodes = null;
         PlacementData.I.planningNodes = null;
+        ResettingValues();
+         
+        Debug.Log("resetting values");
+    }
+
+    public void ResettingValues()
+    {
+        LevelManager.I.SetCurrentLevel();
+
+        //resetting turns
+        TurnManager.I.maxTurns = LevelManager.I.M_T_A;
+        TurnManager.I.turnsLeft = TurnManager.I.maxTurns;
+        TurnManager.I.turnCount = 0;
+        TurnManager.I.levelLostNoTurns = false;
+        BlueprintManager.I.bluePrintTurnsTotal = 0;
+
+
+    //resetting aura power
+    AuraManager.I.currentAuraPower = 0;
+        AuraManager.I.auraLevelPercentage = 0;
+        AuraManager.I.auraPercentage = 0;
+        LevelManager.I.A_P_T = LevelManager.I.A_P_T;
+
+        //resetting power
+        ResourceManager.I.powerPercentage = 100;
+
+        TurnManager.I.levelLostNoPower = false;
+        TurnManager.I.checkedLevelComplete = false; 
+        //resetting resources 
+      
+
+
+        
     }
 }

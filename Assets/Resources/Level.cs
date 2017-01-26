@@ -48,4 +48,14 @@ public class Level{
     [XmlElement("A_P_H")]
     public float A_P_H;
 
+    //Resources: money 
+    [XmlElement("StartupMoney")]
+    public float StartupMoney;
+
+    //Resources: power 
+    [XmlElement("StartupPower")]
+    public float StartupPower;
+
+    [XmlElement("StartupHeat")]
+    public float StartupHeat;
 }
