@@ -13,6 +13,7 @@ public class PlacementController : MonoBehaviour
     public Color32 selectColor;
     public Color32 busyColor;
     public bool inPlanningMode = false;
+    public bool inTutorialMode = false;
     public bool ableToBuild = true;
     public UIManager uimanager;
 
@@ -59,15 +60,22 @@ public class PlacementController : MonoBehaviour
                     // Set new on hovered tile and put object in drag on the right tile position
                     lastTileSelected[0] = hitInfor.collider.GetComponent<Tile>();
                     tileSelect[0].Select(lastTileSelected[0], ableToBuild);
+
                     Vector3 pos = new Vector3(hitInfor.collider.transform.position.x, offset.y, hitInfor.collider.transform.position.z);
                     objectInDrag.transform.position = pos;
-
+        
+                    lastTileSelected[0].GetComponent<Renderer>().enabled = (lastTileSelected[0].inRange ? true : false);
+                    objectInDrag.GetComponent<Renderer>().enabled = (lastTileSelected[0].inRange ? true : false);
+                    objectInDrag.transform.GetChild(0).gameObject.SetActive(lastTileSelected[0].inRange ? true : false);
                     // Mouse inputs, place or cancel building placement
                     if (Input.GetMouseButtonDown(0))
                     {
                         if (ableToBuild)
                         {
-                            PlaceObject();
+                            if (!lastTileSelected[0].GetComponent<Tile>().locked) {
+                                PlaceObject();
+                            }
+
                         }
 
                     }
@@ -99,10 +107,11 @@ public class PlacementController : MonoBehaviour
         }
         else
         {
-            if(TurnManager.I.placementsDone < TurnManager.I.maxPlacementsPerTurn || inPlanningMode)
+            if (TurnManager.I.placementsDone < TurnManager.I.maxPlacementsPerTurn || inPlanningMode)
             {
-                if(!inPlanningMode) {
-                    
+                if (!inPlanningMode)
+                {
+
                     TurnManager.I.placementsDone++;
                 }
 
@@ -127,6 +136,8 @@ public class PlacementController : MonoBehaviour
 
                 objectInDrag = dragObject;
                 startPlacement = true;
+            } else {
+                uimanager.ShowMessage(Types.messages.noActions);
             }
 
         }
@@ -181,6 +192,17 @@ public class PlacementController : MonoBehaviour
             PlacementData.I.AddBuildingNode(lastTileSelected[0].x, lastTileSelected[0].z, objectInPlace.GetComponent<BuildingType>().type, Resources.Load<GameObject>(objectInPlace.GetComponent<BuildingType>().type + "/" + objectInDrag.name), inPlanningMode);
             // Buy building, activate turn on process
             BuildingManager.I.BuyBuilding(objectInPlace.GetComponent<BuildingType>(), inPlanningMode);
+            if (inTutorialMode) {
+                Types.buildingtypes btype = objectInPlace.GetComponent<BuildingType>().type;
+                if (btype == Types.buildingtypes.colorgenerator)
+                {
+                    Types.colortypes color = objectInPlace.GetComponent<ColorGenerator>().selectedColor;
+                    EventManager.TriggerEvent("Placed" + color.ToString());
+                }
+                else {
+                    EventManager.TriggerEvent("Placed" + btype);
+                }
+            }
             
             // Check for colorblending
             if (lastTileSelected[0].inMixedCluster)

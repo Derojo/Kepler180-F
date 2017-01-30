@@ -8,6 +8,7 @@ public class Tile : MonoBehaviour {
     public int z;
     public int tileType;
     public bool inRange = false;
+    public bool locked = false;
     public GameObject currentObject;
 
     public bool inColorCluster = false;

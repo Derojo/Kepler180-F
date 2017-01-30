@@ -10,16 +10,14 @@ public class UIManager : MonoBehaviour {
     {
         public Types.messages type;
         public GameObject UIObject;
+        public bool pulsate;
+        public Color pulsateColor;
     }
 
     private bool inTween = false;
     public GameObject escPopUp;
     public bool menuOpen = false;
     public Message[] Messages = new Message[0];
-
-    void Update() {
-
-    }
 
     public Message getMessageByType(Types.messages type) {
         foreach (Message m in Messages) {
@@ -31,6 +29,7 @@ public class UIManager : MonoBehaviour {
     }
 
     public void ShowMessage(Types.messages type) {
+        Debug.Log(inTween);
         if (!inTween) {
             StartCoroutine(toggleMessage(type));
         }
@@ -39,40 +38,52 @@ public class UIManager : MonoBehaviour {
     public IEnumerator toggleMessage(Types.messages type)
     {
         Message m = getMessageByType(type);
-        Debug.Log(m.UIObject.name);
         GameObject UIObject = m.UIObject;
-        UIObject.SetActive(true);
+     
         inTween = true;
-
-        UIObject.GetComponent<Image>().DOFade(1, 1f);
-
-        foreach (Text text in UIObject.GetComponentsInChildren<Text>())
+        if (!m.pulsate)
         {
-            text.DOFade(1, 1f);
+            UIObject.SetActive(true);
+            UIObject.GetComponent<Image>().DOFade(1, 1f);
+
+            foreach (Text text in UIObject.GetComponentsInChildren<Text>())
+            {
+                text.DOFade(1, 1f);
+            }
+
+            foreach (Image img in UIObject.GetComponentsInChildren<Image>())
+            {
+                img.DOFade(1, 1f);
+            }
+
+            yield return new WaitForSeconds(2);
+
+            UIObject.GetComponent<Image>().DOFade(0, 1f);
+
+            foreach (Text text in UIObject.GetComponentsInChildren<Text>())
+            {
+                text.DOFade(0, 1f);
+            }
+
+            foreach (Image img in UIObject.GetComponentsInChildren<Image>())
+            {
+                img.DOFade(0, 1f);
+            }
+            yield return new WaitForSeconds(1);
+
+
+            UIObject.SetActive(false);
         }
-
-        foreach (Image img in UIObject.GetComponentsInChildren<Image>())
-        {
-            img.DOFade(1, 1f);
+        else {
+            Color normalColor = UIObject.GetComponent<Image>().color;
+            UIObject.GetComponent<Image>().DOColor(m.pulsateColor, .5f);
+            UIObject.transform.DOShakeScale(1f,.5f,10,10);
+            UIObject.GetComponent<Image>().DOColor(normalColor, .5f).SetDelay(.5f);
+            yield return new WaitForSeconds(1);
         }
-
-        yield return new WaitForSeconds(2);
-
-        UIObject.GetComponent<Image>().DOFade(0, 1f);
-
-        foreach (Text text in UIObject.GetComponentsInChildren<Text>())
-        {
-            text.DOFade(0, 1f);
-        }
-
-        foreach (Image img in UIObject.GetComponentsInChildren<Image>())
-        {
-            img.DOFade(0, 1f);
-        }
-        yield return new WaitForSeconds(1);
 
         inTween = false;
-        UIObject.SetActive(false);
+
 
     }
 

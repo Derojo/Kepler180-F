@@ -24,7 +24,6 @@ public class TurnManager : Singleton<TurnManager>{
     // Use this for initialization
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
         // Setting turndisplay
         maxTurns = LevelManager.I.M_T_A;
         turnsLeft = maxTurns +- 1;

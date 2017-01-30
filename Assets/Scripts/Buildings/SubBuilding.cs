@@ -52,6 +52,7 @@ public class SubBuilding : MonoBehaviour {
 
     public void harvastMinerals()
     {
+        Debug.Log("harvest minerals"+ ResourceManager.I.fundings + harvestPower);
         ResourceManager.I.fundings = ResourceManager.I.fundings + harvestPower;
     }
 
