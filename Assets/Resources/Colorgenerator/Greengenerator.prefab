@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 114680924030716752}
   - component: {fileID: 114145992953119338}
   m_Layer: 0
-  m_Name: GreenGenerator
+  m_Name: Greengenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

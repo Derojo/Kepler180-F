@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 114084973980535284}
   - component: {fileID: 114821115021399176}
   m_Layer: 0
-  m_Name: YellowGenerator
+  m_Name: Yellowgenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
