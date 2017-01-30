@@ -65,9 +65,13 @@ public class Execution : MonoBehaviour
     public int powerMessageShown;
     public int turnMessageShown;
 
+    //audio
+    public AudioSource source;
+    public AudioClip notificationSound; 
 
     void Start()
     {
+        source = GetComponent<AudioSource>();
         StartCoroutine(hideGoals(2f));
         BlueprintManager.I.InitializeBlueprintModels();
         UpdateUI();
@@ -223,45 +227,10 @@ public class Execution : MonoBehaviour
             infoPopUp.SetActive(false);
         }
         //Guided activity skill level 1
-        if(LevelManager.I.nextLevelSkill == 1)
-        {
-            if (ResourceManager.I.fundings <= 500 )
-            {
-                uimanager.ShowMessage(Types.messages.lowFunding);
+        CheckGuidedActivity();
 
-            }
+       
 
-            if (TurnManager.I.turnsLeft <= 5)
-            {
-                uimanager.ShowMessage(Types.messages.lowTurns);
-            }
-            if (ResourceManager.I.fundings <= 500)
-            {
-                uimanager.ShowMessage(Types.messages.lowEnergy);
-            }
-
-        }
-
-        if (LevelManager.I.nextLevelSkill == 2)
-        {
-            if (ResourceManager.I.fundings <= 500 && fundMessageShown < 3)
-            {
-                uimanager.ShowMessage(Types.messages.lowFunding);
-                fundMessageShown++;
-                Debug.Log(fundMessageShown);
-            }
-
-            if (TurnManager.I.turnsLeft <= 5 && turnMessageShown < 1)
-            {
-                uimanager.ShowMessage(Types.messages.lowTurns);
-                turnMessageShown++;
-            }
-            if (ResourceManager.I.fundings <= 500 && powerMessageShown <= 3)
-            {
-                uimanager.ShowMessage(Types.messages.lowEnergy );
-                powerMessageShown ++;
-            }
-        }
 
             // Updating build icon, actions left
             switch (TurnManager.I.placementsDone)
@@ -442,6 +411,8 @@ public class Execution : MonoBehaviour
         }
     }
 
+
+
     public void OnmouseExit()
     {
         infoPopUp.SetActive(false);
@@ -477,5 +448,51 @@ public class Execution : MonoBehaviour
         SceneManager.LoadSceneAsync("StartMenu");
     }
 
+    public void CheckGuidedActivity()
+    {
+        if (LevelManager.I.nextLevelSkill == 1)
+        {
+            if (ResourceManager.I.fundings <= 500)
+            {
+                if (!source.isPlaying)
+                {
+                    source.PlayOneShot(notificationSound);
+                    uimanager.ShowMessage(Types.messages.lowFunding);
+                }
 
+            }
+
+            if (TurnManager.I.turnsLeft <= 5)
+            {
+                uimanager.ShowMessage(Types.messages.lowTurns);
+            }
+            if (ResourceManager.I.powerLevel <= 500)
+            {
+                uimanager.ShowMessage(Types.messages.lowEnergy);
+            }
+
+        }
+
+        if (LevelManager.I.nextLevelSkill == 2)
+        {
+            if (ResourceManager.I.fundings <= 500 && fundMessageShown < 3)
+            {
+                uimanager.ShowMessage(Types.messages.lowFunding);
+                fundMessageShown++;
+                Debug.Log(fundMessageShown);
+            }
+
+            if (TurnManager.I.turnsLeft <= 5 && turnMessageShown < 1)
+            {
+                uimanager.ShowMessage(Types.messages.lowTurns);
+                turnMessageShown++;
+            }
+            if (ResourceManager.I.fundings <= 500 && powerMessageShown <= 3)
+            {
+                uimanager.ShowMessage(Types.messages.lowEnergy);
+                powerMessageShown++;
+            }
+        }
+
+    }
 }
