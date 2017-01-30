@@ -14,10 +14,10 @@
       <M_T_E>15</M_T_E>
       <A_P_E>3000</A_P_E>
           
-      <M_T_M>20</M_T_M>   
-      <A_P_M>2500</A_P_M>  
+      <M_T_M>15</M_T_M>   
+      <A_P_M>3000</A_P_M>  
       
-      <M_T_H>40</M_T_H>
+      <M_T_H>15</M_T_H>
       <A_P_H>3000</A_P_H>
     </Level>
     
@@ -30,10 +30,10 @@
       <StartupHeat>1400</StartupHeat>
       
       <M_T_E>35</M_T_E>
-      <A_P_E>5000</A_P_E>
+      <A_P_E>2000</A_P_E>
 
       <M_T_M>25</M_T_M>
-      <A_P_M>300</A_P_M>
+      <A_P_M>100</A_P_M>
 
       <M_T_H>15</M_T_H>
       <A_P_H>400</A_P_H>

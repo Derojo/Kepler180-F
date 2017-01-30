@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 406048005}
-  m_IndirectSpecularColor: {r: 0.43724698, g: 0.46487337, b: 0.511473, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4958,7 +4958,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.065179385, y: 0.45174143}
   m_AnchorMax: {x: 0.9348206, y: 0.84302706}
-  m_AnchoredPosition: {x: 0, y: 0.00000047683716}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0.0000009536743}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &312478097
@@ -5898,7 +5898,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.162, y: 0.31618854}
   m_AnchorMax: {x: 0.85600007, y: 0.43562296}
-  m_AnchoredPosition: {x: -0.88679886, y: 1.3999977}
+  m_AnchoredPosition: {x: -0.88679886, y: 1.3999939}
   m_SizeDelta: {x: 0.6300049, y: -1.6000004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &422171810
@@ -7661,7 +7661,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.09184019, y: 0.89183277}
   m_AnchorMax: {x: 0.1547835, y: 0.974475}
-  m_AnchoredPosition: {x: 0, y: 0.0000038146973}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &673488004
@@ -17687,7 +17687,7 @@ MonoBehaviour:
   menuOpen: 0
   Messages:
   - type: 0
-    UIObject: {fileID: 0}
+    UIObject: {fileID: 396353337}
     pulsate: 0
     pulsateColor: {r: 0, g: 0, b: 0, a: 0}
   - type: 2
@@ -21857,6 +21857,7 @@ MonoBehaviour:
   PopUps: {fileID: 753737239}
   infoPopUp: {fileID: 1769481647}
   escPopUp: {fileID: 580301722}
+  endTurnButton: {fileID: 1231454525}
   redAmount: {fileID: 1055181137}
   blueAmount: {fileID: 1255666703}
   greenAmount: {fileID: 1701155126}
@@ -21872,6 +21873,9 @@ MonoBehaviour:
   AuraColorimg: {fileID: 1366958089}
   planningMoney: {fileID: 1247946007}
   planningTurns: {fileID: 1144396758}
+  fundMessageShown: 0
+  powerMessageShown: 0
+  turnMessageShown: 0
 --- !u!1 &2076844965
 GameObject:
   m_ObjectHideFlags: 0
@@ -21906,7 +21910,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.49156824, y: 0.71787065}
   m_AnchorMax: {x: 0.6035213, y: 0.8294705}
-  m_AnchoredPosition: {x: 0.00000047683716, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.0000009536743, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2076844967

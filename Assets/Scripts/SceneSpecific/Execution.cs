@@ -36,7 +36,7 @@ public class Execution : MonoBehaviour
     public GameObject PopUps;
     public GameObject infoPopUp;
     public GameObject escPopUp;
-
+    public Button endTurnButton;
 
     public Text redAmount;
     public Text blueAmount;
@@ -59,6 +59,12 @@ public class Execution : MonoBehaviour
     public Text planningTurns;
 
     bool menuOpen = false;
+
+    // guided activity
+    public int fundMessageShown;
+    public int powerMessageShown;
+    public int turnMessageShown;
+
 
     void Start()
     {
@@ -95,7 +101,16 @@ public class Execution : MonoBehaviour
         uimanager.DisableBoolAnimator(goals);
     }
 
-    public void setNextTurn() {
+    private IEnumerator hideNextButton (float time)
+    {
+        yield return new WaitForSeconds(time);
+        endTurnButton.interactable = true;
+    }
+
+    public void setNextTurn()
+    {
+       StartCoroutine(hideNextButton(1.5f));
+        endTurnButton.interactable = false;
         TurnManager.I.EndTurn();
     }
 
@@ -207,23 +222,49 @@ public class Execution : MonoBehaviour
         if (currentObject != null) {
             infoPopUp.SetActive(false);
         }
-        //Guided activity 
-        if (ResourceManager.I.powerLevel <= 500)
+        //Guided activity skill level 1
+        if(LevelManager.I.nextLevelSkill == 1)
         {
-            uimanager.ShowMessage(Types.messages.lowEnergy);
+            if (ResourceManager.I.fundings <= 500 )
+            {
+                uimanager.ShowMessage(Types.messages.lowFunding);
+
+            }
+
+            if (TurnManager.I.turnsLeft <= 5)
+            {
+                uimanager.ShowMessage(Types.messages.lowTurns);
+            }
+            if (ResourceManager.I.fundings <= 500)
+            {
+                uimanager.ShowMessage(Types.messages.lowEnergy);
+            }
+
         }
 
-        if (ResourceManager.I.fundings <= 500 && LevelManager.I.currentLevel == 1)
+        if (LevelManager.I.nextLevelSkill == 2)
         {
-            uimanager.ShowMessage(Types.messages.lowFunding);
-        }
-        if (TurnManager.I.turnsLeft <= 5)
-        {
-            uimanager.ShowMessage(Types.messages.lowTurns);
+            if (ResourceManager.I.fundings <= 500 && fundMessageShown < 3)
+            {
+                uimanager.ShowMessage(Types.messages.lowFunding);
+                fundMessageShown++;
+                Debug.Log(fundMessageShown);
+            }
+
+            if (TurnManager.I.turnsLeft <= 5 && turnMessageShown < 1)
+            {
+                uimanager.ShowMessage(Types.messages.lowTurns);
+                turnMessageShown++;
+            }
+            if (ResourceManager.I.fundings <= 500 && powerMessageShown <= 3)
+            {
+                uimanager.ShowMessage(Types.messages.lowEnergy );
+                powerMessageShown ++;
+            }
         }
 
-        // Updating build icon, actions left
-        switch (TurnManager.I.placementsDone)
+            // Updating build icon, actions left
+            switch (TurnManager.I.placementsDone)
         {
             case 1:
                 actionsLeft.sprite = actionsLeft1;
@@ -432,7 +473,7 @@ public class Execution : MonoBehaviour
     }
     public void QuitLevelToMenu()
     {
-        Debug.Log("clicked button levae");
+        LevelManager.I.ResettingValues();
         SceneManager.LoadSceneAsync("StartMenu");
     }
 

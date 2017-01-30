@@ -92,7 +92,35 @@ public class LevelManager : Singleton<LevelManager>
         }
 
     }
+    public void ResettingValues()
+    {
+        //resetting placement
+        PlacementData.I.placementNodes = null;
+        PlacementData.I.planningNodes = null;
+        LevelManager.I.SetCurrentLevel();
+
+        //resetting turns
+        TurnManager.I.maxTurns = LevelManager.I.M_T_A;
+        TurnManager.I.turnsLeft = TurnManager.I.maxTurns;
+        TurnManager.I.turnCount = 0;
+        TurnManager.I.levelLostNoTurns = false;
+        BlueprintManager.I.bluePrintTurnsTotal = 0;
 
 
-    //End update
-}//end Singleton
+        //resetting aura power
+        AuraManager.I.currentAuraPower = 0;
+        AuraManager.I.auraLevelPercentage = 0;
+        AuraManager.I.auraPercentage = 0;
+        LevelManager.I.A_P_T = LevelManager.I.A_P_T;
+        AuraManager.I.resetColorAuraAmounts();
+
+        //resetting power
+        ResourceManager.I.powerPercentage = 100;
+
+        TurnManager.I.levelLostNoPower = false;
+        TurnManager.I.checkedLevelComplete = false;
+
+        Debug.Log("resetting values");
+
+    }
+}
