@@ -198,4 +198,20 @@ public class AuraManager : Singleton<AuraManager>
         newColor.a = 1;
         RenderSettings.fogColor = newColor;
     }
+
+    public void resetColorAuraAmounts()
+    {
+        foreach (ColorAuraAmount colorAmount in ColorAuraAmounts)
+        {
+            colorAmount.amount = 0;
+        }
+        if (isBlend)
+        {
+            int[] colors = ColorManager.I.getColorsOfBlend(colorTypeCode);
+            firstColor = (Types.colortypes)colors[0];
+            secondColor = (Types.colortypes)colors[1];
+        }
+
+
+    }
 }

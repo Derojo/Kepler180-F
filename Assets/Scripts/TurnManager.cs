@@ -21,6 +21,7 @@ public class TurnManager : Singleton<TurnManager>{
 
     private bool showedMessage = false;
 
+    public int levelToUnlock = 2;
     // Use this for initialization
     void Start()
     {
@@ -43,6 +44,8 @@ public class TurnManager : Singleton<TurnManager>{
             EventManager.TriggerEvent("updateUI");
             //Check Setskill function for adjusting difficulty
             LevelManager.I.SetSkillLevel();
+            winLevel();
+
         }
         if (AuraManager.I.auraLevelPercentage >= 100 && !LevelCompleted)
         {
@@ -108,4 +111,11 @@ public class TurnManager : Singleton<TurnManager>{
         //Check if max amout of turns is reached
     }
 
+
+    public void winLevel()
+    {
+        Debug.Log("Level WOn");
+        PlayerPrefs.SetInt("levelReached", levelToUnlock);
+        levelToUnlock++;
+    }
 }

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 [Prefab("Manager", true, "")]
 public class Manager : Singleton<Manager>
 {
-
+    public int levelSelection;
     public void Load() { return; }
 
     void Start()
@@ -15,7 +15,14 @@ public class Manager : Singleton<Manager>
         LevelManager.I.Load();
         AuraManager.I.Load();
     }
+    public void DetermineLevel(int levelSelection)
+    {
+       LevelManager.I.currentLevel = levelSelection;
+        LevelManager.I.SetCurrentLevel();
+       Loader.I.LoadScene("Start");
+ 
 
+    }
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
@@ -47,4 +54,5 @@ public class Manager : Singleton<Manager>
         Application.Quit();
         Debug.Log("closing game");
     }
+
 }

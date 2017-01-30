@@ -58,23 +58,30 @@ public class EvaluationScript : MonoBehaviour
 	// Update is called once per frame
 	public void ContinueButton ()
     {
-        SceneManager.LoadSceneAsync("Execution");
+        ResettingValues();
+        SceneManager.LoadSceneAsync("LevelSelectionScene");
     }
 
     public void BackToMain()
     {
         SceneManager.LoadSceneAsync("StartMenu");
-        PlacementData.I.placementNodes = null;
-        PlacementData.I.planningNodes = null;
+
         ResettingValues();
-         
-        Debug.Log("resetting values");
+  
     }
 
+    public void TryAgain()
+    {
+        SceneManager.LoadSceneAsync("Start");
+        ResettingValues();
+    }
     public void ResettingValues()
     {
+        //resetting placement
+        PlacementData.I.placementNodes = null;
+        PlacementData.I.planningNodes = null;
         LevelManager.I.SetCurrentLevel();
-
+ 
         //resetting turns
         TurnManager.I.maxTurns = LevelManager.I.M_T_A;
         TurnManager.I.turnsLeft = TurnManager.I.maxTurns;
@@ -84,20 +91,19 @@ public class EvaluationScript : MonoBehaviour
 
 
     //resetting aura power
-    AuraManager.I.currentAuraPower = 0;
+        AuraManager.I.currentAuraPower = 0;
         AuraManager.I.auraLevelPercentage = 0;
         AuraManager.I.auraPercentage = 0;
         LevelManager.I.A_P_T = LevelManager.I.A_P_T;
+        AuraManager.I.resetColorAuraAmounts();
 
         //resetting power
         ResourceManager.I.powerPercentage = 100;
 
         TurnManager.I.levelLostNoPower = false;
-        TurnManager.I.checkedLevelComplete = false; 
-        //resetting resources 
-      
+        TurnManager.I.checkedLevelComplete = false;
 
 
-        
+
     }
 }

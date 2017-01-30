@@ -30,6 +30,10 @@ public class LevelManager : Singleton<LevelManager>
     
     public void SetCurrentLevel()
     {
+
+        Debug.Log(currentLevel - 1 + "xml");
+     
+
         AuraManager.I.A_C = levelData.levels[(currentLevel - 1)].A_C;
         AuraManager.I.colorTypeCode = levelData.levels[(currentLevel - 1)].colorTypeCode;
         AuraManager.I.isBlend = levelData.levels[(currentLevel - 1)].isBlend;
@@ -39,8 +43,8 @@ public class LevelManager : Singleton<LevelManager>
         ResourceManager.I.fundings = levelData.levels[(currentLevel - 1)].StartupMoney;
         ResourceManager.I.planetHeat = levelData.levels[(currentLevel - 1)].StartupHeat;
 
-        Debug.Log(levelData.levels[(currentLevel - 1)].StartupMoney +"xml");
-
+        Debug.Log(levelData.levels[(currentLevel - 1)].StartupPower);
+        Debug.Log(ResourceManager.I.powerLevel + "Power in resources");
         if (nextLevelSkill == 1)
         {
             

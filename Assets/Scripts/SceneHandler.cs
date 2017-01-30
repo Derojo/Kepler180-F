@@ -4,6 +4,7 @@ using UnityEngine;
 public class SceneHandler : MonoBehaviour {
 
     public static SceneHandler handler;
+    public GameObject loadingImage;
 
     void Awake()
     {
@@ -18,7 +19,9 @@ public class SceneHandler : MonoBehaviour {
         }
     }
 
-    public void ChangeToScene (string scene) {
+    public void ChangeToScene (string scene)
+    {
+      
         Loader.I.LoadScene(scene);
 
     }

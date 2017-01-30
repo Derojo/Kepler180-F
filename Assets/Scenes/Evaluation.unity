@@ -2123,6 +2123,21 @@ Prefab:
       propertyPath: m_AnchoredPosition.y
       value: 1.1661
       objectReference: {fileID: 0}
+    - target: {fileID: 114020619246865052, guid: 6a85d4914e4f1ca49be9af8f8b51b6dc,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2025186022}
+    - target: {fileID: 114020619246865052, guid: 6a85d4914e4f1ca49be9af8f8b51b6dc,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TryAgain
+      objectReference: {fileID: 0}
+    - target: {fileID: 114020619246865052, guid: 6a85d4914e4f1ca49be9af8f8b51b6dc,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114698986854060330, guid: 6a85d4914e4f1ca49be9af8f8b51b6dc, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 6a85d4914e4f1ca49be9af8f8b51b6dc, type: 2}

@@ -1363,6 +1363,15 @@ Prefab:
       propertyPath: m_Volume
       value: 0.243
       objectReference: {fileID: 0}
+    - target: {fileID: 1083441560786638, guid: 47c25b8986f1b1243b2e11b85b8e0cce, type: 2}
+      propertyPath: m_Name
+      value: StarBTN
+      objectReference: {fileID: 0}
+    - target: {fileID: 114837182565972804, guid: 47c25b8986f1b1243b2e11b85b8e0cce,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: LevelSelectionScene
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47c25b8986f1b1243b2e11b85b8e0cce, type: 2}
   m_IsPrefabParent: 0
