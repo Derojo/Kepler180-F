@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetsTag: 746172676574
+  startingTarget: {fileID: 0}
 --- !u!124 &12455804
 Behaviour:
   m_ObjectHideFlags: 1

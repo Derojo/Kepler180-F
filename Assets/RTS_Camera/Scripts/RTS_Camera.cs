@@ -51,7 +51,7 @@ namespace RTS_Cam
         public float keyboardZoomingSensitivity = 2f;
         public float scrollWheelZoomingSensitivity = 25f;
 
-        private float zoomPos = 0; //value in range (0, 1) used as t in Matf.Lerp
+        public float zoomPos = 0; //value in range (0, 1) used as t in Matf.Lerp
 
         #endregion
 
@@ -165,10 +165,11 @@ namespace RTS_Cam
 
         #region Unity_Methods
 
-        public void camereState(bool pause)
+        public void cameraState(bool pause)
         {
-            useScrollwheelZooming = (pause ? false : true);
-            usePanning = (pause ? false : true);
+            useScrollwheelZooming = (pause ? true : false);
+
+            usePanning = (pause ? true : false);
         }
 
         private void Start()
@@ -247,7 +248,7 @@ namespace RTS_Cam
             if(usePanning && Input.GetKey(panningKey) && MouseAxis != Vector2.zero)
             {
 
-                
+                EventManager.TriggerEvent("Move");
                 Vector3 desiredMove = new Vector3(-MouseAxis.x, 0, -MouseAxis.y);
 
                 desiredMove *= panningSpeed;
@@ -264,6 +265,7 @@ namespace RTS_Cam
         /// </summary>
         private void HeightCalculation()
         {
+
             float distanceToGround = DistanceToGround();
             if(useScrollwheelZooming)
                 zoomPos += ScrollWheel * Time.deltaTime * scrollWheelZoomingSensitivity;
@@ -275,12 +277,12 @@ namespace RTS_Cam
             float targetHeight = Mathf.Lerp(maxHeight, minHeight, zoomPos);
             float difference = 0;
             if (distanceToGround != targetHeight) {
+
                 difference = targetHeight - distanceToGround;
             }
-       
-                
-                //Debug.Log(targetHeight);
-                //Debug.Log(difference);
+            if (Mathf.Round(m_Transform.position.y) != Mathf.Round(targetHeight + difference)) {
+                EventManager.TriggerEvent("Zoom");
+            }
 
             m_Transform.position = Vector3.Lerp(m_Transform.position, 
                 new Vector3(m_Transform.position.x, targetHeight + difference, m_Transform.position.z), Time.deltaTime * heightDampening);

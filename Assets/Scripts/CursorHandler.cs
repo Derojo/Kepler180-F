@@ -1,50 +1,75 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class CursorHandler : MonoBehaviour {
+public class CursorHandler : MonoBehaviour
+{
 
     public Texture2D defaultCursor;
-    public Texture2D currentCursor;
+    private Texture2D currentCursor;
     public Texture2D moving;
+    public Texture2D clickable;
     private bool setCursor = false;
+
 
     // Use this for initialization
 
     void Start() {
-        currentCursor = defaultCursor;
+        //currentCursor = defaultCursor;
     }
+    
     void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        /*
+            Debug.Log("set raycast");
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        RaycastHit hitInfor;
+            RaycastHit hitInfor;
 
-        if (Physics.Raycast(ray, out hitInfor))
-        {
-            string Tag = hitInfor.collider.gameObject.tag;
-            if (Tag == "Ground")
+            if (Physics.Raycast(ray, out hitInfor))
             {
-                if (currentCursor != moving) {
-                    SetCursorTexture(moving);
-                    currentCursor = moving;
-                }
-                
-            }
-            else {
-                if (currentCursor != defaultCursor)
+                string Tag = hitInfor.collider.gameObject.tag;
+                if (Tag == "Ground")
                 {
-                    SetCursorTexture(defaultCursor);
-                    currentCursor = defaultCursor;
-                }
-                
-            }
+                    Debug.Log("ground");
+                    setMovingCursor();
 
-            bool useNormalCursorTexture = hitInfor.collider.gameObject.tag.Equals("Ground");
-            
+
+                }
+
+                bool useNormalCursorTexture = hitInfor.collider.gameObject.tag.Equals("Ground");
+
+            }
+            */
+
+    }
+    
+    public void setDefaultCursor()
+    {
+        if (currentCursor != defaultCursor)
+        {
+            SetCursorTexture(defaultCursor);
+            currentCursor = defaultCursor;
         }
     }
 
+    public void setClickableCursor()
+    {
+        if (currentCursor != clickable)
+        {
+            SetCursorTexture(clickable);
+            currentCursor = clickable;
+        }
+    }
+
+    public void setMovingCursor() {
+        if (currentCursor != moving)
+        {
+            SetCursorTexture(moving);
+            currentCursor = moving;
+        }
+    }
     void SetCursorTexture(Texture2D tex)
     {
         Cursor.SetCursor(tex, Vector2.zero, CursorMode.Auto);

@@ -21,6 +21,7 @@ public class MainStation : MonoBehaviour {
         int startZ = (Grid.zMax / 2) - 1;
 
         GameObject firstcell = Grid.getGridCellAtPosition(startX, startZ);
+        firstcell.tag = "Clickable";
         station.transform.parent = firstcell.transform;
         Vector3 pos = new Vector3(firstcell.transform.position.x, (station.transform.position.y+offset), firstcell.transform.position.z);
         firstcell.GetComponent<Tile>().currentObject = station;

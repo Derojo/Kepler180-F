@@ -110,7 +110,6 @@ public class BuildingType : MonoBehaviour
                 else if (type == Types.buildingtypes.mineraldrill)
                 {
                     sub.harvastMinerals();
-                    ResourceManager.I.fundings = ResourceManager.I.fundings + sub.harvestPower;
                 }
                 else if (type == Types.buildingtypes.energytransformer || type == Types.buildingtypes.maingenerator)
                 {
