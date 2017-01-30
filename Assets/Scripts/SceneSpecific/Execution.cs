@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
 using RTS_Cam;
+using DG.Tweening;
 
 public class Execution : MonoBehaviour
 {
@@ -13,6 +14,12 @@ public class Execution : MonoBehaviour
     public Animator goals;
     public Text currentLevel;
     public Text auraGoal;
+
+    // Actions
+    public Image actionsLeft;
+    public Sprite actionsLeft2;
+    public Sprite actionsLeft1;
+    public Sprite noActions;
 
     //Ingame text
     public Text totalFunding;
@@ -59,8 +66,8 @@ public class Execution : MonoBehaviour
         BlueprintManager.I.InitializeBlueprintModels();
         UpdateUI();
         UpdatePlanningUI();
-        turnsleft.text = "nog " + TurnManager.I.maxTurns.ToString() + " beurten over";
-        currentTurn.text = TurnManager.I.turnCount + " / " + TurnManager.I.maxTurns.ToString();
+        turnsleft.text = "nog " + (TurnManager.I.maxTurns - 1).ToString() + " beurten over";
+        currentTurn.text = (TurnManager.I.turnCount + 1).ToString();
 
         // Set level information
         currentLevel.text = "Level "+LevelManager.I.currentLevel;
@@ -152,11 +159,21 @@ public class Execution : MonoBehaviour
         //Updating power UI
         totalPower.text = ResourceManager.I.powerLevel.ToString();
         //Update turns UI
-        turnsleft.text = "nog " + TurnManager.I.turnsLeft.ToString() + " beurten over";
-        currentTurn.text = TurnManager.I.turnCount + " / " + TurnManager.I.maxTurns.ToString();
+        if (TurnManager.I.turnCount >= (TurnManager.I.maxTurns - 1))
+        {
+            turnsleft.text = "Laatste beurt";
+        }
+        else
+        {
+            turnsleft.text = "nog " + (TurnManager.I.maxTurns - TurnManager.I.turnCount - 1) + " beurten over";
+        }
+        if ((TurnManager.I.turnCount + 1) <= TurnManager.I.maxTurns)
+        {
+            currentTurn.text = (TurnManager.I.turnCount + 1).ToString();
+        }
 
         //Set ënd level button to enable if level is completed
-         if(TurnManager.I.checkedLevelComplete)
+        if (TurnManager.I.checkedLevelComplete)
          {
             completeLevelPopUp.SetActive(true);
             completeLevelButton.SetActive(true);
@@ -203,6 +220,25 @@ public class Execution : MonoBehaviour
         if (TurnManager.I.turnsLeft <= 5)
         {
             uimanager.ShowMessage(Types.messages.lowTurns);
+        }
+
+        // Updating build icon, actions left
+        switch (TurnManager.I.placementsDone)
+        {
+            case 1:
+                actionsLeft.sprite = actionsLeft1;
+                actionsLeft.transform.DOScale(1.1f, .5f);
+                actionsLeft.transform.DOScale(1f, 1f).SetDelay(.5f);
+                break;
+            case 2:
+                actionsLeft.sprite = noActions;
+                actionsLeft.transform.DOScale(1.1f, .5f);
+                actionsLeft.transform.DOScale(1f, 1f).SetDelay(.5f);
+                break;
+
+            default:
+                actionsLeft.sprite = actionsLeft2;
+                break;
         }
     }
     //updating the Ui in blueprintmode
