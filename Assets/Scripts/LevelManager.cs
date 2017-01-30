@@ -24,6 +24,7 @@ public class LevelManager : Singleton<LevelManager>
     // Use this for initialization
     void Start()
     {
+       
         levelData = LevelContainer.Load(path);
         SetCurrentLevel();
     }
@@ -68,23 +69,24 @@ public class LevelManager : Singleton<LevelManager>
     //function for setting player difficulty
     public void SetSkillLevel()
     {
-
-        if (TurnManager.I.turnCount >= (AuraManager.I.percentageAverage + (AuraManager.I.percentageAverage /100)*30))
+        
+        if (TurnManager.I.turnCount >= (AuraManager.I.percentageAverage + (AuraManager.I.percentageAverage /100)*50))
         {
-
+            
             //Set difficulty to easy
             Debug.Log("easy");
             nextLevelSkill = 1;
         }
   
-        if(TurnManager.I.turnCount <= (AuraManager.I.percentageAverage + (AuraManager.I.percentageAverage / 100) * 30) && (TurnManager.I.turnCount >= (AuraManager.I.percentageAverage - (AuraManager.I.percentageAverage / 100) * 30)))
+        if(TurnManager.I.turnCount <= (AuraManager.I.percentageAverage + (AuraManager.I.percentageAverage / 100) * 20) && (TurnManager.I.turnCount >= (AuraManager.I.percentageAverage - (AuraManager.I.percentageAverage / 100) * 50)))
         {
+            
             //Set difficulty to medium
             Debug.Log("medium");
             nextLevelSkill = 2;
         }
 
-        if (TurnManager.I.turnCount <= (AuraManager.I.percentageAverage -(AuraManager.I.percentageAverage / 100) * 30))
+        if (TurnManager.I.turnCount <= (AuraManager.I.percentageAverage -(AuraManager.I.percentageAverage / 100) * 20))
         {
             //Set difficulty to hard
             Debug.Log("hard");

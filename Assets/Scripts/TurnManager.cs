@@ -94,7 +94,9 @@ public class TurnManager : Singleton<TurnManager>{
     // end turn eand call EndTurn event
     public void EndTurn()
     {
-        placementsDone = 0;
+        Debug.Log((AuraManager.I.percentageAverage + (AuraManager.I.percentageAverage / 100) * 50) + " aura gemiddelsde");
+        Debug.Log((AuraManager.I.percentageAverage + "arua gemiddelde"));
+       placementsDone = 0;
         Debug.Log("set placements done to zero");
         EventManager.TriggerEvent("EndTurn");
         EventManager.TriggerEvent("updateUI");
