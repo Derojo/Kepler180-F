@@ -353,7 +353,6 @@ public class Execution : MonoBehaviour
             // Change ui elements for every type of building
             if (buildingType.bought)
             {
-                   
                 buyButton.SetActive(false);
                 if (buildingType.turnedOn)
                 {
@@ -390,7 +389,8 @@ public class Execution : MonoBehaviour
             if (TurnManager.I.placementsDone != 0) {
                 TurnManager.I.placementsDone--;
             }
-            
+            //play remove sound
+            source[1].Play();
             BuildingManager.I.RemoveBuilding(currentObject, gridManager);
             infoPopUp.SetActive(false);
             deleteButton.SetActive(false);

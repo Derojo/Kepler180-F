@@ -130,15 +130,16 @@ public class GridManager : MonoBehaviour
     }
 
 
-    public void updateRange(int _x, int _z, int range)
+    public void updateRange(int _x, int _z, int rangeX, int rangeZ)
     {
-        int startX = (_x - range > 0 ? _x - range : 0);
-        int startZ = (_z - range > 0 ? _z - range : 0);
-        int totalIteration = ((range * 2) + 1 > Grid.zMax ? Grid.zMax : (range * 2) + 1);
+        int startX = (_x - rangeX > 0 ? _x - rangeX : 0);
+        int startZ = (_z - rangeZ > 0 ? _z - rangeZ : 0);
+        int totalXIteration = ((rangeX * 2) + 1 > Grid.xMax ? Grid.xMax : (rangeX * 2) + 1);
+        int totalZIteration = ((rangeZ * 2) + 1 > Grid.zMax ? Grid.zMax : (rangeZ * 2) + 1);
 
-        for (int x = 0; x < totalIteration; x++)
+        for (int x = 0; x < totalXIteration; x++)
         {
-            for (int z = 0; z < totalIteration; z++)
+            for (int z = 0; z < totalZIteration; z++)
             {
                 Tile t = Grid.getGridCellAtPosition(startX+x,startZ+z).GetComponent<Tile>();
                 GameObject energyGround = Instantiate(energyHolder) as GameObject;
