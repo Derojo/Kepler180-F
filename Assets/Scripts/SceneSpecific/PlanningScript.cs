@@ -232,4 +232,8 @@ public class PlanningScript : MonoBehaviour {
         infoPopUp.SetActive(false);
     }
 
+    public void PlanningButtons()
+    {
+        AudioManager.I.source[6].Play();
+    }
 }

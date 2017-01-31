@@ -40,6 +40,9 @@ public class LevelInfoInit : MonoBehaviour {
         AuraColor.color = new Color32(r, g, b, a);
     }
 
-
+    public void LevelInitButtons()
+    {
+        AudioManager.I.source[6].Play();
+    }
 
 }
