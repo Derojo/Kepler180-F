@@ -58,12 +58,14 @@ public class EvaluationScript : MonoBehaviour
 	// Update is called once per frame
 	public void ContinueButton ()
     {
+        AudioManager.I.source[6].Play();
         LevelManager.I.ResettingValues();
         SceneManager.LoadSceneAsync("LevelSelectionScene");
     }
 
     public void BackToMain()
     {
+        AudioManager.I.source[6].Play();
         LevelManager.I.ResettingValues();
         SceneManager.LoadSceneAsync("StartMenu");
       
@@ -72,6 +74,7 @@ public class EvaluationScript : MonoBehaviour
 
     public void TryAgain()
     {
+        AudioManager.I.source[6].Play();
         LevelManager.I.ResettingValues();
         SceneManager.LoadSceneAsync("Start");
        

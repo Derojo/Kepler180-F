@@ -25,4 +25,8 @@ public class LevelSelectorScript : MonoBehaviour {
     }
 	// Update is called once per frame
 
+    public void LevelSelectionButtons()
+    {
+        AudioManager.I.source[6].Play();
+    }
 }
