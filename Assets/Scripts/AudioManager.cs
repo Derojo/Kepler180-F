@@ -5,7 +5,7 @@ using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-[Prefab("TurnManager", true, "")]
+[Prefab("AudioManager", true, "")]
 public class AudioManager : Singleton<AudioManager> {
 
     public AudioSource[] source;
