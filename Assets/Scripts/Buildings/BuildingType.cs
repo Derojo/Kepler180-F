@@ -28,7 +28,7 @@ public class BuildingType : MonoBehaviour
     private Text buildTimeInfo;
     private bool eventBuildingcall = false;
     private bool generatedPowerOnce;
-
+    private bool PlayOnce = false;
 
     //eventlistner
     void OnEnable()
@@ -111,6 +111,12 @@ public class BuildingType : MonoBehaviour
                 }
                 else if (type == Types.buildingtypes.mineraldrill)
                 {
+                    if(!PlayOnce)
+                    {
+                        AudioManager.I.source[5].Play();
+                        PlayOnce = true;
+                    }
+                   
                     sub.harvastMinerals();
 
                 }
