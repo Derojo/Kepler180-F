@@ -28,8 +28,8 @@ public class BuildingType : MonoBehaviour
     private Text buildTimeInfo;
     private bool eventBuildingcall = false;
     private bool generatedPowerOnce;
-    private bool PlayOnce = false;
-
+    private bool PlayDrillOnce = false;
+    private bool PlayTransformerOnce = false;
     //eventlistner
     void OnEnable()
     {
@@ -111,10 +111,10 @@ public class BuildingType : MonoBehaviour
                 }
                 else if (type == Types.buildingtypes.mineraldrill)
                 {
-                    if(!PlayOnce)
+                    if(!PlayDrillOnce)
                     {
                         AudioManager.I.source[5].Play();
-                        PlayOnce = true;
+                        PlayDrillOnce = true;
                     }
                    
                     sub.harvastMinerals();
@@ -122,6 +122,11 @@ public class BuildingType : MonoBehaviour
                 }
                 else if (type == Types.buildingtypes.energytransformer || type == Types.buildingtypes.maingenerator)
                 {
+                    if (!PlayTransformerOnce && type == Types.buildingtypes.energytransformer)
+                    {
+                        AudioManager.I.source[7].Play();
+                        PlayTransformerOnce = true;
+                    }
                     ResourceManager.I.addPowerLevel(sub.constantEnergyPower);
                 }
                 else if (type == Types.buildingtypes.energygenerator)

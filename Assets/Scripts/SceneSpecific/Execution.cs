@@ -66,11 +66,6 @@ public class Execution : MonoBehaviour
     public int powerMessageShown;
     public int turnMessageShown;
 
-    //audio
-    
-    public AudioSource[] source;
-
-
     void Start()
     {
         StartCoroutine(hideGoals(2f));
@@ -208,12 +203,14 @@ public class Execution : MonoBehaviour
         // Update UI if player failed
         if(TurnManager.I.levelLostNoTurns)
         {
+
             PopUpText.text = "Helaas je hebt niet binnen de beurten 55% aurakracht behaald";
             PopUps.SetActive(true);
         }
 
         if (TurnManager.I.levelLostNoPower )
         {
+
             if (!TurnManager.I.checkedLevelComplete)
             {
                 PopUpText.text = "Helaas je hebt geen stroom meer om 55% aurakracht te behalen";
@@ -390,7 +387,7 @@ public class Execution : MonoBehaviour
                 TurnManager.I.placementsDone--;
             }
             //play remove sound
-            source[1].Play();
+            AudioManager.I.source[1].Play();
             BuildingManager.I.RemoveBuilding(currentObject, gridManager);
             infoPopUp.SetActive(false);
             deleteButton.SetActive(false);
@@ -414,7 +411,10 @@ public class Execution : MonoBehaviour
     }
 
 
-
+    public void ExecutionButtons()
+    {
+        AudioManager.I.source[6].Play();
+    }
     public void OnmouseExit()
     {
         infoPopUp.SetActive(false);
@@ -427,11 +427,13 @@ public class Execution : MonoBehaviour
     }
     public void QuitLevel()
     {
+       
         SceneManager.LoadSceneAsync("Evaluation");
     }
     
     public void KeepPlaying()
-    {
+    {  
+        
         completeLevelPopUp.SetActive(false);
     }
 
@@ -443,7 +445,7 @@ public class Execution : MonoBehaviour
 
     public void continuePlaying()
     {
- 
+        
         if (menuOpen)
         {
             escPopUp.SetActive(false);
@@ -485,9 +487,9 @@ public class Execution : MonoBehaviour
         {
             if (ResourceManager.I.fundings <= 500 )
             {
-                if (!source[0].isPlaying)
+                if (!AudioManager.I.source[8].isPlaying)
                 {
-                    source[0].Play();
+                    AudioManager.I.source[8].Play();
                     uimanager.ShowMessage(Types.messages.lowFunding);
                 }
 
@@ -495,18 +497,18 @@ public class Execution : MonoBehaviour
 
             if (TurnManager.I.turnsLeft <= 5 )
             {
-                if (!source[0].isPlaying)
+                if (!AudioManager.I.source[8].isPlaying)
                 {
-                    source[0].Play();
+                    AudioManager.I.source[8].Play();
                     uimanager.ShowMessage(Types.messages.lowTurns);
                 }
 
             }
             if (ResourceManager.I.powerLevel <= 500)
             {
-                if (!source[0].isPlaying)
+                if (!AudioManager.I.source[8].isPlaying)
                 {
-                    source[0].Play();
+                    AudioManager.I.source[8].Play();
                     uimanager.ShowMessage(Types.messages.lowEnergy);
                 }
             }
@@ -517,9 +519,9 @@ public class Execution : MonoBehaviour
         {
             if (ResourceManager.I.fundings <= 500 && fundMessageShown < 3)
             {
-                if (!source[0].isPlaying)
+                if (!AudioManager.I.source[8].isPlaying)
                 {
-                    source[0].Play();
+                    AudioManager.I.source[8].Play();
                     uimanager.ShowMessage(Types.messages.lowFunding);
                     fundMessageShown++;
                 }
@@ -527,9 +529,9 @@ public class Execution : MonoBehaviour
 
             if (TurnManager.I.turnsLeft <= 5 && turnMessageShown < 1)
             {
-                if (!source[0].isPlaying)
+                if (!AudioManager.I.source[8].isPlaying)
                 {
-                    source[0].Play();
+                    AudioManager.I.source[8].Play();
                     uimanager.ShowMessage(Types.messages.lowTurns);
                     turnMessageShown++;
                 }
@@ -537,14 +539,15 @@ public class Execution : MonoBehaviour
             }
             if (ResourceManager.I.fundings <= 500 && powerMessageShown <= 3)
             {
-                if (!source[0].isPlaying)
+                if (!AudioManager.I.source[8].isPlaying)
                 {
-                    source[0].Play();
+                    AudioManager.I.source[8].Play();
                     uimanager.ShowMessage(Types.messages.lowEnergy);
                     powerMessageShown++;
                 }
             }
         }
 
-    }
+    
+}
 }
