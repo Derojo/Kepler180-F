@@ -29,6 +29,10 @@ public class BuildingType : MonoBehaviour
     private bool eventBuildingcall = false;
     private bool generatedPowerOnce;
 
+    //audio
+    public AudioSource[] buildingSource;
+
+
     //eventlistner
     void OnEnable()
     {
@@ -80,6 +84,7 @@ public class BuildingType : MonoBehaviour
 
                 if (type == Types.buildingtypes.colorgenerator)
                 {
+
                     GetComponent<ColorGenerator>().turnOnGenerator();
                 }
 
@@ -94,6 +99,10 @@ public class BuildingType : MonoBehaviour
             if (buildingDone && !turnedOn)
             {
                 turnedOn = true;
+                if (!buildingSource[0].isPlaying)
+                {
+                    buildingSource[0].Play();
+                }
                 return;
             }
 
@@ -101,7 +110,8 @@ public class BuildingType : MonoBehaviour
             if (turnedOn)
             {
                 //reduce power if building is on
-
+               
+               
                 SubBuilding sub = GetComponent<SubBuilding>();
                 if (type == Types.buildingtypes.colorgenerator)
                 {

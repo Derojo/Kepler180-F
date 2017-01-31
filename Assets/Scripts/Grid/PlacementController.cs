@@ -25,6 +25,7 @@ public class PlacementController : MonoBehaviour
     private Tile[] lastTileSelected;
     private bool inTween = false;
 
+    public AudioSource[] placementSource;
     void Update()
     {
         if (startPlacement)
@@ -101,6 +102,7 @@ public class PlacementController : MonoBehaviour
 
     public void StartPlacement(GameObject building)
     {
+        
         if (!BuildingManager.I.AbleToBuy(building.GetComponent<BuildingType>()))
         {
             uimanager.ShowMessage(Types.messages.noFunding);
@@ -111,7 +113,7 @@ public class PlacementController : MonoBehaviour
             {
                 if (!inPlanningMode)
                 {
-
+                    
                     TurnManager.I.placementsDone++;
                 }
 
@@ -165,7 +167,7 @@ public class PlacementController : MonoBehaviour
     /* Place the building that is currently in drag if we are in range */
     private void PlaceObject()
     {
-
+        placementSource[0].Play();
         if (lastTileSelected[0].inRange)
         {
 

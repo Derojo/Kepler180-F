@@ -66,12 +66,12 @@ public class Execution : MonoBehaviour
     public int turnMessageShown;
 
     //audio
-    public AudioSource source;
-    public AudioClip notificationSound; 
+    
+    public AudioSource[] source;
+
 
     void Start()
     {
-        source = GetComponent<AudioSource>();
         StartCoroutine(hideGoals(2f));
         BlueprintManager.I.InitializeBlueprintModels();
         UpdateUI();
@@ -352,6 +352,7 @@ public class Execution : MonoBehaviour
             // Change ui elements for every type of building
             if (buildingType.bought)
             {
+                   
                 buyButton.SetActive(false);
                 if (buildingType.turnedOn)
                 {
@@ -450,47 +451,68 @@ public class Execution : MonoBehaviour
 
     public void CheckGuidedActivity()
     {
-        if (LevelManager.I.nextLevelSkill == 1)
+        if (LevelManager.I.nextLevelSkill == 1 && !TurnManager.I.levelLostNoTurns && !TurnManager.I.levelLostNoPower)
         {
-            if (ResourceManager.I.fundings <= 500)
+            if (ResourceManager.I.fundings <= 500 )
             {
-                if (!source.isPlaying)
+                if (!source[0].isPlaying)
                 {
-                    source.PlayOneShot(notificationSound);
+                    source[0].Play();
                     uimanager.ShowMessage(Types.messages.lowFunding);
                 }
 
             }
 
-            if (TurnManager.I.turnsLeft <= 5)
+            if (TurnManager.I.turnsLeft <= 5 )
             {
-                uimanager.ShowMessage(Types.messages.lowTurns);
+                if (!source[0].isPlaying)
+                {
+                    source[0].Play();
+                    uimanager.ShowMessage(Types.messages.lowTurns);
+                }
+
             }
             if (ResourceManager.I.powerLevel <= 500)
             {
-                uimanager.ShowMessage(Types.messages.lowEnergy);
+                if (!source[0].isPlaying)
+                {
+                    source[0].Play();
+                    uimanager.ShowMessage(Types.messages.lowEnergy);
+                }
             }
 
         }
 
-        if (LevelManager.I.nextLevelSkill == 2)
+        if (LevelManager.I.nextLevelSkill == 2 && !TurnManager.I.levelLostNoTurns && !TurnManager.I.levelLostNoPower)
         {
             if (ResourceManager.I.fundings <= 500 && fundMessageShown < 3)
             {
-                uimanager.ShowMessage(Types.messages.lowFunding);
-                fundMessageShown++;
-                Debug.Log(fundMessageShown);
+                if (!source[0].isPlaying)
+                {
+                    source[0].Play();
+                    uimanager.ShowMessage(Types.messages.lowFunding);
+                    fundMessageShown++;
+                }
             }
 
             if (TurnManager.I.turnsLeft <= 5 && turnMessageShown < 1)
             {
-                uimanager.ShowMessage(Types.messages.lowTurns);
-                turnMessageShown++;
+                if (!source[0].isPlaying)
+                {
+                    source[0].Play();
+                    uimanager.ShowMessage(Types.messages.lowTurns);
+                    turnMessageShown++;
+                }
+
             }
             if (ResourceManager.I.fundings <= 500 && powerMessageShown <= 3)
             {
-                uimanager.ShowMessage(Types.messages.lowEnergy);
-                powerMessageShown++;
+                if (!source[0].isPlaying)
+                {
+                    source[0].Play();
+                    uimanager.ShowMessage(Types.messages.lowEnergy);
+                    powerMessageShown++;
+                }
             }
         }
 
