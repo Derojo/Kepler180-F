@@ -65,12 +65,26 @@ public class ColorGenerator : MonoBehaviour
             }
         }
         else if (cgeneratorTile.inMixedCluster) {
-            float amountInCluster = ColorManager.I.colorCluster[cgeneratorTile.clusterId].mixedColorSpots;
-
-            buildingAuraPower = _buildingAuraPower - ((_buildingAuraPower / 4) * (amountInCluster - 1));
-
-            float weakening = (_buildingAuraPower - buildingAuraPower) / 100;
-            gameObject.transform.GetChild(3).gameObject.GetComponent<ParticleSystem>().startSize = 2 - weakening;
+            StartCoroutine(waitForDetermingAuraPower(cgeneratorTile));
         }
+    }
+
+    private IEnumerator waitForDetermingAuraPower(Tile cgeneratorTile) {
+        yield return new WaitForSeconds(0.5f);
+        float generatorsTurnedOn = 0;
+        foreach (Tile tile in ColorManager.I.colorCluster[cgeneratorTile.clusterId].spotTiles)
+        {
+
+            BuildingType building = tile.currentObject.GetComponent<BuildingType>();
+            Debug.Log(building.gameObject.name + "-" + building.turnedOn);
+            if (building.turnedOn)
+            {
+                generatorsTurnedOn++;
+            }
+        }
+        buildingAuraPower = _buildingAuraPower - ((_buildingAuraPower / 4) * (generatorsTurnedOn - 1));
+
+        float weakening = (_buildingAuraPower - buildingAuraPower) / 100;
+        gameObject.transform.GetChild(3).gameObject.GetComponent<ParticleSystem>().startSize = 2 - weakening;
     }
 }

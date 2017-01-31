@@ -82,13 +82,14 @@ public class ColorManager : Singleton<ColorManager>
 
         return returnColors;
     }
-    public void fillSpotInCluster(Cluster cluster, int colorId, bool mixed ) {
+    public void fillSpotInCluster(Cluster cluster, int colorId, bool mixed, Tile tile) {
         if (!mixed)
         {
             cluster.colorSpots[colorId] = true;
         }
         else {
             cluster.mixedColorSpots++;
+            cluster.spotTiles.Add(tile);
         }
         if (checkIfClusterIsFull(cluster, mixed)) {
             cluster.isFull = true;
@@ -119,17 +120,29 @@ public class ColorManager : Singleton<ColorManager>
     public bool AbleToBuildColorGenerator(Tile tile, Types.colortypes color, GridManager grid) {
 
             List<Node> neigbours = grid.graph[tile.x, tile.z].neighbours;
-            bool inColorCluster = false;
-            bool inMixedCluster = false;
+           // bool inColorCluster = false;
+           // bool inMixedCluster = false;
+            int inColorCluster = 0;
+            int inMixedCluster = 0;
+
+            List<int> mixedClusterIds = new List<int>();
+            int currentClusterId = -1;
+            bool inNone = false;
             for (int i = 0; i < neigbours.Count; i++)
             {
                 Tile neighbourTile = Grid.getTileAtPosition(neigbours[i].x, neigbours[i].z);
 
                 if (neighbourTile.currentObject != null)
                 {
-                    if (neighbourTile.inColorCluster)
+                    if (!neighbourTile.inColorCluster && !neighbourTile.inMixedCluster) {
+                        if(neighbourTile.currentObject.name != "MainStation")
+                        {
+                            inNone = true;
+                        }
+                    }
+                    if (neighbourTile.inColorCluster )
                     {
-                        inColorCluster = true;
+                        inColorCluster++;
                         if (color != neighbourTile.colorCluster)
                         {
                             return false;
@@ -138,8 +151,14 @@ public class ColorManager : Singleton<ColorManager>
                     if (grid.clusterRestriction) {
                         if (neighbourTile.inMixedCluster)
                         {
-                            inMixedCluster = true;
                             int clusterId = neighbourTile.clusterId;
+ 
+                            if(!mixedClusterIds.Contains(clusterId))
+                            {
+                                mixedClusterIds.Add(clusterId);
+                            }
+                           
+                            
                             if (!ColorManager.I.colorCluster[clusterId].isFull)
                             {
                                 if (!grid.mixedPlacements)
@@ -165,9 +184,26 @@ public class ColorManager : Singleton<ColorManager>
                     }
                 }
             }
-            if (inMixedCluster && inColorCluster)
+        if (mixedClusterIds.Count > 0 && inColorCluster > 0)
+        {
+            return false;
+        }
+        else if (mixedClusterIds.Count >= 2) {
+            return false;
+        }
+        else if (mixedClusterIds.Count == 1 && inNone)
+        {
+            int combinedSpots = 1;
+            for (int i = 0; i < mixedClusterIds.Count; i++)
+            {
+                combinedSpots = combinedSpots + ColorManager.I.colorCluster[mixedClusterIds[i]].mixedColorSpots;
+            }
+            if (combinedSpots >= 4)
+            {
                 return false;
-            return true;
+            }
+        }
+        return true;
     }
 
     public Tile getFirstAdjunctTile(Tile tile, GridManager grid) {
@@ -185,6 +221,25 @@ public class ColorManager : Singleton<ColorManager>
             }
         }
         return null;
+    }
+
+    public List<Tile> GetAdjunctTilesWithObjects(Tile tile, GridManager grid)
+    {
+        List<Tile> returnTiles = new List<Tile>();
+        List<Node> neigbours = grid.graph[tile.x, tile.z].neighbours;
+        for (int i = 0; i < neigbours.Count; i++)
+        {
+            Tile neighbourTile = Grid.getTileAtPosition(neigbours[i].x, neigbours[i].z);
+
+            if (neighbourTile.currentObject != null)
+            {
+                if (neighbourTile.tileType == (int)Types.buildingtypes.colorgenerator)
+                {
+                    returnTiles.Add(neighbourTile);
+                }
+            }
+        }
+        return returnTiles;
     }
 
     public List<Tile> getBlendableTiles(Tile tile, Types.colortypes color, GridManager grid)

@@ -224,64 +224,84 @@ public class PlacementController : MonoBehaviour
     private void DetermineCluster()
     {
         Types.colortypes color = objectInDrag.GetComponent<ColorGenerator>().selectedColor;
-        Tile adjunctTile = ColorManager.I.getFirstAdjunctTile(lastTileSelected[0], GetComponent<GridManager>());
-
-        if (adjunctTile != null)
+        //lastTileSelected[0].
+       // Tile adjunctTile = ColorManager.I.getFirstAdjunctTile(lastTileSelected[0], GetComponent<GridManager>());
+        List<Tile> adjunctTilesWithObjects = ColorManager.I.GetAdjunctTilesWithObjects(lastTileSelected[0], GetComponent<GridManager>());
+        if (adjunctTilesWithObjects.Count != 0 && adjunctTilesWithObjects != null)
         {
-            Types.colortypes neighbourColor = adjunctTile.currentObject.GetComponent<ColorGenerator>().selectedColor;
+            int adjunctingTilesAmount = adjunctTilesWithObjects.Count;
 
-            if (neighbourColor == color)
-            {
-                int clusterId;
-
-
-                if (!adjunctTile.inColorCluster)
-                {
-                    ColorManager.I.sameColorAmount.Add(0);
-                    clusterId = (ColorManager.I.sameColorAmount.Count - 1);
-                    adjunctTile.colorCluster = color;
-                    adjunctTile.inColorCluster = true;
-                    adjunctTile.clusterId = clusterId;
-                    ColorManager.I.sameColorAmount[clusterId] = ColorManager.I.sameColorAmount[clusterId] + 1;
-                }
-                else
-                {
-                    clusterId = adjunctTile.clusterId;
-                }
-                lastTileSelected[0].colorCluster = color;
-                lastTileSelected[0].inColorCluster = true;
-                lastTileSelected[0].clusterId = clusterId;
-                ColorManager.I.sameColorAmount[clusterId] = ColorManager.I.sameColorAmount[clusterId] + 1;
-            }
-            else
+            foreach (Tile adjunctTile in adjunctTilesWithObjects)
             {
 
-                // Create mixed color cluster
+                Types.colortypes neighbourColor = adjunctTile.currentObject.GetComponent<ColorGenerator>().selectedColor;
 
-                if (GetComponent<GridManager>().clusterRestriction)
+                /********** NON MIXED COLOR CLUSTER **********/
+                if (neighbourColor == color)
                 {
                     int clusterId;
-                    Cluster currentCluster;
 
-                    if (!adjunctTile.inMixedCluster)
+
+                    if (!adjunctTile.inColorCluster)
                     {
-                        ColorManager.I.AddColorCluster();
-                        clusterId = ColorManager.I.colorCluster.Count - 1;
-                        currentCluster = ColorManager.I.colorCluster[clusterId];
+                        ColorManager.I.sameColorAmount.Add(0);
+                        clusterId = (ColorManager.I.sameColorAmount.Count - 1);
+                        adjunctTile.colorCluster = color;
+                        adjunctTile.inColorCluster = true;
                         adjunctTile.clusterId = clusterId;
-                        adjunctTile.inMixedCluster = true;
-                        ColorManager.I.fillSpotInCluster(currentCluster, (int)neighbourColor, GetComponent<GridManager>().mixedPlacements);
+                        ColorManager.I.sameColorAmount[clusterId] = ColorManager.I.sameColorAmount[clusterId] + 1;
                     }
                     else
                     {
                         clusterId = adjunctTile.clusterId;
-                        currentCluster = ColorManager.I.colorCluster[clusterId];
                     }
-                    if (!currentCluster.isFull)
+                    lastTileSelected[0].colorCluster = color;
+                    lastTileSelected[0].inColorCluster = true;
+                    lastTileSelected[0].clusterId = clusterId;
+                    ColorManager.I.sameColorAmount[clusterId] = ColorManager.I.sameColorAmount[clusterId] + 1;
+                }
+                else
+                {
+
+                    /********** MIXED COLOR CLUSTER **********/
+                    if (GetComponent<GridManager>().clusterRestriction)
                     {
-                        lastTileSelected[0].clusterId = clusterId;
-                        lastTileSelected[0].inMixedCluster = true;
-                        ColorManager.I.fillSpotInCluster(currentCluster, (int)color, GetComponent<GridManager>().mixedPlacements);
+                        int clusterId;
+                        Cluster currentCluster;
+
+                        if (!adjunctTile.inMixedCluster)
+                        {
+                            if(!lastTileSelected[0].inMixedCluster)
+                            {
+                                ColorManager.I.AddColorCluster();
+                                clusterId = ColorManager.I.colorCluster.Count - 1;
+                                currentCluster = ColorManager.I.colorCluster[clusterId];
+                                adjunctTile.clusterId = clusterId;
+                                //info = adjunctTile.GetComponent<BuildingType>();
+                            }
+                            else
+                            {
+                                clusterId = lastTileSelected[0].clusterId;
+                                currentCluster = ColorManager.I.colorCluster[clusterId];
+                                //info = adjunctTile.GetComponent<BuildingType>();
+                            }
+
+
+                            adjunctTile.inMixedCluster = true;
+                            ColorManager.I.fillSpotInCluster(currentCluster, (int)neighbourColor, GetComponent<GridManager>().mixedPlacements, adjunctTile);
+                        }
+                        else
+                        {
+                            clusterId = adjunctTile.clusterId;
+                            currentCluster = ColorManager.I.colorCluster[clusterId];
+                        }
+                        if (!currentCluster.isFull)
+                        {
+                            lastTileSelected[0].clusterId = clusterId;
+                            lastTileSelected[0].inMixedCluster = true;
+
+                            ColorManager.I.fillSpotInCluster(currentCluster, (int)color, GetComponent<GridManager>().mixedPlacements, lastTileSelected[0]);
+                        }
                     }
                 }
             }
