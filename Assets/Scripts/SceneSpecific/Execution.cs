@@ -37,6 +37,7 @@ public class Execution : MonoBehaviour
     public GameObject infoPopUp;
     public GameObject escPopUp;
     public Button endTurnButton;
+	public GameObject tutorialViewer;
 
     public Text redAmount;
     public Text blueAmount;
@@ -434,6 +435,12 @@ public class Execution : MonoBehaviour
         completeLevelPopUp.SetActive(false);
     }
 
+	public void toInstructions()
+	{
+		completeLevelPopUp.SetActive(false);
+
+	}
+
     public void continuePlaying()
     {
  
@@ -443,6 +450,29 @@ public class Execution : MonoBehaviour
             menuOpen = false;
         }
     }
+
+	public void toTutorial()
+	{
+
+		if (menuOpen)
+		{
+			escPopUp.SetActive(true);
+			menuOpen = true;
+			tutorialViewer.SetActive(true); 
+		}
+	}
+
+	public void toMenuFromTutorial()
+	{
+
+		if (menuOpen)
+		{
+			escPopUp.SetActive(true);
+			menuOpen = true;
+			tutorialViewer.SetActive(false); 
+		}
+	}
+
     public void QuitLevelToMenu()
     {
         LevelManager.I.ResettingValues();
