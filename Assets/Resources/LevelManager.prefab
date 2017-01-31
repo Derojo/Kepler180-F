@@ -52,8 +52,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   M_T_A: 0
-  turnMaxText: {fileID: 0}
   A_P_T: 0
-  powerAuraText: {fileID: 0}
   nextLevelSkill: 1
   currentLevel: 1

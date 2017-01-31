@@ -1080,6 +1080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a50f31568c75241a871638e9dbf745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelSelection: 0
 --- !u!82 &890303512
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1372,7 +1373,8 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: LevelSelectionScene
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 82442132852281512, guid: 47c25b8986f1b1243b2e11b85b8e0cce, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 47c25b8986f1b1243b2e11b85b8e0cce, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1002209340
@@ -1872,7 +1874,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -378954143
+  randomSeed: -1732478368
   InitialModule:
     serializedVersion: 3
     enabled: 1

@@ -29,9 +29,6 @@ public class BuildingType : MonoBehaviour
     private bool eventBuildingcall = false;
     private bool generatedPowerOnce;
 
-    //audio
-    public AudioSource[] buildingSource;
-
 
     //eventlistner
     void OnEnable()
@@ -99,19 +96,14 @@ public class BuildingType : MonoBehaviour
             if (buildingDone && !turnedOn)
             {
                 turnedOn = true;
-                if (!buildingSource[0].isPlaying)
-                {
-                    buildingSource[0].Play();
-                }
+          
                 return;
             }
 
             // Building is on start the right functionalities
             if (turnedOn)
             {
-                //reduce power if building is on
-               
-               
+                //reduce power if building is on             
                 SubBuilding sub = GetComponent<SubBuilding>();
                 if (type == Types.buildingtypes.colorgenerator)
                 {
@@ -120,6 +112,7 @@ public class BuildingType : MonoBehaviour
                 else if (type == Types.buildingtypes.mineraldrill)
                 {
                     sub.harvastMinerals();
+
                 }
                 else if (type == Types.buildingtypes.energytransformer || type == Types.buildingtypes.maingenerator)
                 {
@@ -127,11 +120,15 @@ public class BuildingType : MonoBehaviour
                 }
                 else if (type == Types.buildingtypes.energygenerator)
                 {
-                    if (!generatedPowerOnce)
-                    {
+                   
+                     if (!generatedPowerOnce)
+                    { 
                         generatedPowerOnce = true;
                         ResourceManager.I.addPowerLevel(sub.energyPowerOnce);
+                        Debug.Log("playsound");
+                        AudioManager.I.source[4].Play();
                     }
+                 
                 }
                 StartCoroutine(subtractPower(1f));
             }

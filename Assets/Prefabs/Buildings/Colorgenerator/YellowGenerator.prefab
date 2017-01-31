@@ -560,8 +560,6 @@ MonoBehaviour:
   buildTime: 2
   buildTimeTotal: 0
   buildingInfoCanvas: {fileID: 223613549757185714}
-  buildingSource:
-  - {fileID: 82759373898020012}
 --- !u!114 &114090813569098960
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -798,6 +796,8 @@ MonoBehaviour:
   ColorGeneratorName: 
   buildingAuraPower: 100
   sizeOnGrid: 1
+  powerGeneratorSource:
+  - {fileID: 82759373898020012}
 --- !u!114 &114902673178626502
 MonoBehaviour:
   m_ObjectHideFlags: 1

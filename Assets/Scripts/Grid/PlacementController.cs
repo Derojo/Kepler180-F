@@ -167,7 +167,7 @@ public class PlacementController : MonoBehaviour
     /* Place the building that is currently in drag if we are in range */
     private void PlaceObject()
     {
-        placementSource[0].Play();
+        AudioManager.I.source[3].Play();
         if (lastTileSelected[0].inRange)
         {
 

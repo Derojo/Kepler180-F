@@ -14,6 +14,8 @@ public class ColorGenerator : MonoBehaviour
     public int sizeOnGrid = 1;
     private float _buildingAuraPower;
 
+
+    //audio
     // Use this for initialization
 
     void Start()
@@ -36,7 +38,10 @@ public class ColorGenerator : MonoBehaviour
         determineAuraPower();
         gameObject.transform.GetChild(3).gameObject.SetActive(true);
         gameObject.transform.GetChild(2).gameObject.SetActive(true);
-
+        if (!AudioManager.I.source[1].isPlaying)
+        {
+            AudioManager.I.source[1].Play();
+        }
         return;
     }
 
