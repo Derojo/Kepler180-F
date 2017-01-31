@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour {
     public GameObject escPopUp;
     public bool menuOpen = false;
     public Message[] Messages = new Message[0];
+    public AudioSource[] UiAudio;
 
     public Message getMessageByType(Types.messages type) {
         foreach (Message m in Messages) {
@@ -79,6 +80,7 @@ public class UIManager : MonoBehaviour {
             UIObject.GetComponent<Image>().DOColor(m.pulsateColor, .5f);
             UIObject.transform.DOShakeScale(1f,.5f,10,10);
             UIObject.GetComponent<Image>().DOColor(normalColor, .5f).SetDelay(.5f);
+            UiAudio[0].Play();
             yield return new WaitForSeconds(1);
         }
 

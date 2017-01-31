@@ -26,6 +26,7 @@ public class PlacementController : MonoBehaviour
     private bool inTween = false;
 
     public AudioSource[] placementSource;
+
     void Update()
     {
         if (startPlacement)
@@ -113,7 +114,6 @@ public class PlacementController : MonoBehaviour
             {
                 if (!inPlanningMode)
                 {
-                    
                     TurnManager.I.placementsDone++;
                 }
 
