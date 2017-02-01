@@ -14,9 +14,9 @@ public class LevelSelectorScript : MonoBehaviour {
 
     void Start()
     {
-        
-        int levelReached = PlayerPrefs.GetInt("levelReached", 1);
-
+        LevelManager.I.ResettingValues();
+        int levelReached = PlayerPrefs.GetInt("levelReached");
+        Debug.Log(levelReached);
         for (int i = 0; i < levelButtons.Length; i++)
         {
             if (i + 1 > levelReached)
@@ -28,5 +28,9 @@ public class LevelSelectorScript : MonoBehaviour {
     public void LevelSelectionButtons()
     {
         AudioManager.I.source[6].Play();
+    }
+
+    public void DetermineLevel(int level) {
+        Manager.I.DetermineLevel(level);
     }
 }

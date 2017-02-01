@@ -2,6 +2,25 @@
 <Levelcollection>
   <Levels>
     <Level name="Level 1">
+      <A_C>Paars</A_C>
+      <A_C_C>199, 0, 255, 255</A_C_C>
+      <colorTypeCode>1</colorTypeCode>
+      <isBlend>true</isBlend>
+
+      <StartupMoney>600</StartupMoney>
+      <StartupPower>1000</StartupPower>
+      <StartupHeat>1400</StartupHeat>
+
+      <M_T_E>15</M_T_E>
+      <A_P_E>1500</A_P_E>
+
+      <M_T_M>15</M_T_M>
+      <A_P_M>3000</A_P_M>
+
+      <M_T_H>15</M_T_H>
+      <A_P_H>3000</A_P_H>
+    </Level>
+    <Level name="Level 2">
       <A_C>Oranje</A_C>
       <A_C_C>255, 174, 0, 255</A_C_C>
       <colorTypeCode>3</colorTypeCode>
@@ -21,7 +40,7 @@
       <A_P_H>3000</A_P_H>
     </Level>
     
-    <Level name="Level 2">
+    <Level name="Level 3">
       <A_C>Bruin</A_C>
       <A_C_C>133, 87, 5, 255</A_C_C>
 

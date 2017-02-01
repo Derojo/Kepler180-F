@@ -81,7 +81,6 @@ public class ColorGenerator : MonoBehaviour
         {
 
             BuildingType building = tile.currentObject.GetComponent<BuildingType>();
-            Debug.Log(building.gameObject.name + "-" + building.turnedOn);
             if (building.turnedOn)
             {
                 generatorsTurnedOn++;

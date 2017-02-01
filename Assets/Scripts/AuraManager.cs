@@ -50,6 +50,7 @@ public class AuraManager : Singleton<AuraManager>
         CalculateCurrentAuraPower();
         percentageAverage = (Mathf.Round(LevelManager.I.M_T_A / 100 * 55));
         auraLevelPercentage = Mathf.Round((currentAuraPower / LevelManager.I.A_P_T) * 100);
+        Debug.Log(currentAuraPower+"/"+ LevelManager.I.A_P_T+"="+currentAuraPower / LevelManager.I.A_P_T * 100);
         ChangeAuraFogColor();
     }
 
@@ -96,6 +97,7 @@ public class AuraManager : Singleton<AuraManager>
                     blendingPower = firstAmount + secondAmount;
                 }
                 currentAuraPower = blendingPower;
+                    Debug.Log(currentAuraPower);
             }
         }
 

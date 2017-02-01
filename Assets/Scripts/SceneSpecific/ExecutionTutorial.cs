@@ -62,9 +62,9 @@ public class ExecutionTutorial : MonoBehaviour
     void Start()
     {
         // Set variables for tutorial purposes
-        TurnManager.I.maxTurns = 10;
-        TurnManager.I.turnsLeft = 10;
-        ResourceManager.I.fundings = 400;
+
+
+
         BlueprintManager.I.InitializeBlueprintModels();
         UpdateUI();
         UpdatePlanningUI();
@@ -178,15 +178,11 @@ public class ExecutionTutorial : MonoBehaviour
         if ((TurnManager.I.turnCount+1) <= TurnManager.I.maxTurns) {
             currentTurn.text = (TurnManager.I.turnCount + 1).ToString();
         }
-            
+
 
         //Set ënd level button to enable if level is completed
-         if(TurnManager.I.checkedLevelComplete)
-         {
-            completeLevelPopUp.SetActive(true);
-            completeLevelButton.SetActive(true);
+        StartCoroutine(checkLevelCompleteLater());
 
-         }
         if (TurnManager.I.LevelCompleted)
         {
            PopUpText.text = "Gefeliciteerd je hebt 100% aurapower behaald en daarmee het level behaald.";
@@ -212,8 +208,8 @@ public class ExecutionTutorial : MonoBehaviour
 
             PopUps.SetActive(true);
         }
-        if (currentObject != null) {
-            infoPopUp.SetActive(false);
+        if (currentObject != null) {    
+            //infoPopUp.SetActive(false);
         }
         //Guided activity 
         if (ResourceManager.I.powerLevel <= 500)
@@ -248,9 +244,18 @@ public class ExecutionTutorial : MonoBehaviour
                 actionsLeft.sprite = actionsLeft2;
                 break;
         }
-
-
     }
+
+    private IEnumerator checkLevelCompleteLater() {
+        yield return new WaitForSeconds(2);
+        if (TurnManager.I.checkedLevelComplete && !TurnManager.I.levelLostNoPower)
+        {
+            completeLevelPopUp.SetActive(true);
+            completeLevelButton.SetActive(true);
+        }
+        yield break;
+    }
+
     //updating the Ui in blueprintmode
     void UpdatePlanningUI()
     {
@@ -281,7 +286,7 @@ public class ExecutionTutorial : MonoBehaviour
             if (buildingType.type == Types.buildingtypes.colorgenerator) // Information for colorgenerators
             {
                 ColorGenerator cgenerator = building.GetComponent<ColorGenerator>();
-                
+
                 if (cgenerator.selectedColor == Types.colortypes.Red)
                 {
                     buildingName.text = "Rode Generator";
@@ -321,18 +326,20 @@ public class ExecutionTutorial : MonoBehaviour
                 deleteButton.SetActive(false);
                 SubBuilding sub = building.GetComponent<SubBuilding>();
                 // General
-                if (!buildingType.bought) {
+                if (!buildingType.bought)
+                {
                     buyButton.SetActive(true);
-                } else
+                }
+                else
                 {
                     buyButton.SetActive(false);
                 }
-               
+
                 if (buildingType.type == Types.buildingtypes.mineraldrill)  // Set information for the mineraldrill
                 {
                     buildingName.text = "Mineraalboor";
-                    infoBox.text = "Boort "+ sub.harvestPower.ToString() + " mineralen per beurt";
-                }               
+                    infoBox.text = "Boort " + sub.harvestPower.ToString() + " mineralen per beurt";
+                }
                 else if (buildingType.type == Types.buildingtypes.energygenerator)  // Set information for the energygenerator
                 {
                     buildingName.text = "Energiegenerator";
@@ -342,13 +349,21 @@ public class ExecutionTutorial : MonoBehaviour
                 {
                     buildingName.text = "Energietransformer";
                     infoBox.text = "Genereerd " + sub.constantEnergyPower.ToString() + " energie per beurt";
-                } else if (buildingType.type == Types.buildingtypes.coolsystem)  // Set information for the coolgenerator
+                }
+                else if (buildingType.type == Types.buildingtypes.coolsystem)  // Set information for the coolgenerator
                 {
                     buildingName.text = "Koelsysteem";
                     infoBox.text = "Koelt de planeet met 100 per beurt";
+                } else if (buildingType.type == Types.buildingtypes.maingenerator)
+                {
+                    buildingTime.enabled = false;
+                    infoPopUp.transform.GetChild(6).gameObject.SetActive(false);
+                    buildingName.text = "Hoofdstation";
+                    infoBox.text = "Creëert een energieveld om kleurgeneratoren te plaatsen. Genereerd " + sub.constantEnergyPower.ToString() + " energie per beurt";
                 }
 
             }
+
 
             // Change ui elements for every type of building
             if (buildingType.bought)
@@ -407,7 +422,7 @@ public class ExecutionTutorial : MonoBehaviour
             else {
                 EventManager.TriggerEvent("bought" + currentObject.GetComponent<BuildingType>().type);
                 BuildingManager.I.BuyBuilding(currentObject.GetComponent<BuildingType>(), false);
-                //infoPopUp.SetActive(false);
+                UpdateBuildingInfoUI(currentObject);
                 deleteButton.SetActive(false);
             }
         }
@@ -444,23 +459,19 @@ public class ExecutionTutorial : MonoBehaviour
     }
     public void QuitLevelToMenu()
     {
-        Debug.Log("clicked button levae");
         SceneManager.LoadSceneAsync("StartMenu");
     }
 
     public void ToggleBoolAnimator(Animator anim)
     {
-        Debug.Log("toggleboolanimator");
-        EventManager.TriggerEvent("actionFinished");
+        EventManager.TriggerEvent("hideGoals");
         bool isDisplayed = anim.GetBool("isDisplayed");
         if (isDisplayed)
         {
-            Debug.Log("set to false");
             anim.SetBool("isDisplayed", false);
         }
         else
         {
-            Debug.Log("set to true");
             anim.SetBool("isDisplayed", true);
         }
     }

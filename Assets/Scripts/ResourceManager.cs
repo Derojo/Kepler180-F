@@ -12,32 +12,42 @@ public class ResourceManager : Singleton<ResourceManager>
     public float planetHeat;
 
     private float powerMax;
+    public float reservePower = 0;
     public float powerPercentage;
 
 
     void OnEnable()
     {
+
         powerMax = powerLevel;
         updatePowerPercentage();
     }
 
     public void Load() { return; }
-
+    public void setTutorialValues()
+    {
+        powerLevel = 2500;
+        powerMax = 2500;
+        powerPercentage = 100;
+        fundings = 400;
+    }
     public void subtractPowerLevel(float amount) {
-        Debug.Log("SUBTRACT POWER"+ amount);
         float calc = powerLevel - amount;
         if ((powerLevel - amount) <= 0) {
           
             powerLevel = 0;
             updatePowerPercentage();
         } else {
+            if(reservePower > amount)
+            {
+                reservePower = reservePower - amount;
+            }
             powerLevel = powerLevel - amount;
             updatePowerPercentage();
         }
     }
 
     public void addPowerLevel(float amount) {
-        Debug.Log("ADD POWER+"+amount);
         float overload = powerLevel + amount;
         if (overload <= powerMax)
         {
@@ -45,8 +55,9 @@ public class ResourceManager : Singleton<ResourceManager>
             updatePowerPercentage();
         }
         else {
-            Debug.Log("powermax");
+            reservePower+= overload - powerMax;
             powerLevel = powerMax;
+            updatePowerPercentage();
         }
     }
 

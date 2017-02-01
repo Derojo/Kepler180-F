@@ -31,9 +31,9 @@ public class UIManager : MonoBehaviour {
 
     public void ShowMessage(Types.messages type) {
         Debug.Log(inTween);
-        if (!inTween) {
+
             StartCoroutine(toggleMessage(type));
-        }
+        
 
     }
     public IEnumerator toggleMessage(Types.messages type)

@@ -103,7 +103,11 @@ public class PlacementController : MonoBehaviour
 
     public void StartPlacement(GameObject building)
     {
-        
+
+        if (!AudioManager.I.source[6].isPlaying)
+        {
+            AudioManager.I.source[6].Play();
+        }
         if (!BuildingManager.I.AbleToBuy(building.GetComponent<BuildingType>()))
         {
             uimanager.ShowMessage(Types.messages.noFunding);

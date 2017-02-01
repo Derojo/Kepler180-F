@@ -66,6 +66,11 @@ public class Execution : MonoBehaviour
     public int powerMessageShown;
     public int turnMessageShown;
 
+    //audio
+    
+    public AudioSource[] source;
+
+
     void Start()
     {
         StartCoroutine(hideGoals(2f));
@@ -109,7 +114,7 @@ public class Execution : MonoBehaviour
 
     public void setNextTurn()
     {
-       StartCoroutine(hideNextButton(1.5f));
+        StartCoroutine(hideNextButton(1.5f));
         endTurnButton.interactable = false;
         TurnManager.I.EndTurn();
     }
@@ -188,34 +193,29 @@ public class Execution : MonoBehaviour
         }
 
         //Set ënd level button to enable if level is completed
-        if (TurnManager.I.checkedLevelComplete)
-         {
-            completeLevelPopUp.SetActive(true);
-            completeLevelButton.SetActive(true);
+        StartCoroutine(checkLevelCompleteLater());
 
-         }
         if (TurnManager.I.LevelCompleted)
         {
-           PopUpText.text = "Gefeliciteerd je hebt 100% aurapower behaald en daarmee het level behaald.";
+            PopUpText.text = "Gefeliciteerd je hebt 100% aurapower behaald en daarmee het level behaald.";
             PopUps.SetActive(true);
         }
 
         // Update UI if player failed
-        if(TurnManager.I.levelLostNoTurns)
+        if (TurnManager.I.levelLostNoTurns)
         {
-
             PopUpText.text = "Helaas je hebt niet binnen de beurten 55% aurakracht behaald";
             PopUps.SetActive(true);
         }
 
-        if (TurnManager.I.levelLostNoPower )
+        if (TurnManager.I.levelLostNoPower)
         {
-
             if (!TurnManager.I.checkedLevelComplete)
             {
                 PopUpText.text = "Helaas je hebt geen stroom meer om 55% aurakracht te behalen";
             }
-            else {
+            else
+            {
                 PopUpText.text = "Helaas je hebt het level niet gehaald, al je gebouwen zijn uitgevallen omdat er geen stroom meer is! ";
             }
 
@@ -226,9 +226,6 @@ public class Execution : MonoBehaviour
         }
         //Guided activity skill level 1
         CheckGuidedActivity();
-
-       
-
 
             // Updating build icon, actions left
             switch (TurnManager.I.placementsDone)
@@ -249,6 +246,18 @@ public class Execution : MonoBehaviour
                 break;
         }
     }
+
+    private IEnumerator checkLevelCompleteLater()
+    {
+        yield return new WaitForSeconds(2);
+        if (TurnManager.I.checkedLevelComplete && !TurnManager.I.levelLostNoPower)
+        {
+            completeLevelPopUp.SetActive(true);
+            completeLevelButton.SetActive(true);
+        }
+        yield break;
+    }
+
     //updating the Ui in blueprintmode
     void UpdatePlanningUI()
     {
@@ -387,7 +396,7 @@ public class Execution : MonoBehaviour
                 TurnManager.I.placementsDone--;
             }
             //play remove sound
-            AudioManager.I.source[1].Play();
+            source[1].Play();
             BuildingManager.I.RemoveBuilding(currentObject, gridManager);
             infoPopUp.SetActive(false);
             deleteButton.SetActive(false);
@@ -411,10 +420,7 @@ public class Execution : MonoBehaviour
     }
 
 
-    public void ExecutionButtons()
-    {
-        AudioManager.I.source[6].Play();
-    }
+
     public void OnmouseExit()
     {
         infoPopUp.SetActive(false);
@@ -427,13 +433,11 @@ public class Execution : MonoBehaviour
     }
     public void QuitLevel()
     {
-       
         SceneManager.LoadSceneAsync("Evaluation");
     }
     
     public void KeepPlaying()
-    {  
-        
+    {
         completeLevelPopUp.SetActive(false);
     }
 
@@ -445,7 +449,7 @@ public class Execution : MonoBehaviour
 
     public void continuePlaying()
     {
-        
+ 
         if (menuOpen)
         {
             escPopUp.SetActive(false);
@@ -485,7 +489,7 @@ public class Execution : MonoBehaviour
     {
         if (LevelManager.I.nextLevelSkill == 1 && !TurnManager.I.levelLostNoTurns && !TurnManager.I.levelLostNoPower)
         {
-            if (ResourceManager.I.fundings <= 500 )
+            if (ResourceManager.I.fundings <= 300 )
             {
                 if (!AudioManager.I.source[8].isPlaying)
                 {
@@ -548,6 +552,5 @@ public class Execution : MonoBehaviour
             }
         }
 
-    
-}
+    }
 }

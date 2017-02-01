@@ -75,5 +75,4 @@ public class CursorHandler : MonoBehaviour
         Cursor.SetCursor(tex, Vector2.zero, CursorMode.Auto);
     }
 
-
 }

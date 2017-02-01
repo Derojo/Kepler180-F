@@ -24,85 +24,105 @@ public class LevelManager : Singleton<LevelManager>
     // Use this for initialization
     void Start()
     {
-       
         levelData = LevelContainer.Load(path);
         SetCurrentLevel();
     }
-    
+
+    public void setTutorialLevel() {
+
+        M_T_A = 20;
+        A_P_T = 2500;
+        ResourceManager.I.setTutorialValues();
+        AuraManager.I.A_C = "Paars";
+        AuraManager.I.A_C_C = "199, 0, 255, 255";
+        AuraManager.I.colorTypeCode = 1;
+        AuraManager.I.isBlend = true;
+        TurnManager.I.maxTurns = 20;
+        TurnManager.I.turnsLeft = 20;
+    }
+
     public void SetCurrentLevel()
     {
-
-        Debug.Log(currentLevel - 1 + "xml");
-     
-
-        AuraManager.I.A_C = levelData.levels[(currentLevel - 1)].A_C;
-        AuraManager.I.colorTypeCode = levelData.levels[(currentLevel - 1)].colorTypeCode;
-        AuraManager.I.isBlend = levelData.levels[(currentLevel - 1)].isBlend;
-        AuraManager.I.A_C_C = levelData.levels[(currentLevel - 1)].A_C_C;
-
-        ResourceManager.I.powerLevel = levelData.levels[(currentLevel - 1)].StartupPower;
-        ResourceManager.I.fundings = levelData.levels[(currentLevel - 1)].StartupMoney;
-        ResourceManager.I.planetHeat = levelData.levels[(currentLevel - 1)].StartupHeat;
-
-        Debug.Log(levelData.levels[(currentLevel - 1)].StartupPower);
-        Debug.Log(ResourceManager.I.powerLevel + "Power in resources");
-        if (nextLevelSkill == 1)
+        if (Manager.I.doneTutorial)
         {
-            
-            M_T_A = levelData.levels[(currentLevel - 1)].M_T_E;
-            A_P_T = levelData.levels[(currentLevel - 1)].A_P_E;
-        }
-        if (nextLevelSkill == 2)
-        {
+            AuraManager.I.A_C = levelData.levels[(currentLevel - 1)].A_C;
+            AuraManager.I.colorTypeCode = levelData.levels[(currentLevel - 1)].colorTypeCode;
+            AuraManager.I.isBlend = levelData.levels[(currentLevel - 1)].isBlend;
+            AuraManager.I.A_C_C = levelData.levels[(currentLevel - 1)].A_C_C;
 
-            M_T_A = levelData.levels[(currentLevel - 1)].M_T_M;
-            A_P_T = levelData.levels[(currentLevel - 1)].A_P_M;
-        }
-        if (nextLevelSkill == 3)
-        {
+            ResourceManager.I.powerLevel = levelData.levels[(currentLevel - 1)].StartupPower;
+            ResourceManager.I.fundings = levelData.levels[(currentLevel - 1)].StartupMoney;
+            ResourceManager.I.planetHeat = levelData.levels[(currentLevel - 1)].StartupHeat;
 
-            M_T_A = levelData.levels[(currentLevel - 1)].M_T_H;
-            A_P_T = levelData.levels[(currentLevel - 1)].A_P_H;
-        }
 
+
+            if (nextLevelSkill == 1)
+            {
+
+                M_T_A = levelData.levels[(currentLevel - 1)].M_T_E;
+                A_P_T = levelData.levels[(currentLevel - 1)].A_P_E;
+            }
+            if (nextLevelSkill == 2)
+            {
+
+                M_T_A = levelData.levels[(currentLevel - 1)].M_T_M;
+                A_P_T = levelData.levels[(currentLevel - 1)].A_P_M;
+            }
+            if (nextLevelSkill == 3)
+            {
+
+                M_T_A = levelData.levels[(currentLevel - 1)].M_T_H;
+                A_P_T = levelData.levels[(currentLevel - 1)].A_P_H;
+            }
+
+            TurnManager.I.setTurnInfo();
+        }
     }
+
     //function for setting player difficulty
     public void SetSkillLevel()
     {
-        
-        if (TurnManager.I.turnCount >= (AuraManager.I.percentageAverage + (AuraManager.I.percentageAverage /100)*50))
+        if(currentLevel > 2)
         {
-            
-            //Set difficulty to easy
-            Debug.Log("easy");
+            if (TurnManager.I.turnCount >= (AuraManager.I.percentageAverage + (AuraManager.I.percentageAverage / 100) * 50))
+            {
+
+                //Set difficulty to easy
+                Debug.Log("easy");
+                nextLevelSkill = 1;
+            }
+
+            if (TurnManager.I.turnCount <= (AuraManager.I.percentageAverage + (AuraManager.I.percentageAverage / 100) * 20) && (TurnManager.I.turnCount >= (AuraManager.I.percentageAverage - (AuraManager.I.percentageAverage / 100) * 50)))
+            {
+
+                //Set difficulty to medium
+                Debug.Log("medium");
+                nextLevelSkill = 2;
+            }
+
+            if (TurnManager.I.turnCount <= (AuraManager.I.percentageAverage - (AuraManager.I.percentageAverage / 100) * 20))
+            {
+                //Set difficulty to hard
+                Debug.Log("hard");
+                nextLevelSkill = 3;
+            }
+
+        } else
+        {
             nextLevelSkill = 1;
         }
-  
-        if(TurnManager.I.turnCount <= (AuraManager.I.percentageAverage + (AuraManager.I.percentageAverage / 100) * 20) && (TurnManager.I.turnCount >= (AuraManager.I.percentageAverage - (AuraManager.I.percentageAverage / 100) * 50)))
-        {
-            
-            //Set difficulty to medium
-            Debug.Log("medium");
-            nextLevelSkill = 2;
-        }
-
-        if (TurnManager.I.turnCount <= (AuraManager.I.percentageAverage -(AuraManager.I.percentageAverage / 100) * 20))
-        {
-            //Set difficulty to hard
-            Debug.Log("hard");
-            nextLevelSkill = 3;
-        }
-
     }
+
     public void ResettingValues()
     {
+        Debug.Log("test");
         //resetting placement
         PlacementData.I.placementNodes = null;
         PlacementData.I.planningNodes = null;
-        LevelManager.I.SetCurrentLevel();
+        SetCurrentLevel();
 
         //resetting turns
-        TurnManager.I.maxTurns = LevelManager.I.M_T_A;
+        TurnManager.I.maxTurns = M_T_A;
         TurnManager.I.turnsLeft = TurnManager.I.maxTurns;
         TurnManager.I.turnCount = 0;
         TurnManager.I.levelLostNoTurns = false;
@@ -113,16 +133,14 @@ public class LevelManager : Singleton<LevelManager>
         AuraManager.I.currentAuraPower = 0;
         AuraManager.I.auraLevelPercentage = 0;
         AuraManager.I.auraPercentage = 0;
-        LevelManager.I.A_P_T = LevelManager.I.A_P_T;
         AuraManager.I.resetColorAuraAmounts();
 
         //resetting power
         ResourceManager.I.powerPercentage = 100;
+        ResourceManager.I.powerLevel = levelData.levels[(currentLevel - 1)].StartupPower;
 
         TurnManager.I.levelLostNoPower = false;
         TurnManager.I.checkedLevelComplete = false;
-
-        Debug.Log("resetting values");
 
     }
 }

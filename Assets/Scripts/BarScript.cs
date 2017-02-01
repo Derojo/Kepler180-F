@@ -26,14 +26,19 @@ public class BarScript : MonoBehaviour {
         }
         if (energyBar.fillAmount != ResourceManager.I.powerPercentage / 100)
         {
+
             if ((ResourceManager.I.powerPercentage / 100) > energyBar.fillAmount)
             {
                 energyBar.DOFillAmount(ResourceManager.I.powerPercentage / 100, 1f).SetEase(Ease.OutSine);
+
                 energyBar.DOColor(Color.green, .5f);
+                return;
             }
             else {
-                energyBar.DOColor(Color.white, 1f);
+
                 energyBar.DOFillAmount(ResourceManager.I.powerPercentage / 100, 1f).SetEase(Ease.OutSine);
+                energyBar.DOColor(Color.white, .5f);
+                return;
             }
 
 

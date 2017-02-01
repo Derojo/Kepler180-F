@@ -108,7 +108,7 @@ MonoBehaviour:
   z: 0
   tileType: 0
   inRange: 0
-  locked: 0
+  locked: 1
   currentObject: {fileID: 0}
   inColorCluster: 0
   inMixedCluster: 0

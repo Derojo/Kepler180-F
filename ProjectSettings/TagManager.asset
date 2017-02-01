@@ -7,6 +7,7 @@ TagManager:
   - target
   - Ground
   - Clickable
+  - Arrow
   layers:
   - Default
   - TransparentFX

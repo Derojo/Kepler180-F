@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using RTS_Cam;
 using UnityEngine.UI;
+using System;
 
 namespace Derojo.Tutorial
 {
@@ -65,10 +66,24 @@ namespace Derojo.Tutorial
             {
                 if (currentStep.eventName != "")
                 {
-                    EventManager.StopListening(currentStep.eventName, checkIfActionDone);
+                    if (currentStep.eventName.Contains(","))
+                    {
+                        string[] eventNames = currentStep.eventName.Split(',');
+                        for (int i = 0; i < eventNames.Length; i++)
+                        {
+                            EventManager.StartListening(eventNames[i], checkIfActionDone);
+                        }
+                    }
+                    else {
+                        EventManager.StopListening(currentStep.eventName, checkIfActionDone);
+                    }
+                    
                 }
                 if (currentStep.highlightTile != "") {
-                    Destroy(GameObject.Find("Placing Arrow"));
+                    foreach (GameObject placingArrow in GameObject.FindGameObjectsWithTag("Arrow"))
+                    {
+                        Destroy(placingArrow);
+                    }
                 }
                 disableTurnButton();
                 Window.SetActive(true);
@@ -80,7 +95,6 @@ namespace Derojo.Tutorial
 
         private IEnumerator StartStep(Step step)
         {
-
             Window.SetActive((step.hideWindow ? false : true));
             
             currentStep = step;
@@ -93,9 +107,14 @@ namespace Derojo.Tutorial
             
             GameObject button = (step.hasAction ? actionButton : nextButton);
             //if (step.fadeButton) {
+            if (step.id != 58)
+            {
                 FadeObject(button, true, 1.5f);
-           // }
-
+            } else
+            {
+                Manager.I.doneTutorial = true;
+            }
+            // }
 
             // General UI show hide
             if (step.highlightUI)
@@ -135,6 +154,10 @@ namespace Derojo.Tutorial
 
         public void setNextStep()
         {
+            if (!RenderSettings.fog)
+            {
+                RenderSettings.fog = true;
+            }
 
             if (currentStep.turnOnLightsAfter)
             {
@@ -155,6 +178,10 @@ namespace Derojo.Tutorial
                 Invoke(currentStep.afterFunction, 0);
             }
 
+            if (currentStep.UImask != null)
+            {
+                Destroy(currentStep.UImask);
+            }
             Step nextStep = getNextStep(currentStep.nextStep);
             if (nextStep != null)
             {
@@ -183,9 +210,21 @@ namespace Derojo.Tutorial
                 cam.cameraState(true);
             }
             if (currentStep.eventName != "") {
-                EventManager.StartListening(currentStep.eventName, checkIfActionDone);
+                if (currentStep.eventName.Contains(",")) {
+                    string[] eventNames = currentStep.eventName.Split(',');
+                    for (int i = 0; i < eventNames.Length; i++) {
+                        EventManager.StartListening(eventNames[i], checkIfActionDone);
+                    }
+                } else {
+                    EventManager.StartListening(currentStep.eventName, checkIfActionDone);
+                }
+                
             }
-            FadeObject(actionButton, false);
+            if (currentStep.fadeButton)
+            {
+                FadeObject(actionButton, false);
+            }
+            
             completedAction = false;
             currentActionId = currentStep.id;
 
@@ -200,6 +239,7 @@ namespace Derojo.Tutorial
             if (state)
             {
                 if (step.inFade) {
+                    RenderSettings.fog = false;
                     overlayObject.SetActive(true);
                     StartCoroutine(FadeOverlay(.8f, 1f));
                 }
@@ -301,7 +341,7 @@ namespace Derojo.Tutorial
 
             for (float t = 0.0f; t < 1.0f; t+= Time.deltaTime/duration)
             {
-                if (cam.zoomPos == zoomPos) {
+                if (Mathf.Round(cam.zoomPos * 1000.0f) / 1000.0f == Mathf.Round(zoomPos * 1000.0f) / 1000.0f) {
                     yield break;
                 }
                 cam.zoomPos = Mathf.Lerp(cam.zoomPos, zoomPos, t * cam.heightDampening);
@@ -346,7 +386,6 @@ namespace Derojo.Tutorial
             if (building.name == "Redgenerator") {
                 EventManager.TriggerEvent("placeRed");
             }   
-
             placementController.StartPlacement(building);
         }
 
@@ -365,6 +404,15 @@ namespace Derojo.Tutorial
             shopMenu.transform.GetChild(2).GetComponent<Button>().interactable = false;
             shopMenu.transform.GetChild(3).GetComponent<Button>().interactable = false;
         }
+
+        public void enableYellow()
+        {
+            shopMenu.transform.GetChild(0).GetComponent<Button>().interactable = false;
+            shopMenu.transform.GetChild(1).GetComponent<Button>().interactable = false;
+            shopMenu.transform.GetChild(2).GetComponent<Button>().interactable = false;
+            shopMenu.transform.GetChild(3).GetComponent<Button>().interactable = true;
+        }
+
         public void disableShop()
         {
             shopMenu.transform.GetChild(0).GetComponent<Button>().interactable = false;
@@ -395,21 +443,35 @@ namespace Derojo.Tutorial
 
         public void highLightTile(string tileName)
         {
-            string[] arr = tileName.Split('|');
-            Tile tile = Grid.getTileAtPosition(int.Parse(arr[0]), int.Parse(arr[1]));
-
-            if (currentStep.highlightObject)
+            List<string[]> stringTiles = new List<string[]>();
+            string[] tilesString;
+            if (tileName.Contains(","))
             {
-                setFocusObject(tile.currentObject);
+                tilesString = tileName.Split(',');
+                for (int i = 0; i < tilesString.Length; i++) {
+                    stringTiles.Add(tilesString[i].Split('|'));
+                }
             }
             else {
-                GameObject arrow = Instantiate(arrowPointer);
-                arrow.name = arrowPointer.name;
-                arrow.transform.localScale = arrowPointer.transform.localScale;
-                arrow.transform.position = new Vector3(tile.transform.position.x, arrowPointer.transform.position.y, tile.transform.position.z);
-                arrow.transform.DOMoveY(arrowPointer.transform.position.y + 5, 1f).SetLoops(-1, LoopType.Yoyo);
+                stringTiles.Add(tileName.Split('|'));
             }
 
+            foreach (string[] tileString in stringTiles) {
+                Tile tile = Grid.getTileAtPosition(int.Parse(tileString[0]), int.Parse(tileString[1]));
+
+                if (currentStep.highlightObject)
+                {
+                    setFocusObject(tile.currentObject);
+                }
+                else
+                {
+                    GameObject arrow = Instantiate(arrowPointer);
+                    arrow.name = arrowPointer.name;
+                    arrow.transform.localScale = arrowPointer.transform.localScale;
+                    arrow.transform.position = new Vector3(tile.transform.position.x, arrowPointer.transform.position.y, tile.transform.position.z);
+                    arrow.transform.DOMoveY(arrowPointer.transform.position.y + 10, 1f).SetLoops(-1, LoopType.Yoyo);
+                }
+            }
         }
 
         public void hideBluePrint() {

@@ -22,10 +22,11 @@ public class TurnManager : Singleton<TurnManager>{
     private bool showedMessage = false;
 
     public int levelToUnlock = 2;
-    // Use this for initialization
-    void Start()
-    {
 
+    public void Load() { return; }
+    // Use this for initialization
+    public void setTurnInfo()
+    {
         // Setting turndisplay
         maxTurns = LevelManager.I.M_T_A;
         turnsLeft = maxTurns +- 1;
@@ -63,19 +64,14 @@ public class TurnManager : Singleton<TurnManager>{
 
 
         //check resources
-        if (ResourceManager.I.powerLevel <= 0 )
+        if (ResourceManager.I.powerLevel <= 0 && !levelLostNoPower)
         {
-            Debug.Log("Powerlevel is low");
-        
-                if (checkedLevelComplete)
-                {
-                    checkedLevelComplete = false;
-                }
-                levelLostNoPower = true;
-                EventManager.TriggerEvent("updateUI");
-
-            
-
+            if (checkedLevelComplete)
+            {
+                checkedLevelComplete = false;
+            }
+            levelLostNoPower = true;
+            EventManager.TriggerEvent("updateUI");
         }
     }
   
@@ -94,9 +90,7 @@ public class TurnManager : Singleton<TurnManager>{
     // end turn eand call EndTurn event
     public void EndTurn()
     {
-
-       placementsDone = 0;
-        Debug.Log("set placements done to zero");
+        placementsDone = 0;
         EventManager.TriggerEvent("EndTurn");
         EventManager.TriggerEvent("updateUI");
     }

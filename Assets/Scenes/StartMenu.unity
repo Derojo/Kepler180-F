@@ -184,7 +184,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1215257410}
+      - m_Target: {fileID: 0}
         m_MethodName: ChangeToScene
         m_Mode: 5
         m_Arguments:
@@ -383,7 +383,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1215257410}
+      - m_Target: {fileID: 114431288884214076, guid: 83787a58894f56b4fb532aebc4fbb7cc,
+          type: 2}
         m_MethodName: CloseGame
         m_Mode: 1
         m_Arguments:
@@ -1516,7 +1517,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Opties
+  m_Text: Tutorial
 --- !u!222 &752965796
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1873,6 +1874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSelection: 0
+  doneTutorial: 0
 --- !u!82 &890303512
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2235,48 +2237,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 70331f335d0d2774d897db273d6f8bf4, type: 3}
   m_IsPrefabParent: 0
---- !u!1001 &1144071788
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4242822217595976, guid: 83787a58894f56b4fb532aebc4fbb7cc, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.9638611
-      objectReference: {fileID: 0}
-    - target: {fileID: 4242822217595976, guid: 83787a58894f56b4fb532aebc4fbb7cc, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 1.0381819
-      objectReference: {fileID: 0}
-    - target: {fileID: 4242822217595976, guid: 83787a58894f56b4fb532aebc4fbb7cc, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.5149859
-      objectReference: {fileID: 0}
-    - target: {fileID: 4242822217595976, guid: 83787a58894f56b4fb532aebc4fbb7cc, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4242822217595976, guid: 83787a58894f56b4fb532aebc4fbb7cc, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4242822217595976, guid: 83787a58894f56b4fb532aebc4fbb7cc, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4242822217595976, guid: 83787a58894f56b4fb532aebc4fbb7cc, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4242822217595976, guid: 83787a58894f56b4fb532aebc4fbb7cc, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 83787a58894f56b4fb532aebc4fbb7cc, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1187473558
 GameObject:
   m_ObjectHideFlags: 0
@@ -2461,7 +2421,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1215257410}
+      - m_Target: {fileID: 0}
         m_MethodName: ChangeToScene
         m_Mode: 5
         m_Arguments:
@@ -2521,7 +2481,6 @@ GameObject:
   - component: {fileID: 1215257413}
   - component: {fileID: 1215257412}
   - component: {fileID: 1215257411}
-  - component: {fileID: 1215257410}
   - component: {fileID: 1215257416}
   - component: {fileID: 1215257415}
   - component: {fileID: 1215257417}
@@ -2532,19 +2491,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1215257410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114416308347642122, guid: 47c25b8986f1b1243b2e11b85b8e0cce,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1215257409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86a50f31568c75241a871638e9dbf745, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSelection: 0
 --- !u!114 &1215257411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2620,7 +2566,7 @@ RectTransform:
   - {fileID: 1237418946}
   - {fileID: 493030837}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3141,7 +3087,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1732478368
+  randomSeed: 17675040
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5854,7 +5800,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1215257410}
+      - m_Target: {fileID: 1215257417}
         m_MethodName: ChangeToScene
         m_Mode: 5
         m_Arguments:
@@ -6197,7 +6143,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1215257410}
+      - m_Target: {fileID: 114431288884214076, guid: 83787a58894f56b4fb532aebc4fbb7cc,
+          type: 2}
         m_MethodName: ChangeToScene
         m_Mode: 5
         m_Arguments:

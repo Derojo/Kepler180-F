@@ -9,19 +9,21 @@ public class Manager : Singleton<Manager>
 {
     public int levelSelection;
     public void Load() { return; }
+    public bool doneTutorial = false;
 
     void Start()
     {
+        PlayerPrefs.SetInt("levelReached", 1);
+
         LevelManager.I.Load();
         AuraManager.I.Load();
+        AudioManager.I.Load();
     }
     public void DetermineLevel(int levelSelection)
     {
-       LevelManager.I.currentLevel = levelSelection;
+        LevelManager.I.currentLevel = levelSelection;
         LevelManager.I.SetCurrentLevel();
-       Loader.I.LoadScene("Start");
- 
-
+        Loader.I.LoadScene("Start");
     }
     void OnEnable()
     {
@@ -38,13 +40,23 @@ public class Manager : Singleton<Manager>
         if (scene.name == "Planning")
         {
             PlacementData.I.Init();
-            ResourceManager.I.Load();
+            //ResourceManager.I.Load();
         }
 
     }
 
     public void ChangeToScene(string scene)
     {
+        if (scene == "LevelSelectionScene") {
+            Debug.Log(doneTutorial);
+            if (!doneTutorial) {
+                LevelManager.I.setTutorialLevel();
+                scene = "Tutorial";
+            } else
+            {
+                scene = "LevelSelectionScene";
+            }
+        }
         Loader.I.LoadScene(scene);
     }
 
