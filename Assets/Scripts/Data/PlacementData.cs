@@ -33,6 +33,7 @@ public class PlacementData : Singleton<PlacementData> {
                     }
                     placementNodes.Remove(node);
                     removeSubbuildings(x, z, building);
+                    return;
                 }
             }
             else
@@ -65,21 +66,20 @@ public class PlacementData : Singleton<PlacementData> {
     }
 
     private void removeSubbuildings(int x, int z, GameObject building) {
-        GameObject parent = Grid.getGridCellAtPosition(x, z);
-        if (parent.GetComponentInChildren<SubBuilding>())
+        Tile parent = Grid.getTileAtPosition(x, z);
+        Debug.Log(parent.subBuildings.Count);
+        if (parent.subBuildings.Count > 0)
         {
-
-            foreach (SubBuilding sub in parent.GetComponentsInChildren<SubBuilding>())
+            for (int i = 0; i < parent.subBuildings.Count; i++)
             {
-                Debug.Log(sub.name);
-                if (sub.firstParent == building || sub.secondParent == building)
-                {
-                    DestroyObject(sub.gameObject);
-                    return;
-                }
+                SubBuilding subBuilding = parent.subBuildings[i].GetComponent<SubBuilding>();
+                subBuilding.secondParent.GetComponentInParent<Tile>().subBuildings.Remove(parent.subBuildings[i]);
+                DestroyObject(parent.subBuildings[i]);
             }
+            parent.subBuildings = new List<GameObject>();
+            return;
         }
-        return;
+        
     }
 
     public void AddBuildingNode(int x, int z, Types.buildingtypes type, GameObject model, bool inPlanningMode) {

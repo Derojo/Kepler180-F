@@ -14,14 +14,8 @@ public class TurnManager : Singleton<TurnManager>{
     public int maxPlacementsPerTurn;
     public int placementsDone = 0;
 
-    public bool checkedLevelComplete = false;
-    public bool LevelCompleted = false;
-    public bool levelLostNoTurns = false;
-    public bool levelLostNoPower = false;
 
     private bool showedMessage = false;
-
-    public int levelToUnlock = 2;
 
     public void Load() { return; }
     // Use this for initialization
@@ -30,6 +24,8 @@ public class TurnManager : Singleton<TurnManager>{
         // Setting turndisplay
         maxTurns = LevelManager.I.M_T_A;
         turnsLeft = maxTurns +- 1;
+        turnCount = 0;
+
         //Setting aura percentage
         AuraManager.I.CalculateAuraPercentage();
     }
@@ -37,20 +33,34 @@ public class TurnManager : Singleton<TurnManager>{
     // Update is called once per frame
     void Update()
     {
-
-        //check if minimum aura % is reached
-        if (AuraManager.I.auraLevelPercentage >= 55 && !checkedLevelComplete)
+        //check resources
+        if (ResourceManager.I.powerLevel <= 0 && !LevelManager.I.levelLostNoPower)
         {
-            checkedLevelComplete = true;
+            if (LevelManager.I.checkedLevelComplete)
+            {
+                LevelManager.I.checkedLevelComplete = false;
+            }
+            Debug.Log("levellostnopower to true");
+            LevelManager.I.levelLostNoPower = true;
+            EventManager.TriggerEvent("updateUI");
+        }
+        //check if minimum aura % is reached
+        if (AuraManager.I.auraLevelPercentage >= 55 && !LevelManager.I.checkedLevelComplete && !LevelManager.I.levelLostNoPower)
+        {
+            LevelManager.I.checkedLevelComplete = true;
             EventManager.TriggerEvent("updateUI");
             //Check Setskill function for adjusting difficulty
             LevelManager.I.SetSkillLevel();
-            winLevel();
+            if(SceneManager.GetActiveScene().name  != "Tutorial")
+            {
+                LevelManager.I.winLevel();
+            }
 
         }
-        if (AuraManager.I.auraLevelPercentage >= 100 && !LevelCompleted)
+        if (AuraManager.I.auraLevelPercentage >= 100 && !LevelManager.I.levelCompleted && !LevelManager.I.levelLostNoPower)
         {
-            LevelCompleted = true;
+            Debug.Log(LevelManager.I.levelLostNoPower);
+            LevelManager.I.levelCompleted = true;
             EventManager.TriggerEvent("updateUI");
             //SceneManager.LoadSceneAsync("Evaluation");
         }
@@ -58,21 +68,12 @@ public class TurnManager : Singleton<TurnManager>{
         {
 
             //If >= maxTurns: open Check game condition function
-            levelLostNoTurns = true;
+            LevelManager.I.levelLostNoTurns = true;
             EventManager.TriggerEvent("updateUI");
         }
 
 
-        //check resources
-        if (ResourceManager.I.powerLevel <= 0 && !levelLostNoPower)
-        {
-            if (checkedLevelComplete)
-            {
-                checkedLevelComplete = false;
-            }
-            levelLostNoPower = true;
-            EventManager.TriggerEvent("updateUI");
-        }
+
     }
   
     //StartListening 
@@ -106,11 +107,4 @@ public class TurnManager : Singleton<TurnManager>{
         //Check if max amout of turns is reached
     }
 
-
-    public void winLevel()
-    {
-        Debug.Log("Level WOn");
-        PlayerPrefs.SetInt("levelReached", levelToUnlock);
-        levelToUnlock++;
-    }
 }

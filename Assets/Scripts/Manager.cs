@@ -19,12 +19,14 @@ public class Manager : Singleton<Manager>
         AuraManager.I.Load();
         AudioManager.I.Load();
     }
+
     public void DetermineLevel(int levelSelection)
     {
         LevelManager.I.currentLevel = levelSelection;
         LevelManager.I.SetCurrentLevel();
         Loader.I.LoadScene("Start");
     }
+
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
@@ -47,16 +49,7 @@ public class Manager : Singleton<Manager>
 
     public void ChangeToScene(string scene)
     {
-        if (scene == "LevelSelectionScene") {
-            Debug.Log(doneTutorial);
-            if (!doneTutorial) {
-                LevelManager.I.setTutorialLevel();
-                scene = "Tutorial";
-            } else
-            {
-                scene = "LevelSelectionScene";
-            }
-        }
+        doneTutorial = true;
         Loader.I.LoadScene(scene);
     }
 

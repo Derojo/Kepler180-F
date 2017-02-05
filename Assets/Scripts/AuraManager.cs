@@ -17,7 +17,7 @@ public class AuraManager : Singleton<AuraManager>
             amount = _amount;
         }
     }
-    public int auraPercentage;
+    public int auraPercentage = 55;
 
     public float currentAuraPower;
     public float auraLevelPercentage;
@@ -33,16 +33,22 @@ public class AuraManager : Singleton<AuraManager>
 
     public void Load() { return; }
 
+    public void Enable() {
+        Debug.Log("currentAuraPower" + currentAuraPower);
+        Debug.Log(auraLevelPercentage);
+        Debug.Log(percentageAverage);
+    }
     public void Start() {
         ColorAuraAmounts.Add(new ColorAuraAmount(Types.colortypes.Blue, 0));
         ColorAuraAmounts.Add(new ColorAuraAmount(Types.colortypes.Red, 0));
         ColorAuraAmounts.Add(new ColorAuraAmount(Types.colortypes.Green, 0));
         ColorAuraAmounts.Add(new ColorAuraAmount(Types.colortypes.Yellow, 0));
-        if (isBlend) {
-            int[] colors = ColorManager.I.getColorsOfBlend(colorTypeCode);
-            firstColor = (Types.colortypes)colors[0];
-            secondColor = (Types.colortypes)colors[1];
-        }
+    }
+
+    public void checkBlendingColors() {
+        int[] colors = ColorManager.I.getColorsOfBlend(colorTypeCode);
+        firstColor = (Types.colortypes)colors[0];
+        secondColor = (Types.colortypes)colors[1];    
     }
 
     public void CalculateAuraPercentage()
@@ -50,7 +56,6 @@ public class AuraManager : Singleton<AuraManager>
         CalculateCurrentAuraPower();
         percentageAverage = (Mathf.Round(LevelManager.I.M_T_A / 100 * 55));
         auraLevelPercentage = Mathf.Round((currentAuraPower / LevelManager.I.A_P_T) * 100);
-        Debug.Log(currentAuraPower+"/"+ LevelManager.I.A_P_T+"="+currentAuraPower / LevelManager.I.A_P_T * 100);
         ChangeAuraFogColor();
     }
 
@@ -97,7 +102,7 @@ public class AuraManager : Singleton<AuraManager>
                     blendingPower = firstAmount + secondAmount;
                 }
                 currentAuraPower = blendingPower;
-                    Debug.Log(currentAuraPower);
+                Debug.Log("CurrentAura"+currentAuraPower);
             }
         }
 
@@ -115,7 +120,9 @@ public class AuraManager : Singleton<AuraManager>
             {
                 if (currentAuraPower != 0)
                 {
+                    Debug.Log("Negative Aura-"+ colorAura.amount);
                     currentAuraPower = currentAuraPower - colorAura.amount;
+                    Debug.Log("CurrentAura" + currentAuraPower);
                 }
 
             }
@@ -207,13 +214,5 @@ public class AuraManager : Singleton<AuraManager>
         {
             colorAmount.amount = 0;
         }
-        if (isBlend)
-        {
-            int[] colors = ColorManager.I.getColorsOfBlend(colorTypeCode);
-            firstColor = (Types.colortypes)colors[0];
-            secondColor = (Types.colortypes)colors[1];
-        }
-
-
     }
 }

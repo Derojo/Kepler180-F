@@ -75,7 +75,7 @@ public class EvaluationScript : MonoBehaviour
     public void TryAgain()
     {
         AudioManager.I.source[6].Play();
-        Debug.Log("reset values");
+        LevelManager.I.SetCurrentLevel();
         LevelManager.I.ResettingValues();
         SceneManager.LoadSceneAsync("Start");
        

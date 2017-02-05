@@ -28,8 +28,12 @@ public class PlanningScript : MonoBehaviour {
     public Text buildingState;
     public GameObject deleteButton;
     public GameObject infoPopUp;
+    public GameObject escPopUp;
+    public GameObject tutorialViewer;
     public GridManager gridManager;
     private GameObject currentObject;
+
+    private bool menuOpen = false;
 
 
     //eventlistner
@@ -66,6 +70,20 @@ public class PlanningScript : MonoBehaviour {
 
     void Update()
     {
+        if (Input.GetButtonDown("Cancel") && !menuOpen)
+        {
+            escPopUp.SetActive(true);
+            menuOpen = true;
+            return;
+
+        }
+
+        if (Input.GetButtonDown("Cancel") && menuOpen)
+        {
+            escPopUp.SetActive(false);
+            menuOpen = false;
+        }
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitObject;
 
@@ -235,5 +253,48 @@ public class PlanningScript : MonoBehaviour {
     public void PlanningButtons()
     {
         AudioManager.I.source[6].Play();
+    }
+
+    public void QuitLevel()
+    {
+        SceneManager.LoadSceneAsync("Evaluation");
+    }
+
+    public void continuePlaying()
+    {
+
+        if (menuOpen)
+        {
+            escPopUp.SetActive(false);
+            menuOpen = false;
+        }
+    }
+
+    public void toTutorial()
+    {
+
+        if (menuOpen)
+        {
+            escPopUp.SetActive(true);
+            menuOpen = true;
+            tutorialViewer.SetActive(true);
+        }
+    }
+
+    public void toMenuFromTutorial()
+    {
+
+        if (menuOpen)
+        {
+            escPopUp.SetActive(true);
+            menuOpen = true;
+            tutorialViewer.SetActive(false);
+        }
+    }
+
+    public void QuitLevelToMenu()
+    {
+        LevelManager.I.ResettingValues();
+        SceneManager.LoadSceneAsync("StartMenu");
     }
 }

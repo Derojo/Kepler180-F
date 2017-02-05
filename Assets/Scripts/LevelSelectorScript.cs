@@ -16,7 +16,6 @@ public class LevelSelectorScript : MonoBehaviour {
     {
         LevelManager.I.ResettingValues();
         int levelReached = PlayerPrefs.GetInt("levelReached");
-        Debug.Log(levelReached);
         for (int i = 0; i < levelButtons.Length; i++)
         {
             if (i + 1 > levelReached)

@@ -460,7 +460,6 @@ GameObject:
   - component: {fileID: 440213002}
   - component: {fileID: 440212999}
   - component: {fileID: 440213001}
-  - component: {fileID: 440213000}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -524,18 +523,6 @@ MonoBehaviour:
   completedLevelIMG: {fileID: 21300038, guid: 24742666cc53a5e4bb5bb241fb257582, type: 3}
   failedLevelIMG: {fileID: 21300036, guid: 24742666cc53a5e4bb5bb241fb257582, type: 3}
   ConditionIMG: {fileID: 1136921588}
---- !u!114 &440213000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114969388053055290, guid: aa5142e9c68761d40a91bedb2c02d9ac,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 440212997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04b7917f9cd230649a8e6c6deef67b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &440213001
 Animator:
   serializedVersion: 3
@@ -1812,7 +1799,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3151062, y: 0.51900005}
   m_AnchorMax: {x: 0.5146596, y: 0.5712494}
-  m_AnchoredPosition: {x: -0.859993, y: 0.20549011}
+  m_AnchoredPosition: {x: -0.85998535, y: 0.20549011}
   m_SizeDelta: {x: -1, y: -5.411}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1863643043

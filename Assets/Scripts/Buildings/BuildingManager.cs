@@ -56,11 +56,17 @@ public class BuildingManager : Singleton<BuildingManager>
         tile.currentObject = null;
         tile.tileType = 0;
         PlacementData.I.removeBuildingNode(tile.x, tile.z, building, planning);
-        
+        giveBackMoneyAndAction(buildingInfo);
         if (tile.inMixedCluster)
         {
             tile.inMixedCluster = false;
             ColorManager.I.colorCluster[tile.clusterId].mixedColorSpots--;
+            if(ColorManager.I.colorCluster[tile.clusterId].spotTiles.Contains(tile))
+            {
+                ColorManager.I.colorCluster[tile.clusterId].spotTiles.Remove(tile);
+                ColorManager.I.colorCluster[tile.clusterId].isFull = false;
+            }
+            
             if (ColorManager.I.colorCluster[tile.clusterId].mixedColorSpots == 1)
             {
                 Tile neighbor = ColorManager.I.getFirstAdjunctTile(tile, gridManager);
@@ -85,6 +91,18 @@ public class BuildingManager : Singleton<BuildingManager>
 
         GameObject.Destroy(building);
         return;
+
+    }
+
+    public void giveBackMoneyAndAction(BuildingType buildingInfo)
+    {
+        ResourceManager.I.fundings = ResourceManager.I.fundings + buildingInfo.buildingCost;
+        if(TurnManager.I.placementsDone != 0)
+        {
+            TurnManager.I.placementsDone = TurnManager.I.placementsDone - 1;
+        }
+
+        EventManager.TriggerEvent("updateUI");
 
     }
 

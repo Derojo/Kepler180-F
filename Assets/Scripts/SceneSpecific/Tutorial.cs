@@ -425,6 +425,11 @@ namespace Derojo.Tutorial
             GameObject.Find("InfoPanel").transform.GetChild(0).GetChild(10).GetComponent<Button>().interactable = true;
         }
 
+        public void disableBuy()
+        {
+            GameObject.Find("InfoPanel").transform.GetChild(0).GetChild(10).GetComponent<Button>().interactable = false;
+        }
+
         public void enableTurnButton()
         {
             GameObject.Find("EndTurnButton").GetComponent<Button>().interactable = true;

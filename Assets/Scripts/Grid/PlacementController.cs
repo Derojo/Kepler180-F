@@ -24,6 +24,7 @@ public class PlacementController : MonoBehaviour
     public TileSelect[] tileSelect;
     private Tile[] lastTileSelected;
     private bool inTween = false;
+    private bool inShop = false;
 
     public AudioSource[] placementSource;
 
@@ -75,7 +76,11 @@ public class PlacementController : MonoBehaviour
                         if (ableToBuild)
                         {
                             if (!lastTileSelected[0].GetComponent<Tile>().locked) {
-                                PlaceObject();
+                                if(!inShop)
+                                {
+                                    PlaceObject();
+                                }
+
                             }
 
                         }
@@ -277,6 +282,7 @@ public class PlacementController : MonoBehaviour
 
                         if (!adjunctTile.inMixedCluster)
                         {
+                            Debug.Log("adjuncttile" + adjunctTile.name);
                             if(!lastTileSelected[0].inMixedCluster)
                             {
                                 ColorManager.I.AddColorCluster();
@@ -303,10 +309,14 @@ public class PlacementController : MonoBehaviour
                         }
                         if (!currentCluster.isFull)
                         {
-                            lastTileSelected[0].clusterId = clusterId;
-                            lastTileSelected[0].inMixedCluster = true;
+                            if(!lastTileSelected[0].inMixedCluster)
+                            {
+                                lastTileSelected[0].clusterId = clusterId;
+                                lastTileSelected[0].inMixedCluster = true;
 
-                            ColorManager.I.fillSpotInCluster(currentCluster, (int)color, GetComponent<GridManager>().mixedPlacements, lastTileSelected[0]);
+                                ColorManager.I.fillSpotInCluster(currentCluster, (int)color, GetComponent<GridManager>().mixedPlacements, lastTileSelected[0]);
+                            }
+
                         }
                     }
                 }
@@ -332,7 +342,7 @@ public class PlacementController : MonoBehaviour
                 if (tileA.z == tileB.z)
                 { // horizontal placement
                     maxTile = (tileA.x > tileB.x ? tileA : tileB);
- 
+
                     location = new Vector3((tileA.transform.position.x + tileB.transform.position.x) / 2 +blendObject.offsetX, blendObject.offset, maxTile.transform.position.z + blendObject.offsetZ);
                     
 
@@ -344,8 +354,11 @@ public class PlacementController : MonoBehaviour
                 }
             }
 
+            tileA.subBuildings.Add(subBuilding);
+            tileB.subBuildings.Add(subBuilding);
             subBuilding.GetComponent<SubBuilding>().firstParent = tileA.currentObject;
             subBuilding.GetComponent<SubBuilding>().secondParent = tileB.currentObject;
+
             subBuilding.transform.position = location;
 
             subBuilding.transform.parent = maxTile.transform;
@@ -355,6 +368,11 @@ public class PlacementController : MonoBehaviour
             }
         }
 
+    }
+
+    public void setinShop(bool state)
+    {
+        inShop = state;
     }
 
 

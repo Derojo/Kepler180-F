@@ -183,22 +183,22 @@ public class ExecutionTutorial : MonoBehaviour
         //Set ënd level button to enable if level is completed
         StartCoroutine(checkLevelCompleteLater());
 
-        if (TurnManager.I.LevelCompleted)
+        if (LevelManager.I.levelCompleted)
         {
            PopUpText.text = "Gefeliciteerd je hebt 100% aurapower behaald en daarmee het level behaald.";
             PopUps.SetActive(true);
         }
 
         // Update UI if player failed
-        if(TurnManager.I.levelLostNoTurns)
+        if(LevelManager.I.levelLostNoTurns)
         {
             PopUpText.text = "Helaas je hebt niet binnen de beurten 55% aurakracht behaald";
             PopUps.SetActive(true);
         }
 
-        if (TurnManager.I.levelLostNoPower )
+        if (LevelManager.I.levelLostNoPower )
         {
-            if (!TurnManager.I.checkedLevelComplete)
+            if (!LevelManager.I.checkedLevelComplete)
             {
                 PopUpText.text = "Helaas je hebt geen stroom meer om 55% aurakracht te behalen";
             }
@@ -248,7 +248,7 @@ public class ExecutionTutorial : MonoBehaviour
 
     private IEnumerator checkLevelCompleteLater() {
         yield return new WaitForSeconds(2);
-        if (TurnManager.I.checkedLevelComplete && !TurnManager.I.levelLostNoPower)
+        if (LevelManager.I.checkedLevelComplete && !LevelManager.I.levelLostNoPower)
         {
             completeLevelPopUp.SetActive(true);
             completeLevelButton.SetActive(true);

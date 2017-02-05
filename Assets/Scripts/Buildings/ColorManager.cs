@@ -5,7 +5,7 @@ using UnityEngine;
 /* 
  * Color class for color specific calculations 
  */
-[Prefab("ColorManager", false, "")]
+[Prefab("ColorManager", true, "")]
 public class ColorManager : Singleton<ColorManager>
 {
 
@@ -29,11 +29,15 @@ public class ColorManager : Singleton<ColorManager>
     }
 
     void Start() {
-        Initialize();
+        if(blends.Count == 0)
+        {
+            Initialize();
+        }
+
     }
 
     public void resetClusters() {
-        colorCluster = null;
+        colorCluster = new List<Cluster>();
         sameColorAmount = new List<int>();
     }
 
@@ -66,12 +70,14 @@ public class ColorManager : Singleton<ColorManager>
 
     public int[] getColorsOfBlend(int incomingBlend)
     {
+        Debug.Log("incblend+" + incomingBlend+"-blendcount:"+ blends.Count);
         if (blends.Count == 0)
             Initialize();
         int[] returnColors = new int[2];
 
         foreach (ColorBlend blend in blends)
         {
+            Debug.Log(incomingBlend + "-" + blend.blend);
             if (incomingBlend == blend.blend)
             {
                 returnColors[0] = blend.firstColor;

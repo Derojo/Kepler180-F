@@ -43,12 +43,14 @@
     <Level name="Level 3">
       <A_C>Bruin</A_C>
       <A_C_C>133, 87, 5, 255</A_C_C>
-
+      <colorTypeCode>2</colorTypeCode>
+      <isBlend>true</isBlend>
+      
       <StartupMoney>1500</StartupMoney>
       <StartupPower>1200</StartupPower>
       <StartupHeat>1400</StartupHeat>
       
-      <M_T_E>35</M_T_E>
+      <M_T_E>25</M_T_E>
       <A_P_E>2000</A_P_E>
 
       <M_T_M>25</M_T_M>

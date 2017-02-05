@@ -20,6 +20,12 @@ public class LevelManager : Singleton<LevelManager>
     LevelContainer levelData;
     public int currentLevel;
 
+    // Level states
+    public bool checkedLevelComplete = false;
+    public bool levelCompleted = false;
+    public bool levelLostNoTurns = false;
+    public bool levelLostNoPower = false;
+
     public void Load() { return; }
     // Use this for initialization
     void Start()
@@ -43,40 +49,41 @@ public class LevelManager : Singleton<LevelManager>
 
     public void SetCurrentLevel()
     {
-        if (Manager.I.doneTutorial)
+
+        AuraManager.I.A_C = levelData.levels[(currentLevel - 1)].A_C;
+        AuraManager.I.colorTypeCode = levelData.levels[(currentLevel - 1)].colorTypeCode;
+        AuraManager.I.isBlend = levelData.levels[(currentLevel - 1)].isBlend;
+        AuraManager.I.A_C_C = levelData.levels[(currentLevel - 1)].A_C_C;
+        if (AuraManager.I.isBlend)
         {
-            AuraManager.I.A_C = levelData.levels[(currentLevel - 1)].A_C;
-            AuraManager.I.colorTypeCode = levelData.levels[(currentLevel - 1)].colorTypeCode;
-            AuraManager.I.isBlend = levelData.levels[(currentLevel - 1)].isBlend;
-            AuraManager.I.A_C_C = levelData.levels[(currentLevel - 1)].A_C_C;
-
-            ResourceManager.I.powerLevel = levelData.levels[(currentLevel - 1)].StartupPower;
-            ResourceManager.I.fundings = levelData.levels[(currentLevel - 1)].StartupMoney;
-            ResourceManager.I.planetHeat = levelData.levels[(currentLevel - 1)].StartupHeat;
-
-
-
-            if (nextLevelSkill == 1)
-            {
-
-                M_T_A = levelData.levels[(currentLevel - 1)].M_T_E;
-                A_P_T = levelData.levels[(currentLevel - 1)].A_P_E;
-            }
-            if (nextLevelSkill == 2)
-            {
-
-                M_T_A = levelData.levels[(currentLevel - 1)].M_T_M;
-                A_P_T = levelData.levels[(currentLevel - 1)].A_P_M;
-            }
-            if (nextLevelSkill == 3)
-            {
-
-                M_T_A = levelData.levels[(currentLevel - 1)].M_T_H;
-                A_P_T = levelData.levels[(currentLevel - 1)].A_P_H;
-            }
-
-            TurnManager.I.setTurnInfo();
+            AuraManager.I.checkBlendingColors();
         }
+        ResourceManager.I.powerLevel = levelData.levels[(currentLevel - 1)].StartupPower;
+        ResourceManager.I.fundings = levelData.levels[(currentLevel - 1)].StartupMoney;
+        ResourceManager.I.planetHeat = levelData.levels[(currentLevel - 1)].StartupHeat;
+
+
+
+        if (nextLevelSkill == 1)
+        {
+
+            M_T_A = levelData.levels[(currentLevel - 1)].M_T_E;
+            A_P_T = levelData.levels[(currentLevel - 1)].A_P_E;
+        }
+        if (nextLevelSkill == 2)
+        {
+
+            M_T_A = levelData.levels[(currentLevel - 1)].M_T_M;
+            A_P_T = levelData.levels[(currentLevel - 1)].A_P_M;
+        }
+        if (nextLevelSkill == 3)
+        {
+
+            M_T_A = levelData.levels[(currentLevel - 1)].M_T_H;
+            A_P_T = levelData.levels[(currentLevel - 1)].A_P_H;
+        }
+
+        TurnManager.I.setTurnInfo();
     }
 
     //function for setting player difficulty
@@ -113,34 +120,38 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
+    public void winLevel()
+    {
+        PlayerPrefs.SetInt("levelReached", currentLevel+1);
+    }
+
     public void ResettingValues()
     {
-        Debug.Log("test");
         //resetting placement
-        PlacementData.I.placementNodes = null;
-        PlacementData.I.planningNodes = null;
-        SetCurrentLevel();
+        if(PlacementData.I.placementNodes != null && PlacementData.I.placementNodes.Count > 0)
+        {
+            PlacementData.I.placementNodes = null;
+        }
+        if (PlacementData.I.planningNodes != null && PlacementData.I.planningNodes.Count > 0)
+        {
+            PlacementData.I.planningNodes = null;
+        }
 
-        //resetting turns
-        TurnManager.I.maxTurns = M_T_A;
-        TurnManager.I.turnsLeft = TurnManager.I.maxTurns;
-        TurnManager.I.turnCount = 0;
-        TurnManager.I.levelLostNoTurns = false;
+        levelCompleted = false;
+        levelLostNoTurns = false;
+        levelLostNoPower = false;
+        checkedLevelComplete = false;
         BlueprintManager.I.bluePrintTurnsTotal = 0;
 
 
         //resetting aura power
         AuraManager.I.currentAuraPower = 0;
         AuraManager.I.auraLevelPercentage = 0;
-        AuraManager.I.auraPercentage = 0;
+
         AuraManager.I.resetColorAuraAmounts();
+        ColorManager.I.resetClusters();
 
         //resetting power
         ResourceManager.I.powerPercentage = 100;
-        ResourceManager.I.powerLevel = levelData.levels[(currentLevel - 1)].StartupPower;
-
-        TurnManager.I.levelLostNoPower = false;
-        TurnManager.I.checkedLevelComplete = false;
-
     }
 }

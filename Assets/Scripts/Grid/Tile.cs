@@ -17,6 +17,7 @@ public class Tile : MonoBehaviour {
     public int colorClusterAmount = 0;
     public Types.colortypes colorCluster;
     public List<int> blendedColors;
+    public List<GameObject> subBuildings = new List<GameObject>();
 
     void Awake() {
         blendedColors = new List<int>();

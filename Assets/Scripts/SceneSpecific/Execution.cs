@@ -32,8 +32,8 @@ public class Execution : MonoBehaviour
 
     // GameObjects
     public GameObject completeLevelButton;
-    public GameObject completeLevelPopUp;
-    public GameObject PopUps;
+    public GameObject PopUp;
+    private GameObject PopUpContent;
     public GameObject infoPopUp;
     public GameObject escPopUp;
     public Button endTurnButton;
@@ -73,6 +73,7 @@ public class Execution : MonoBehaviour
 
     void Start()
     {
+        PopUpContent = PopUp.transform.GetChild(0).gameObject;
         StartCoroutine(hideGoals(2f));
         BlueprintManager.I.InitializeBlueprintModels();
         UpdateUI();
@@ -87,8 +88,7 @@ public class Execution : MonoBehaviour
 
         //set complete level button to false
         completeLevelButton.SetActive(false);
-        completeLevelPopUp.SetActive(false);
-        PopUps.SetActive(false);
+        PopUp.SetActive(false);
         infoPopUp.SetActive(false);
         escPopUp.SetActive(false);
 
@@ -193,33 +193,40 @@ public class Execution : MonoBehaviour
         }
 
         //Set ënd level button to enable if level is completed
-        StartCoroutine(checkLevelCompleteLater());
-
-        if (TurnManager.I.LevelCompleted)
-        {
-            PopUpText.text = "Gefeliciteerd je hebt 100% aurapower behaald en daarmee het level behaald.";
-            PopUps.SetActive(true);
-        }
+        
 
         // Update UI if player failed
-        if (TurnManager.I.levelLostNoTurns)
+        if (LevelManager.I.levelLostNoTurns)
         {
-            PopUpText.text = "Helaas je hebt niet binnen de beurten 55% aurakracht behaald";
-            PopUps.SetActive(true);
+            PopUpContent.transform.GetChild(0).GetComponent<Text>().text = "Geen beurten meer!";
+            PopUpContent.transform.GetChild(1).GetComponent<Text>().text = "Jammer! Het is je niet gelukt om binnen de beurten de aura te voorzien van genoeg aurakracht, probeer het nog een keer!";
+            PopUpContent.transform.GetChild(2).gameObject.SetActive(false);
+            PopUpContent.transform.GetChild(3).gameObject.SetActive(false);
+            PopUpContent.transform.GetChild(4).gameObject.SetActive(false);
+            PopUpContent.transform.GetChild(5).gameObject.SetActive(true);
+            PopUp.SetActive(true);
         }
 
-        if (TurnManager.I.levelLostNoPower)
+        if (LevelManager.I.levelLostNoPower)
         {
-            if (!TurnManager.I.checkedLevelComplete)
-            {
-                PopUpText.text = "Helaas je hebt geen stroom meer om 55% aurakracht te behalen";
+            PopUpContent.transform.GetChild(0).GetComponent<Text>().text = "Energievooraad leeg!";
+            if (!LevelManager.I.checkedLevelComplete) {
+
+                PopUpContent.transform.GetChild(1).GetComponent<Text>().text = "Alle kleurgeneratoren zijn uitgevallen, er is geen energie meer om het level te halen, probeer het nogmaals!";
             }
             else
             {
-                PopUpText.text = "Helaas je hebt het level niet gehaald, al je gebouwen zijn uitgevallen omdat er geen stroom meer is! ";
+                PopUpContent.transform.GetChild(1).GetComponent<Text>().text = "Je hebt genoeg aurakracht verzameld maar helaas zijn alle kleurgeneratoren uitgevallen, probeer het nogmaals!";
             }
 
-            PopUps.SetActive(true);
+            PopUpContent.transform.GetChild(2).gameObject.SetActive(false);
+            PopUpContent.transform.GetChild(3).gameObject.SetActive(false);
+            PopUpContent.transform.GetChild(4).gameObject.SetActive(false);
+            PopUpContent.transform.GetChild(5).gameObject.SetActive(true);
+            PopUp.SetActive(true);
+        } else
+        {
+            StartCoroutine(checkLevelCompleteLater());
         }
         if (currentObject != null) {
             infoPopUp.SetActive(false);
@@ -249,11 +256,28 @@ public class Execution : MonoBehaviour
 
     private IEnumerator checkLevelCompleteLater()
     {
+        
         yield return new WaitForSeconds(2);
-        if (TurnManager.I.checkedLevelComplete && !TurnManager.I.levelLostNoPower)
+
+        if (LevelManager.I.levelCompleted && !LevelManager.I.levelLostNoPower)
         {
-            completeLevelPopUp.SetActive(true);
+            PopUpContent.transform.GetChild(0).GetComponent<Text>().text = "Aura is volledig gevuld";
+            PopUpContent.transform.GetChild(1).GetComponent<Text>().text = "Je bent de uitdaging aangegaan en het is je gelukt om de aura volledig aan te sterken, goed gedaan!";
+            PopUpContent.transform.GetChild(2).gameObject.SetActive(false);
+            PopUpContent.transform.GetChild(3).gameObject.SetActive(false);
+            PopUpContent.transform.GetChild(4).gameObject.SetActive(false);
+            PopUpContent.transform.GetChild(5).gameObject.SetActive(true);
+            PopUp.SetActive(true);
+        } else if (LevelManager.I.checkedLevelComplete && !LevelManager.I.levelLostNoPower)
+        {
+            PopUpContent.transform.GetChild(0).GetComponent<Text>().text = "Gehaald";
+            PopUpContent.transform.GetChild(1).GetComponent<Text>().text = "De aura is nu "+AuraManager.I.auraLevelPercentage+"% je hebt het gehaald! Je kunt proberen om een hoger aurapercentage te halen, maar wanneer je afgaat zal je het opnieuw moeten proberen!";
+            PopUpContent.transform.GetChild(2).gameObject.SetActive(true);
+            PopUpContent.transform.GetChild(3).gameObject.SetActive(true);
+            PopUpContent.transform.GetChild(4).gameObject.SetActive(true);
+            PopUpContent.transform.GetChild(5).gameObject.SetActive(false);
             completeLevelButton.SetActive(true);
+            PopUp.SetActive(true);
         }
         yield break;
     }
@@ -429,7 +453,7 @@ public class Execution : MonoBehaviour
     //buttons
     public void QuitLevelPopUp()
     {
-        completeLevelPopUp.SetActive(true);
+        PopUp.SetActive(true);
     }
     public void QuitLevel()
     {
@@ -438,14 +462,14 @@ public class Execution : MonoBehaviour
     
     public void KeepPlaying()
     {
-        completeLevelPopUp.SetActive(false);
+        PopUp.SetActive(false);
     }
 
 	public void toInstructions()
 	{
-		completeLevelPopUp.SetActive(false);
+        PopUp.SetActive(false);
 
-	}
+    }
 
     public void continuePlaying()
     {
@@ -487,7 +511,7 @@ public class Execution : MonoBehaviour
 
     public void CheckGuidedActivity()
     {
-        if (LevelManager.I.nextLevelSkill == 1 && !TurnManager.I.levelLostNoTurns && !TurnManager.I.levelLostNoPower)
+        if (LevelManager.I.nextLevelSkill == 1 && !LevelManager.I.levelLostNoTurns && !LevelManager.I.levelLostNoPower)
         {
             if (ResourceManager.I.fundings <= 300 )
             {
@@ -519,7 +543,7 @@ public class Execution : MonoBehaviour
 
         }
 
-        if (LevelManager.I.nextLevelSkill == 2 && !TurnManager.I.levelLostNoTurns && !TurnManager.I.levelLostNoPower)
+        if (LevelManager.I.nextLevelSkill == 2 && !LevelManager.I.levelLostNoTurns && !LevelManager.I.levelLostNoPower)
         {
             if (ResourceManager.I.fundings <= 500 && fundMessageShown < 3)
             {

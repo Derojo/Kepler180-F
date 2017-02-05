@@ -48,7 +48,6 @@ public class BuildingType : MonoBehaviour
             if (type == Types.buildingtypes.colorgenerator) {
                 buildingInfoCanvas.gameObject.SetActive(true);
             }
-            Debug.Log(buildTime.ToString());
             buildTimeInfo = buildingInfoCanvas.transform.GetChild(1).GetComponent<Text>();
             buildTimeInfo.text = buildTime.ToString();
         }

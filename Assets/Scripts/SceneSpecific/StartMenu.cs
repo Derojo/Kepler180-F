@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StarMenu : MonoBehaviour {
+public class StartMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -23,15 +23,12 @@ public class StarMenu : MonoBehaviour {
     {
         if (scene == "LevelSelectionScene")
         {
-            if (!Manager.I.doneTutorial)
-            {
-                LevelManager.I.setTutorialLevel();
-                scene = "Tutorial";
-            }
-            else
-            {
-                scene = "LevelSelectionScene";
-            }
+            LevelManager.I.ResettingValues();
+        }
+        if(scene == "Tutorial")
+        {
+            LevelManager.I.setTutorialLevel();
+            scene = "Tutorial";
         }
         Loader.I.LoadScene(scene);
     }

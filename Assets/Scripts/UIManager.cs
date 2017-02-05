@@ -30,8 +30,6 @@ public class UIManager : MonoBehaviour {
     }
 
     public void ShowMessage(Types.messages type) {
-        Debug.Log(inTween);
-
             StartCoroutine(toggleMessage(type));
         
 
